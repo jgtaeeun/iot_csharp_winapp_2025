@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp01", "SyntaxWin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp02", "SyntaxWinApp02\SyntaxWinApp02.csproj", "{A1A99805-E89E-4E44-B5BD-19AB32AFC651}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp03", "SyntaxWinApp03\SyntaxWinApp03.csproj", "{A003EAB0-A490-4913-A139-706A691B41D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp04", "SyntaxWinApp04\SyntaxWinApp04.csproj", "{5FAA03BF-BEFE-4C71-8BEA-15E310785450}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{A1A99805-E89E-4E44-B5BD-19AB32AFC651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1A99805-E89E-4E44-B5BD-19AB32AFC651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1A99805-E89E-4E44-B5BD-19AB32AFC651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A003EAB0-A490-4913-A139-706A691B41D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A003EAB0-A490-4913-A139-706A691B41D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A003EAB0-A490-4913-A139-706A691B41D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A003EAB0-A490-4913-A139-706A691B41D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FAA03BF-BEFE-4C71-8BEA-15E310785450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FAA03BF-BEFE-4C71-8BEA-15E310785450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FAA03BF-BEFE-4C71-8BEA-15E310785450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FAA03BF-BEFE-4C71-8BEA-15E310785450}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
