@@ -50,8 +50,35 @@ namespace SyntaxWinApp01
             decimal dcVal = 3.141592m;                           // m 또는 M 접미사 필요
             System.Decimal dcMin = System.Decimal.MinValue;      // -79,228,162,514,264,337,593,543,950,335
 
+            //문자형 타입
+            char ch01 = 'A';
+            System.Char ch03 = 'B';
+            Console.WriteLine(ch01); 
+
+            char ch02 = '\u25b6';
+            Console.WriteLine(ch02); //▶
+
+            // \0은 end of line이다. c++의 널문자의 역할
+            string str01 = "Hello\0World";   //Hello
+            System.String str02 = "Hello\nWorld";
+            // 불린타입
+            bool boo01 = true;
+            System.Boolean boo02 = false;
+
+            //Nullable
+            //int int02 = null; //기본타입(정수,실수,불린/문자열 제외)은 NULL 할당불가
+            int? int03 = null; //기본타입 뒤에 ? 붙여줄 것
+
+
+            //동적타입 - 컴파일되면서 해당타입으로 형결정
+            //컴파일되면서 string형으로 
+            var int04 = "50";
+
             // 메시지 박스에 표시될 내용,메시지 박스의 제목,MessageBoxButtons.OK는 메시지 박스에 표시될 버튼 종류,메시지 박스에 표시될 아이콘
-            MessageBox.Show(intMin.ToString(), "Variable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //MessageBox.Show(intMin.ToString() + ch01 + ch02, "Variable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(str01, "Variable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
         }
     }
 }

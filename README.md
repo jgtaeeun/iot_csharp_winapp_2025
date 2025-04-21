@@ -187,16 +187,35 @@ C# /윈도우 애플리케이션
           // 메시지 박스에 표시될 내용,메시지 박스의 제목,MessageBoxButtons.OK는 메시지 박스에 표시될 버튼 종류,메시지 박스에 표시될 아이콘
       MessageBox.Show("첫번째메시지" , "알림", MessageBoxButtons.OK,MessageBoxIcon.Error);
     ```
+    - `MessageBox.Show()는 string을 받아야 하니까, .ToString()을 써야 해`
+13. **폼 디자이너 화면과 코드 상 전환**
+    - **F7 코드보기**
+    - **SHIFT F7 디자이너 화면 보기**
+
 ### C# 문법 
 - 문법 - C++, Java와 거의 동일 . C++와의 차이점
     1. 기본구조 및 주석 [C#](./day55/Day02Study/ConsoleApp1/Program.cs)
         - 한줄 주석 //
         - 여러줄 주석 /**/
         - XML 주석 ///   - 소스코드 자동 문서 생성 시 사용하는 주석
-    2. 자료형과 변수 , Nullable
+    2. 자료형과 변수 , Nullable [C#](./day55/Day02Study/SyntaxWinApp01/FrmMain.Designer.cs)
         - 변수 사용은 C++과 유사
         - 자료형도 C++과 유사, 닷넷타입은 차이있음
+        - `닷넷타입`은 여러언어에서 공통으로 사용위해서 추가된 기능
+            - <img src ='./day55/닷넷타입.png'>
+        - `Nullable`: 특수타입. 데이터타입 뒤에 ? 추가.
+            - <img src = './day55/nullable.png'>
+        - `var` 타입: 지역변수에서 타입을 동적으로 지정할 때
+            - 한 번 타입이 정해지면 그 타입은 고정입니다.
+            - 지역변수만 가능
+            - <img src='./day55/var1.png'>
+            - <img src='./day55/var2.png'>
+
     3. 연산자
+        - C와 C++와 동일
+        - C#에서 불린형은 true, false이지만 
+        - 메시지박스에서 .toString()으로 출력할 때는 True, False이다.
+        - <img src='./day55/연산자그리고자료형.png'>
     4. 분기문, 반복문
     5. 메서드
     6. 문자열 처리

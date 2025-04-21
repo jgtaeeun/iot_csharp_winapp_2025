@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{ECBC2B39-5010-4202-BBC5-4C492C64AD8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp01", "SyntaxWinApp01\SyntaxWinApp01.csproj", "{C5C53999-ADF9-4CDC-9990-5C31DECED754}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp02", "SyntaxWinApp02\SyntaxWinApp02.csproj", "{A1A99805-E89E-4E44-B5BD-19AB32AFC651}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C5C53999-ADF9-4CDC-9990-5C31DECED754}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5C53999-ADF9-4CDC-9990-5C31DECED754}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5C53999-ADF9-4CDC-9990-5C31DECED754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1A99805-E89E-4E44-B5BD-19AB32AFC651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1A99805-E89E-4E44-B5BD-19AB32AFC651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1A99805-E89E-4E44-B5BD-19AB32AFC651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1A99805-E89E-4E44-B5BD-19AB32AFC651}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
