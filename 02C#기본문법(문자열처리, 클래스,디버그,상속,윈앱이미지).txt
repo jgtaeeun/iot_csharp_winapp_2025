@@ -1,0 +1,144 @@
+0. 문자열 처리 $""
+   클래스 - ALT ENTER로 생성자, 멤버변수, 재정의함수 자동 생성
+internal class Computer{
+	public Computer(){}
+
+	public string CNumber{get;set;}
+
+	public override  string  ToString(){
+		return $"Computer객체의 CNumber:{CNumber}";
+	}
+}
+1.이미지
+1-1)도구상자-구성요소-imageList 컨트롤
+이미지 사이즈 조절할 수 있는 imageList 컨트롤
+이미지사이즈(1~256), 이미지추가
+
+버튼 컨트롤의 속성>ImageList > 만든 imageList이름 넣기
+버튼 컨트롤의 속성>ImageIndex>인덱스 설정 
+
+
+1-2)Resources폴더생성-이미지넣기-각각의 이미지 클릭-속성에서 출력디렉터리로 복사를 항상복사로 - 빌드
+
+2. debug, console
+debug F5 > 창-출력 > 출력창에   Debug.WriteLine()
+
+프로젝트명 오른쪽마우스 속성에서 애플리케이션 출력유형을 콘솔애플리케이션>디버깅없이 실행 ctrl F5 > 콘솔창이 뜸 > 콘솔창에 Console.WriteLine()
+
+3. 상속 , sealed, this, base
+부모생성자 호출 후 자식생성자 호출
+자식클래스를 부모클래스로 업스케일링 가능
+부모 클래스에서 internal이 아닌 sealed는 더이상 상속하지 못함.
+부모는 자식함수 쓸 수 없다.자식은 부모함수 쓸 수 있다.
+
+internal class Computer {
+
+	public Computer(){
+		debug.WriteLine("Computer생성자호출");
+	}
+}
+
+internal class NoteBook : Computer{
+	public NoteBook(){
+		debug.WriteLine("NoteBook생성자호출");
+	}
+}
+
+
+Computer myNotebook = new NoteBook();
+
+4. 윈앱 컨트롤
+maskedTextBox : 입력형태 강제 지정
+groupBox : 정렬은 흰네모 기준
+PictureBox : SizeMode -stretchMode , 이미지추가
+
+
+5. 업캐스팅, 다운캐스팅, 형변환
+업캐스팅 Computer myComputer2 = new NoteBook();
+다운캐스팅  NoteBook myNoteBook2 = myComputer2 as NoteBook;
+
+
+6. is, as
+is (객체타입 비교), as(형변환 키워드)
+
+Computer myComputer2 = new NoteBook();       #업캐스팅(타입은 Computer, 내용은 NoteBook)
+if (myComputer2 is NoteBook) {
+     Debug.WriteLine("myComputer2는 NoteBook입니다");
+     NoteBook myNoteBook2 = myComputer2 as NoteBook;		 #다운캐스팅(타입을NoteBook으로)
+     Debug.WriteLine("myComputer2을 myNoteBook2로 변경");
+
+}
+
+
+7. 다형성
+7-1)오버라이드 
+상속 -부모클래스 virtual, 자식클래스 override
+추상클래스 - 부모클래스 abstract , 자식클래스 override
+인터페이스 
+
+7-2)오버로드
+
+8. 추상클래스
+선언도 가능하고 정의도 가능함
+인스턴스 생성 불가능 (new로 못 만듦)
+인스턴스는 못 만들지만, 상속을 통해 사용되는 클래스
+abstract 메서드는 자식이 반드시 오버라이드해야 함
+
+abstract class Animal
+{
+            public abstract void MakeSound(); // 구현 X
+            public void Sleep() {
+                Console.WriteLine("쿨쿨 자요");
+            }
+}
+
+class Dog : Animal
+{
+            public override void MakeSound() {
+                Console.WriteLine("멍멍!");
+            }
+ }
+
+9. 인터페이스
+구현없이 선언만 포함한 클래스의 일종
+추상클래스를 개선한 방법
+인스턴스 생성 불가능 (new로 만들 수 없음)
+다중 상속 가능 (인터페이스 여러 개 상속 가능)
+상속 시 구현 의무:자식 클래스는 모든 메서드를 반드시 구현해야 함
+ 필드/생성자 없음 (변수, 생성자 둘 다 X) /내부 메서드만 존재. 형태만 구성(구현x)
+
+ interface IAnimal
+        {
+            void Eat();          // 선언만
+            void MakeSound();    // 선언만
+        }
+
+        interface IWalkable
+        {
+            void Walk();         // 선언만
+        }
+
+        class Dog : IAnimal, IWalkable
+        {
+            public void Eat() {
+                Console.WriteLine("냠냠");
+            }
+
+            public void MakeSound() {
+                Console.WriteLine("멍멍!");
+            }
+
+            public void Walk() {
+                Console.WriteLine("걷는 중");
+            }
+ }
+
+
+10. 다중상속
+java, c#에서는 다중상속을 인터페이스로!!
+
+
+11. 얕은복사, 깊은 복사
+
+12. Java와 C#에서의 ==, equals
+c#에서는 ==,equals 은 참조비교이다. 

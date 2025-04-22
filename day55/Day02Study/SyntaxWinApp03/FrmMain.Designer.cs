@@ -11,14 +11,14 @@
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing && (components != null))
+        //    {
+        //        components.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         #region Windows Form Designer generated code
 
@@ -36,7 +36,7 @@
             TxtResult = new TextBox();
             BtnDisplay = new Button();
             BtnWhile = new Button();
-            SuspendLayout();
+            //this.SuspendLayout();
             // 
             // button1
             // 
@@ -68,7 +68,6 @@
             TxtPain.PlaceholderText = "네 또는 아니오";
             TxtPain.Size = new Size(100, 23);
             TxtPain.TabIndex = 1;
-            TxtPain.TextChanged += TxtPain_TextChanged;
             TxtPain.KeyPress += TxtPain_KeyPress;
             // 
             // LblPain2
@@ -124,6 +123,13 @@
             BtnWhile.TabIndex = 5;
             BtnWhile.Text = "반복";
             BtnWhile.UseVisualStyleBackColor = false;
+            // 
+            // FrmMain
+            // 
+            this.ClientSize = new Size(284, 261);
+            this.Name = "FrmMain";
+            this.Load += this.FrmMain_Load;
+            this.ResumeLayout(false);
             BtnWhile.Click += BtnWhile_Click;
             // 
             // FrmMain

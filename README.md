@@ -9,6 +9,7 @@ C# /윈도우 애플리케이션
 |파일전체 저장|CTRL + SHIFT + S|
 |복사|CTRL + C+ V |
 |그룹복사|2개이상의 컨트롤 + CTRL + 드래그|
+|생성자,<br>함수오버라이딩 자동생성,<br>불필요한 using제거|Alt + Enter|
 ## 54일차 (4/18)
 
 ### C# 시작전에
@@ -216,6 +217,10 @@ C# /윈도우 애플리케이션
     - Text : 버튼 표시 글씨
     - Visible : 화면 표현 여부
     - TabIndex : 실행 후 탭으로 포커스가 가는 순서(레이블에는 포커스 안감)
+    - image : flaticon에서 png파일 24px로 다운받아 넣기 
+        - imageAlign : MiddleLeft로 하기
+        - <img src='./day56/image넣기.png' width=300>
+        - FrmMain.resx에 png파일이 들어간 것을 확인할 수 있음
     - (이벤트)Click : 버튼 클릭 이벤트 처리 메서드 연결
 - Label : 화면상의 글자만 표현하는 컨트롤
     - 보통 Lbl로 시작
@@ -227,6 +232,11 @@ C# /윈도우 애플리케이션
     - Multiline : 여러줄 사용여부 .true가 되어야 높이 조절 가능
     - MaxLength : 최대 몇자까지 적을 수 있는지
     - PlaceholderText : 입력 전 입력내용 표시
+    - ReadOnly : 입력 가능 여부 . True는 입력불가
+    - BorderStyle : 각 컨트롤의 테두리 속성 변경
+        - None  : 테두리 없음
+        - FixedSingle : 검은색 테두리
+        - Fixed3D : 입체감 있는 테두리
     - (이벤트)TextChanged : 글자가 변경되면 발생하는 이벤트
     - (이벤트)KeyPress : 키보드 입력이 생기면 발생하는 이벤트 
 - ComboBox : 여러 개 중 아이템을 선택하는 컨트롤 . 기본적으로 단일 선택만 가능합니다. 
@@ -245,7 +255,7 @@ C# /윈도우 애플리케이션
         - 한줄 주석 //
         - 여러줄 주석 /**/
         - XML 주석 ///   - 소스코드 자동 문서 생성 시 사용하는 주석
-    2. 자료형과 변수 , Nullable [C#](./day55/Day02Study/SyntaxWinApp01/FrmMain.Designer.cs)
+    2. 자료형과 변수 , Nullable [C#](./day55/Day02Study/SyntaxWinApp01/FrmMain.cs)
         - 변수 사용은 C++과 유사
         - 자료형도 C++과 유사, 닷넷타입은 차이있음
         - `닷넷타입`은 여러언어에서 공통으로 사용위해서 추가된 기능
@@ -258,7 +268,7 @@ C# /윈도우 애플리케이션
             - <img src='./day55/var1.png'>
             - <img src='./day55/var2.png'>
 
-    3. 연산자
+    3. 연산자  [C#](./day55/Day02Study/SyntaxWinApp02/FrmMain.cs)
         - C와 C++와 동일
         - C#에서 불린형은 true, false이지만 
         - 메시지박스에서 .toString()으로 출력할 때는 True, False이다.
@@ -270,14 +280,401 @@ C# /윈도우 애플리케이션
         - for문
         - while문
             - 무한반복문 윈앱 종료하는 법 : ctrl shift esc - 작업관리자 오른쪽 마우스 세부내용보기 - 프로젝트명(예-SyntaxWinApp03) 작업끝내기
-        
-   
+        <img src ="./day55/if, switch,텍스트박스,콤보박스.png" width = 400>
+        <img src ="./day55/반복문 for, while.png" width = 400>
 ## 56일차(4/22)
+### 한글문제
+- 콘솔 > Program.cs : UTF8 BOM 저장
+- 윈앱 > FrmMain.cs : EUC-KR (CP949) ->깃허브에서 한글이 깨져서 나옴
+1. vscode에서는 오른쪽 하단 상태표시줄 UTF-8 클릭 > 인코딩 하여 다시 열기( EUC-KR) 또는 인코딩하여 저장 실행
+2. visual studio 2022에서는  다른이름으로 저장 - 인코딩하여저장 - UTF8
+3. C:\Source\iot_csharp_winapp_2025\.git (보기-숨긴표시보기)  > config파일 > 아래 코드 추가 후 저장
+    ```ini
+    [i18n]
+        commitEncoding = utf-8
+        logOutputEncoding = utf-8
+    ```
+### 윈앱 컨트롤 2
+- 모든 컨트롤은 Control 클래스를 상속
+- maskedTextBox : 사용자에게 주어진 형태로만 입력을 하도록 강제하는 텍스트입력 컨트롤
+    - 텍스트박스와 동일하게 Txt로 시작
+    - Button 컨트롤과 속성 동일
+    - Mask : 사용자에게 입력제약할 포맷
+- groupBox : 관련있는 컨트롤들을 묶어주는 컨트롤
+    - (Name)을 거의 바꾸지 않음
+    - Button 컨트롤과 속성 동일
+    - 정렬은 흰네모 기준임
+        - <img src='./day56/정렬.png'>
+- Button 이미지 추가
+    1. 속성 Image - 리소스 선택- 로컬리소스 -  가져오기
+    2. `도구상자- 구성요소- ImageList 컨트롤 드래그`
+        - 폼에 표현되는 컨트롤이 아님 
+        - 이미지 사이즈를 개발자가 조정가능(1~256)
+        - <img src='./day56/imageList1.png'>
+        - <img src='./day56/imageList2.png'>
+    3. 프로젝트명 - Properties - Resource.resx 
+    4. 솔루션탐색기 > 추가 > 새폴더 > Resources 폴더 생성
+        - **이미지 선택 - 속성- 출력 디렉토리 복사- 항상 복사- 빌드**
+        - <img src ='./day56/이미지파일이 실행파일 경로에 복사되기 위해서.png'>   
+- PictureBox : 이미지를 표현해주는 컨트롤       
+    - 보통 Pic로 시작
+    - BorderStyle : 보통 None
+    - BackColor : 폼색과 다르게 해서 영역 표시
+    - Image : 표시할 이미지 선택
+    - SizeMode : 들어가는 이미지 사이즈 형태
+        - Normal : 큰이미지는 잘려서 나옴
+        - StretchImage : PictureBox Size에 맞춰서 표시
+        - AutoSize : 자동사이즈
+        - CenterImage : 작은 이미지를 중앙에 표시
+        - Zoom : 확대
+    - <img src='./day56/컴퓨터객체생성과 pictureBox.png'> 
+    - <img src='./day56/notebook클래스 생성과 pictureBox.png'> 
+### 윈앱 개발기능
+1. Debug - 디버깅시 필요한 기능 담은 클래스
+    - Debug.WriteLine() : 디버그 - 창- `출력`에 디버깅 로그 출력
+    - 디버깅 시작으로 실행 시만 출력
+2. 프로젝트명 오른쪽 마우스- 속성(R) - 애플리케이션- 출력유형- 콘솔애플리케이션으로 변경 - cs파일에 console.WriteLine()으로 코드 수정
 ### C# 문법 
-5. 문자열 처리 [C#](./day55/Day02Study/SyntaxWinApp04/FrmMain.cs)
-6. 클래스와 객체, 메서드
+5. 문자열 처리 [C#](./day56/Day03Study/SyntaxWinApp01/FrmMain.cs)
+    - 문자열 포맷팅 $""
+    ```cs
+     TxtResult.Text = $"저는 {name}이고, {birthday:yyyy-MM-dd}일에 태어난 {age:F2}살 {gender}자입니다.";
+    ```
+    <img src ="./day56/maskmessagebox와 문자열포맷팅.png" width = 300>
+6. 클래스와 객체, 메서드 [C#](./day56/Day03Study/SyntaxWinApp02/FrmMain.cs)
+    - 프로젝트명 오른쪽 마우스-추가-클래스-클래스명 작성 후 저장
+    - **alt + enter 눌러서 생성자, 재정의함수 자동 생성**
+    - 클래스 생성자,멤버변수,멤버함수 [C#](./day56/Day03Study/SyntaxWinApp02/Person.cs)
+    ```cs
+    public Person(){}
+
+    public Person(string name, int age, char gender, string phone){
+        Name = name;
+        Age = age;
+        Gender = gender;
+        Phone = phone;
+    }
+
+    public string Name { get; set; } // getName(), setName() 자동 생성
+    public int Age { get; set; }
+    public char Gender { get; set; }
+    public string Phone { get; set; }
+
+    public  override string ToString(){
+        return $"Name|Age|Gender|Phone\r\n" + 
+                $"{Name}|{Age}|{Gender}|{Phone}"
+    }
+    ```
+    - <img src ='./day56/클래스cs(멤버변수,멤버함수,생성자,alt+enter)그리고 그룹박스.png'>
+    - static : 객체를 생성하지 않고 바로 쓸 수 있음
+    - get, set :
+        ```cs
+        private int age;         // 내부에서 값을 저장할 진짜 변수 (직접 접근 불가)
+        public int Age {
+            get { return age; }  // 외부에서 Age 읽을 때 실행
+            set 
+            { 
+                if( value <0 || value >20)
+                {
+                    age = 20;
+                }
+                else
+                {
+                    age = value;
+                }
+            }
+        }
+        ```
 7. 접근제어자
-8. 상속, 다형성 , 추상크랠스, 인터페이스
+    - private : 클래스 내에서만 접근 가능
+    - public : 어디서나 접근 가능
+    - protected : 내부, 자식 클래스에서만 접근 가능
+    - internal : 동일한 네임스페이스에서 public 기능
+    - internal protected : 동일한 네임스페이스에서 protected 기능
+    - internal은 최근에 자동생성에서 자주 사용되고 있음
+
+8. 상속, 다형성 , 추상클래스, 인터페이스 [C#](./day56/Day03Study/SyntaxWinApp03/FrmMain.cs)
+    - Java는 한 파일에 한 클래스 선호
+    - C#은 한 파일에 클래스 여러개 생성 무방
+    1. 상속
+        - System.Object : 모든 클래스의 조상
+        - 부모 생성자 호출 후 자식 생성자 호출
+        - 부모 클래스에 자식 클래스 할당 가능(업캐스팅)
+        - 부모 클래스에서 internal이 아닌 sealed는 더이상 상속하지 못함.
+        ```cs
+        internal class Computer
+        {
+            public Computer() {
+
+                Debug.WriteLine("[디버그]Computer 객체 생성됨");
+            }
+        }
+
+        internal class NoteBook : Computer {
+
+            public NoteBook()
+            {
+                Debug.WriteLine("[디버그]NoteBook 객체 생성됨");
+            }
+        }
+        ```
+        ```cs
+        Computer myNotebook = new NoteBook();
+        ```
+        - <img src ='./day56/상속생성자호출순서.png'>
+        - 부모는 자식함수 쓸 수 없다.자식은 부모함수 쓸 수 있다.
+        ```cs
+        myComputer.HasFingerScanDevice();   //부모는 자식함수 쓸 수 없다.
+        myNoteBook.Boot();   //자식은 부모함수 쓸 수 있다.
+        ```
+        - is (객체타입 비교), as(형변환 키워드)
+            ```cs
+            //부모클래스를 자식클래스로 형변환하면서 문제 발생 
+            //NoteBook myNoteBook2 =(NoteBook) new Computer();
+
+            Computer myComputer2 = new NoteBook();
+            if (myComputer2 is NoteBook) {
+                Debug.WriteLine("myComputer2는 NoteBook입니다");
+                NoteBook myNoteBook2 = myComputer2 as NoteBook;
+                Debug.WriteLine("myComputer2을 myNoteBook2로 변경");
+
+            }
+            ```
+            <img src='./day56/형변환.png'>
+        - this : 클래스 자신 . 현재는 사용 권장 안함.
+        - base : 부모클래스 지칭. 현재는 사용 권장 안함.
+        ```cs
+            
+        internal class Computer
+        {
+            public void Boot() 
+            {
+                Debug.WriteLine("컴퓨터 부팅!");
+            }
+       
+        }
+
+        internal class NoteBook : Computer {
+
+            public NoteBook()
+            {
+                Debug.WriteLine("[디버그]NoteBook 객체 생성됨");
+                base.Boot();
+            }
+        }
+        ```
+        <img src='./day56/base로 부모함수 쓰기.png'>
+    2. 다형성 - 오버라이드
+        - 오버라이드 : 부모 메서드를 재정의
+            - 추상 : 대략적인 틀만 가지고 있음. 실행할 수 있는 능력부여
+            - **부모클래스 함수에는 virtual 키워드**
+            - **자식클래스 함수에는 override 키워드**
+            ```cs
+            internal class Computer
+            {
+                 public virtual void ShutDown() {
+                    Debug.WriteLine("컴퓨터 ShutDown!");
+                }
+            }
+
+            internal class NoteBook : Computer 
+            {
+                //부모 클래스 ShutDown()을 자식에서 다시 재정의
+                public override void ShutDown() {
+                    Debug.WriteLine("노트북 ShutDown!");
+                }
+            }
+            ```
+    3. 다형성 - 오버로드 : 같은 메서드를 여러 번 사용
+    4. 추상클래스
+        - 공통적인 기능은 직접 구현하고, 나머지는 자식이 구현하도록 맡기자!
+        - 선언도 가능하고 정의도 가능함(일부 메서드는 정의(구현)하고, 일부는 선언만 해둘 수 있음)
+        - 인스턴스 생성 불가능 (new로 못 만듦)
+        - 인스턴스는 못 만들지만, 상속을 통해 사용되는 클래스
+        - abstract 메서드는 자식이 반드시 오버라이드해야 함
+        ```cs
+        abstract class Animal
+        {
+            public abstract void MakeSound(); // 구현 X
+            public void Sleep() {
+                Console.WriteLine("쿨쿨 자요");
+            }
+        }
+
+        class Dog : Animal
+        {
+            public override void MakeSound() {
+                Console.WriteLine("멍멍!");
+            }
+        }
+
+        // Animal a = new Animal();  오류! 추상 클래스는 인스턴스 생성 불가
+        Dog d = new Dog();           // 가능!
+        d.MakeSound();               // 출력: 멍멍!
+        d.Sleep();                   // 출력: 쿨쿨 자요
+        ```
+    5. 인터페이스 
+        - 계약관계 정의하고 구현없이 선언만 포함한 클래스의 일종
+        - 추상클래스를 개선한 방법
+        - 다중 상속을 방지하기 위해서 인터페이스 사용
+        - 보통 I인터페이스명 형태로 명명
+        - 내부 메서드만 존재. 형태만 구성(구현x)
+        - 인스턴스 생성 불가능 (new로 만들 수 없음)
+        - 다중 상속 가능 (인터페이스 여러 개 상속 가능)
+        - 상속 시 구현 의무:자식 클래스는 모든 메서드를 반드시 구현해야 함
+        - 기본적으로 붙는 키워드:	public abstract (생략되어 있음)
+        - 필드/생성자 없음 (변수, 생성자 둘 다 X)
+        ```cs
+        // Dog 클래스는 인터페이스 2개를 동시에 상속받고
+        //모든 메서드를 직접 구현해야 합니다
+        interface IAnimal
+        {
+            void Eat();          // 선언만
+            void MakeSound();    // 선언만
+        }
+
+        interface IWalkable
+        {
+            void Walk();         // 선언만
+        }
+
+        class Dog : IAnimal, IWalkable
+        {
+            public void Eat() {
+                Console.WriteLine("냠냠");
+            }
+
+            public void MakeSound() {
+                Console.WriteLine("멍멍!");
+            }
+
+            public void Walk() {
+                Console.WriteLine("걷는 중");
+            }
+        }
+        ```
+    6. 함수오버라이드 , 함수오버로드 정리
+        - <img src='./day56/오버라이딩과 오버로딩 차이.png'>
+        - <img src='./day56/상속, 추상클래스, 인터페이스 모두 함수오버라이딩.png' >
+    7. 다중상속 
+        - 하나의 클래스가 두 개 이상의 클래스로부터 상속받는 것
+        -  C++, Python에서는 가능함
+        ```C++
+        class A {
+            void MethodA() { }
+        }
+
+        class B {
+            void MethodB() { }
+        }
+
+        class C : public A, public B {
+            // A와 B의 모든 멤버를 상속받음
+        }
+        ```
+        ```python
+        class A:
+            def greet(self):
+                print("Hi from A")
+
+        class B:
+            def greet(self):
+                print("Hi from B")
+
+        class C(A, B):  #  다중 상속 가능
+            pass
+
+        c = C()
+        c.greet()  # ⚠️ 출력: Hi from A → Python은 왼쪽 우선 (MRO)
+
+        ```
+        - C#, Java에서는 다중 클래스 상속이 불가능함
+        ```cs
+        class A { }
+        class B { }
+
+        // 오류: C#은 클래스 다중 상속 금지
+        class C : A, B { }
+        ```
+        - C#, Java에서 인터페이스로 다중 상속 가능
+        ```cs
+        interface IFlyable {
+            void Fly();
+        }
+
+        interface ISwimmable {
+            void Swim();
+        }
+
+        class Duck : IFlyable, ISwimmable {
+            public void Fly() {
+                Console.WriteLine("날아요!");
+            }
+
+            public void Swim() {
+                Console.WriteLine("수영해요!");
+            }
+        }
+        ```
+        ```java
+        interface Flyable {
+            void fly();
+        }
+
+        interface Swimmable {
+            void swim();
+        }
+
+        class Duck implements Flyable, Swimmable {
+            public void fly() { System.out.println("날아요"); }
+            public void swim() { System.out.println("수영해요"); }
+        }
+        ```
+    8. 얕은 복사, 깊은 복사
+        - 얕은 복사
+            ```cs
+            private void BtnCopy_Click(object sender, EventArgs e)
+            {
+                Server server1 = new Server();
+                server1.Name = "HP서버";
+                
+                Server server2 = server1;
+                server2.Name = "DELL서버";
+
+                MessageBox.Show($"{server1.Name}\r\n{server2.Name}", "서버명");
+            }
+            ```
+            - <img src='./day56/얕은복사.png'>
+        - 깊은 복사
+            ```cs
+            public Server DeepCopy()
+            {
+                Server tmp = new Server();
+                tmp.Name = this.Name;
+                tmp.storage = this.storage; // 누락됐던 부분 추가
+                return tmp;
+            }
+            ```
+            ```cs
+            private void BtnCopy_Click(object sender, EventArgs e)
+            {
+                Server server1 = new Server();
+                server1.Name = "HP서버";
+                
+                //깊은복사
+                Server server3 = server1.DeepCopy();
+                server3.Name = "INTEL서버";
+                Debug.WriteLine($"참조비교결과:{server1.Equals(server3)}");
+                MessageBox.Show($"{server1.Name}\r\n{server3.Name}", "서버명");
+            }
+            ```
+            - <img src='./day56/깊은복사.png'>
+    9. Java와 C#에서의 ==, equals
+        - <img src='./day56/자바==equals.png'>
+        - <img src='./day56/csharp에서의==,equals.png'>
+## 57일차(4/23)
+- ret, out 키워드
+- 열거형
 9. 예외처리
 10. 컬렉션
 11. 파일입출력
