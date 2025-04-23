@@ -729,6 +729,10 @@ C# /윈도우 애플리케이션
 - <img src='./day57/예외처리_if문_pictureBox1.png'>
 - <img src='./day57/예외처리_if문_pictureBox2.png'>
 
+
+https://github.com/user-attachments/assets/fa4d7307-dc7e-40b2-8faa-2883ed8a9c6e
+
+
 3. 컬렉션  [C#](./day57/Day04Study/SyntaxWinApp02/FrmMain.cs)
 - 배열, 리스트, 딕셔너리, 큐, 스택 등 여러 데이터를 저장하고 다루는 구조를 가진 객체를 통칭
     1. 배열 + 배열로 콤보박스에 데이터 할당
@@ -766,6 +770,11 @@ C# /윈도우 애플리케이션
     ```
     - <img src='./day57/초기화 인덱스 기본값 설정.png'>
     - <img src='./day57/사용자 선택 후 메시지 박스.png'>
+    
+
+https://github.com/user-attachments/assets/9da34840-0c83-40a3-a3ba-64993dcd07f9
+
+
     4. foreach문
     ```cs
     //foreach로 반복 처리
