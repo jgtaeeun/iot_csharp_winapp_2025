@@ -38,6 +38,7 @@
             BtnBold = new Button();
             DlgOpen = new OpenFileDialog();
             DlgSave = new SaveFileDialog();
+            DlgColor = new ColorDialog();
             SuspendLayout();
             // 
             // BtnSave
@@ -145,5 +146,6 @@
         private Button BtnBold;
         private OpenFileDialog DlgOpen;
         private SaveFileDialog DlgSave;
+        private ColorDialog DlgColor;
     }
 }

@@ -940,13 +940,60 @@ https://github.com/user-attachments/assets/9da34840-0c83-40a3-a3ba-64993dcd07f9
         - <img src='./day57/DlgOpen1.png'>
         - <img src='./day57/DlgOpen2.png'>
 
+    4. 도구상자-대화-SaveFileDialog 컨트롤로 파일 저장
+    ```cs
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            DlgSave.Filter = "RTF파일 (*.rtf)|*.rtf|워드파일 (*.docx)|*.docx";
+            DlgSave.Title = "문서파일 저장";
 
+           
+            if (DlgSave.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    RtbResult.SaveFile(DlgSave.FileName, RichTextBoxStreamType.RichText);
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show($"읽기실패 : {ex.Message}", "파일읽기", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
+
+        }
+    ```
+    5. DialogColor 사용하기
+        - ColorDialog (DlgColor)은 ShowDialog()를 호출했을 때 사용자에게 색상을 선택하게 해주는 UI를 띄우는 역할을 하므로, 초기 색상을 지정하지 않아도 기본값(보통은 Black)이 사용됩니다.  
+        ```cs
+        private void BtnRed_Click(object sender, EventArgs e)
+        {
+            
+            if (RtbResult.SelectionLength > 0)
+            {
+                if (DlgColor.ShowDialog() == DialogResult.OK)
+                {
+                    RtbResult.SelectionColor = DlgColor.Color;
+                }
+            }
+        }
+
+        ```
 https://github.com/user-attachments/assets/81ceceb3-79b8-4382-b133-c561e053d64b
 
-
+## 58일차(4/24 목)
+### C# 문법    
 5. 델리게이트, 이벤트
 6. 람다식
 7. LINQ
 8. 비동기 
 9. 속성
 10. 제너릭
+
+## 59일차(4/25 금)
+### C# 응용 -WPF
+
+## 60일차(4/28 월)
+

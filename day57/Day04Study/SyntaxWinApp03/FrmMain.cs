@@ -14,38 +14,81 @@ namespace SyntaxWinApp03
             //파일저장경로
             //C:\Source\iot_csharp_winapp_2025\day57\Day04Study\SyntaxWinApp03\bin\Debug\net8.0-windows
             //string filePath = "sample.txt";
-            try
-            {
-                //File : 파일 관련 메서드가 들어있는 클래스
-                //1. TXT파일 저장
-                //File.WriteAllText(filePath, RtbResult.Text);
 
-                //2.Rich Text Format  파일 저장
-                RtbResult.SaveFile(filePath, RichTextBoxStreamType.RichText);
-                MessageBox.Show("파일이 저장되었습니다.", "파일저장", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //3. saveFileDiglog사용
+            DlgSave.FileName = string.Empty;
+            DlgSave.Filter = "RTF파일 (*.rtf)|*.rtf|Txt파일 (*.txt)|*.txt";
+            DlgSave.Title = "문서파일 저장";
 
-            }
-            catch (Exception ex)
+            if (DlgSave.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show($"저장실패 : {ex.Message}", "파일저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    string fullPath = DlgSave.FileName;
+                    string ext = Path.GetExtension(fullPath);
+
+                    //MessageBox.Show(ext);
+
+                    if (ext == ".rtf")
+                    {
+                        RtbResult.SaveFile(fullPath, RichTextBoxStreamType.RichText);
+                    }
+                    else
+                    {
+                        RtbResult.SaveFile(fullPath, RichTextBoxStreamType.PlainText);
+                    }
+                    MessageBox.Show("파일이 저장되었습니다.", "파일저장", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"저장실패 : {ex.Message}", "파일저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
             }
+            //try
+            //{
+            //    //File : 파일 관련 메서드가 들어있는 클래스
+            //    //1. TXT파일 저장
+            //    //File.WriteAllText(filePath, RtbResult.Text);
+
+            //    //2.Rich Text Format  파일 저장
+            //    RtbResult.SaveFile(filePath, RichTextBoxStreamType.RichText);
+            //    MessageBox.Show("파일이 저장되었습니다.", "파일저장", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"저장실패 : {ex.Message}", "파일저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void BtnLoad_Click(object sender, EventArgs e)
         {
             //3. OpenFileDialog 사용
             // doc, docx는 실제 로드 불가
-            DlgOpen.Filter = "RTF파일 (*.rtf)|*.rtf|워드파일 (*.docx)|*.docx";
-            DlgOpen.Title = "RTF파일 읽기";
-
+            DlgOpen.Filter = "RTF파일 (*.rtf)|*.rtf|Txt파일 (*.txt)|*.txt";
+            DlgOpen.Title = "문서파일 읽기";
+            DlgOpen.FileName = string.Empty; // openFileDialog1를 ""로 지워버림
             //다이얼로그창 열기(DialogResult.OK),취소(DialogResult.Cancel)
             if (DlgOpen.ShowDialog() == DialogResult.OK)
             {
 
                 try
                 {
-                    RtbResult.LoadFile(DlgOpen.FileName, RichTextBoxStreamType.RichText);
+                    string fullPath = DlgOpen.FileName;
+                    string ext = Path.GetExtension(fullPath);
 
+                    //MessageBox.Show(ext);
+
+                    if (ext == ".rtf")
+                    {
+                        RtbResult.LoadFile(fullPath, RichTextBoxStreamType.RichText);
+                    }
+                    else
+                    {
+                        RtbResult.LoadFile(fullPath, RichTextBoxStreamType.PlainText);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -55,7 +98,7 @@ namespace SyntaxWinApp03
                 }
 
             }
-            
+
             //string filePath = "sample.txt"; //읽어올 파일명
             //try
             //{
@@ -86,7 +129,14 @@ namespace SyntaxWinApp03
 
         private void BtnRed_Click(object sender, EventArgs e)
         {
-            RtbResult.SelectionColor = Color.Red;
+            //RtbResult.SelectionColor = Color.Red;
+            if (RtbResult.SelectionLength > 0)
+            {
+                if (DlgColor.ShowDialog() == DialogResult.OK)
+                {
+                    RtbResult.SelectionColor = DlgColor.Color;
+                }
+            }
         }
 
         private void BtnBold_Click(object sender, EventArgs e)
@@ -98,11 +148,13 @@ namespace SyntaxWinApp03
             {
                 newStyle = currFont.Style & ~FontStyle.Bold;  // Bold 제거
             }
-            else 
+            else
             {
                 newStyle = currFont.Style | FontStyle.Bold;   //Bold 추가
             }
             RtbResult.SelectionFont = new Font(currFont, newStyle);
         }
+
+       
     }
 }
