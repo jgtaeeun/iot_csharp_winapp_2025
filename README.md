@@ -696,6 +696,8 @@ C# /윈도우 애플리케이션
         - TOP, LEFT, RIGHT, BOTTOM , FILL
         - 보통 컨테이너 컨트롤용(예-그룹박스)으로 사용
     - Anchor랑 Dock을 같이 사용해서 디자인
+    - Font : Form 속성에서 변경 시, 하위컨트롤들도 같이 변경된다.
+
 - 이미지 파일
     1. 구성요소- ImageList 
         - 로컬이미지에서 가져오기,이미지크기 조정 
@@ -703,6 +705,17 @@ C# /윈도우 애플리케이션
     2. 공용컨트롤-PictureBox
         - 로컬이미지/Resources.resxd에서 가져오기 . Pic.Image = Resources.girl;
     - Resources폴더 만들기-이미지 속성에서 출력 디렉터리로 복사를 항상복사  - 빌드 => 로컬이미지 가져오기할 때 이곳에서 한꺼번에 가져오면 되어서 편리
+- RichTextBox : 포맷팅이 가능한 텍스트 박스
+    - MS Word, 한글워드프로세서 같은 문장 꾸미기, 페이지 꾸미기 등이 가능
+    - 마우스 휠로 Ctrl 키와 함께 글자 확대/축소가 되는 건 기본적으로 지원되는 기능
+    - Rtb로 시작
+    - ScrollBars : 컨트롤 오른쪽, 하단에 스크롤바 생성 . 보통 ForcedBoth, ForcedVertical 설정함
+    - WordWrap : 컨트롤 길이를 넘어가면 자동으로 줄바꿈 여부. true면 자동줄바꿈
+- 도구상자-대화-OpenFileDialog 컨트롤 : 읽을 파일 위치와 파일을 선정하는 다이얼로그 창 컨트롤
+    - 폼위에 표시되지 않는 컨트롤
+    - DlgOpen 이름으로 사용
+- 도구상자-대화-SaveFileDialog 컨트롤 : 저장 위치에 파일명 지정하는 다이얼로그 창 컨트롤
+    - DlgSave 이름으로 사용
 ### C# 문법
 1. 형변환  [C#](./day57/Day04Study/SyntaxWinApp01/FrmMain.cs)
 - 큰바이트 데이터형에 작은바이트 데이터형 값을 할당하면 문제없이 사용가능(묵시적 형변환)
@@ -775,7 +788,7 @@ https://github.com/user-attachments/assets/fa4d7307-dc7e-40b2-8faa-2883ed8a9c6e
 https://github.com/user-attachments/assets/9da34840-0c83-40a3-a3ba-64993dcd07f9
 
 
-    4. foreach문
+- foreach문
     ```cs
     //foreach로 반복 처리
     string result = "";
@@ -786,7 +799,147 @@ https://github.com/user-attachments/assets/9da34840-0c83-40a3-a3ba-64993dcd07f9
 
     ```
     - <img src='./day57/foreach debug 출력.png'>
-4. 파일입출력
+
+4. 파일입출력  [C#](./day57/Day04Study/SyntaxWinApp03/FrmMain.cs)
+    - 파일입출력과 RichTextBox
+    0. MS Word, 한글워드프로세서 같은 문장 꾸미기, 페이지 꾸미기 등이 가능
+    ```cs
+    private void BtnRed_Click(object sender, EventArgs e)
+    {
+        RtbResult.SelectionColor = Color.Red;
+    }
+
+    private void BtnBold_Click(object sender, EventArgs e)
+    {
+        Font currFont = RtbResult.SelectionFont;
+        FontStyle newStyle;
+
+        if (currFont.Bold)
+        {
+            newStyle = currFont.Style & ~FontStyle.Bold;  // Bold 제거
+        }
+        else 
+        {
+            newStyle = currFont.Style | FontStyle.Bold;   //Bold 추가
+        }
+        RtbResult.SelectionFont = new Font(currFont, newStyle);
+    }
+    ```
+    1. txt파일 - 글자굵기변경,글자색변경하고 저장한 파일을 로드했을 때, 적용이 다 지워짐
+    ```cs
+     private void BtnSave_Click(object sender, EventArgs e)
+    {
+     //파일저장경로
+     //C:\Source\iot_csharp_winapp_2025\day57\Day04Study\SyntaxWinApp03\bin\Debug\net8.0-windows
+     string filePath = "sample.txt";
+     try
+     {
+         File.WriteAllText(filePath, RtbResult.Text);
+     }
+     catch (Exception ex)
+     {
+         MessageBox.Show($"저장실패 : {ex.Message}", "파일저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
+     }
+    }
+
+    private void BtnLoad_Click(object sender, EventArgs e)
+    {
+        string filePath = "sample.txt"; //읽어올 파일명
+        try
+        {
+            if (File.Exists(filePath))
+            {
+                string content = File.ReadAllText(filePath);
+                RtbResult.Text = content;
+            }
+            else
+            {
+                //sample.txt 파일이 해당 경로에 존재하지 않을 때
+                //해당 위치에 파일이 없거나 이름이 틀렸을 때
+                MessageBox.Show($"파일이 존재하지 않습니다.", "파일읽기", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+        catch (Exception ex)
+        {
+            //파일이 존재하긴 하지만 파일 읽기 중 예외가 발생했을 때
+            MessageBox.Show($"읽기실패 : {ex.Message}", "파일읽기", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+    }
+
+    ```
+    2. rich text format 파일
+    ```cs
+    private string filePath = "sample.rtf";  //Rich Text Format (MS Word와 유사)
+
+    private void BtnSave_Click(object sender, EventArgs e)
+    {
+        //파일저장경로 C:\Source\iot_csharp_winapp_2025\day57\Day04Study\SyntaxWinApp03\bin\Debug\net8.0-windows
+        try
+        {
+            RtbResult.SaveFile(filePath, RichTextBoxStreamType.RichText);
+            MessageBox.Show("파일이 저장되었습니다.", "파일저장", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"저장실패 : {ex.Message}", "파일저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void BtnLoad_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (File.Exists(filePath))
+            {
+                RtbResult.LoadFile(filePath, RichTextBoxStreamType.RichText);
+            }
+            else
+            {
+                MessageBox.Show($"파일이 존재하지 않습니다.", "파일읽기", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+        catch (Exception ex)
+        {
+            //파일이 존재하긴 하지만 파일 읽기 중 예외가 발생했을 때
+            MessageBox.Show($"읽기실패 : {ex.Message}", "파일읽기", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+    }
+
+    ```
+    3. 도구상자-대화-OpenFileDialog 컨트롤로 파일 열기
+        - OpenFileDialog를 이용해 RTF/Word 파일을 읽고, 그 내용을 RichTextBox에 표시하는 구조야.
+        ```cs
+        private void BtnLoad_Click(object sender, EventArgs e)
+        {
+            DlgOpen.Filter = "RTF파일 (*.rtf)|*.rtf|워드파일 (*.docx)|*.docx";
+            DlgOpen.Title = "RTF파일 읽기";
+
+            //다이얼로그창 열기(DialogResult.OK),취소(DialogResult.Cancel)
+            if (DlgOpen.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    RtbResult.LoadFile(DlgOpen.FileName, RichTextBoxStreamType.RichText);
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show($"읽기실패 : {ex.Message}", "파일읽기", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
+
+        }
+        ```
+        - <img src='./day57/DlgOpen1.png'>
+        - <img src='./day57/DlgOpen2.png'>
+
 5. 델리게이트, 이벤트
 6. 람다식
 7. LINQ

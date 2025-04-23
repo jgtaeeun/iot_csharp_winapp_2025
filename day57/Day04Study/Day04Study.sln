@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp01", "SyntaxWin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp02", "SyntaxWinApp02\SyntaxWinApp02.csproj", "{89C31A0F-F3FA-4170-ADAD-A5C8EC78FBCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp03", "SyntaxWinApp03\SyntaxWinApp03.csproj", "{6D8089D9-DE66-42E7-BDDC-60A3C2639024}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{89C31A0F-F3FA-4170-ADAD-A5C8EC78FBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89C31A0F-F3FA-4170-ADAD-A5C8EC78FBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89C31A0F-F3FA-4170-ADAD-A5C8EC78FBCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D8089D9-DE66-42E7-BDDC-60A3C2639024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D8089D9-DE66-42E7-BDDC-60A3C2639024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D8089D9-DE66-42E7-BDDC-60A3C2639024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D8089D9-DE66-42E7-BDDC-60A3C2639024}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
