@@ -672,15 +672,115 @@ C# /윈도우 애플리케이션
     9. Java와 C#에서의 ==, equals
         - <img src='./day56/자바==equals.png'>
         - <img src='./day56/csharp에서의==,equals.png'>
+    10. ret, out 키워드
+    11.  열거형
 ## 57일차(4/23)
-- ret, out 키워드
-- 열거형
-9. 예외처리
-10. 컬렉션
-11. 파일입출력
-12. 델리게이트, 이벤트
-13. 람다식
-14. LINQ
-15. 비동기 
-16. 속성
-17. 제너릭
+### VS 개발팁
+- 코드조각(Code Snippt)을 최대한 활용(코딩양 줄임, 오타 예방)
+    - try 적고 try 선택 + 탭2번 => try catch
+    - try 적고 tryf 선택 + 탭2번  =>try finally
+- 보기>개체 브라우저에서 필요한 클래스 검색
+- 소스코드가 회색으로 연하게 변하는 것은 되도록이면 사용을 피하라는 뜻 -> alt enter로 변경사항 확인
+### 윈앱 컨트롤 3
+- NumericUpDown : 숫자를 입력을 도와주는 컨트롤
+    - Nud 이름으로 시작
+    - Button 컨트롤 속성과 동일
+    - Minimum, Maximum : 입력최소값, 입력최대값
+    - value : 현재값
+    - 이벤트 생성 거의 안 함 
+- 대부분 컨트롤 속성
+    - Anchor : 현재 컨트롤을 어디에 고정시키는지 설정
+        - 왼쪽 상단 컨트롤 : LEFT, TOP
+        - 오른쪽 하단 컨트롤 : RIGHT, BOTTOM
+    - Dock : 어디 도킹시키는지 설정
+        - TOP, LEFT, RIGHT, BOTTOM , FILL
+        - 보통 컨테이너 컨트롤용(예-그룹박스)으로 사용
+    - Anchor랑 Dock을 같이 사용해서 디자인
+- 이미지 파일
+    1. 구성요소- ImageList 
+        - 로컬이미지에서 가져오기,이미지크기 조정 
+        - 컨트롤속성에 imageList, imageIndex가 있는 경우 사용가능(예: ListView, TreeView, Button, ToolStrip)
+    2. 공용컨트롤-PictureBox
+        - 로컬이미지/Resources.resxd에서 가져오기 . Pic.Image = Resources.girl;
+    - Resources폴더 만들기-이미지 속성에서 출력 디렉터리로 복사를 항상복사  - 빌드 => 로컬이미지 가져오기할 때 이곳에서 한꺼번에 가져오면 되어서 편리
+### C# 문법
+1. 형변환  [C#](./day57/Day04Study/SyntaxWinApp01/FrmMain.cs)
+- 큰바이트 데이터형에 작은바이트 데이터형 값을 할당하면 문제없이 사용가능(묵시적 형변환)
+- 작은바이트 데이터형에 큰바이트 데이터형 값을 할당하면 문법적 오류 => 명시적형변환으로 해결
+    - `명시적 형변환` : 실행중 예외발생은 개발자의 책임이다. 
+        1. **각 타입별.parse (string) : 문자열을 각 타입으로 변환**
+            ```cs
+            person.Gender = char.Parse(TxtGender.Text.Trim());
+            ```
+        2. **Convert 클래스 : 여러 타입을 다 변환가능**
+            - Convert.ToInt32()
+            ```cs
+            //int (4bytes 정수) , decimal(16bytes 실수)
+            person.Age = Convert.ToInt32(NudAge.Value);
+            ```
+        3. .TryParse()
+
+2. 예외처리  [C#](./day57/Day04Study/SyntaxWinApp01/FrmMain.cs)
+- 실행 중 비상종료를 막기 위해서
+- 모든 예외의 부모클래스는 Exception 클래스
+- try ~ catch ~ finally
+    - try 적고 try 선택 + 탭2번 => try catch
+    - try 적고 tryf 선택 + 탭2번  =>try finally
+- <img src='./day57/예외처리_if문_pictureBox1.png'>
+- <img src='./day57/예외처리_if문_pictureBox2.png'>
+
+3. 컬렉션  [C#](./day57/Day04Study/SyntaxWinApp02/FrmMain.cs)
+- 배열, 리스트, 딕셔너리, 큐, 스택 등 여러 데이터를 저장하고 다루는 구조를 가진 객체를 통칭
+    1. 배열 + 배열로 콤보박스에 데이터 할당
+    ```cs
+    string[] fruits = { "사과", "바나나", "딸기", "망고", "블루베리" };
+    CboArray.Items.AddRange(fruits);
+    ```
+
+    2. 리스트  + 리스트로 콤보박스에 데이터 할당
+        - 콤보박스에 DataSource를 설정하면: CboList.SelectedIndex는 자동으로 0이 됩니다.
+
+    ```cs
+    //List<string> lFruits = new List<string>();
+    //lFruits.Add("용과");
+    //lFruits.Add("망고스틴");
+    //lFruits.Add("애플망고");
+    //lFruits.Add("자몽");
+    List<string> lFruits = ["용과", "망고스틴", "애플망고", "자몽"];
+    CboList.DataSource = lFruits;
+    ```
+    3. 딕셔너리 + 딕셔너리로 콤보박스에 데이터 할당
+    ```cs
+    Dictionary<string, string> dCountry = new Dictionary<string, string> {
+        { "KR" , "대한민국"},
+        { "US" , "미국"},
+        { "JP" , "일본"},
+        { "CN" , "중국"},
+        { "IN" , "인도"},
+        { "PH" , "필리핀"}
+    };
+    //BindingSource는 데이터 소스 역할을 하며, 컬렉션 데이터를 바인딩할 수 있게 해줍니다.
+    CboDictionary.DataSource = new BindingSource (dCountry, null);
+    CboDictionary.DisplayMember = "Value";  //사용자에게 보이는 이름
+    CboDictionary.ValueMember = "Key";      //내부적으로 선택되는 값
+    ```
+    - <img src='./day57/초기화 인덱스 기본값 설정.png'>
+    - <img src='./day57/사용자 선택 후 메시지 박스.png'>
+    4. foreach문
+    ```cs
+    //foreach로 반복 처리
+    string result = "";
+    foreach (var item in dCountry)
+    {
+        Debug.WriteLine(item.ToString());
+    }
+
+    ```
+    - <img src='./day57/foreach debug 출력.png'>
+4. 파일입출력
+5. 델리게이트, 이벤트
+6. 람다식
+7. LINQ
+8. 비동기 
+9. 속성
+10. 제너릭
