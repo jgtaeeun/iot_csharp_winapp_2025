@@ -940,6 +940,10 @@ https://github.com/user-attachments/assets/9da34840-0c83-40a3-a3ba-64993dcd07f9
         - <img src='./day57/DlgOpen1.png'>
         - <img src='./day57/DlgOpen2.png'>
 
+
+https://github.com/user-attachments/assets/81ceceb3-79b8-4382-b133-c561e053d64b
+
+
 5. 델리게이트, 이벤트
 6. 람다식
 7. LINQ
