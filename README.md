@@ -988,6 +988,16 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
 
 
 ## 58일차(4/24 목)
+### 윈앱 컨트롤 4
+- StatusStrip  : 상태표시줄 컨트롤. 서브 컨트롤 추가 기능
+    - 서브 컨트롤 종류
+    - StatusLabel : 글자만 표시 , Lbl로 이름 시작
+    - ProgressBar : 진행바 표시 , Prg로 이름 시작
+    - DropDownButton : 드롭다운 버튼 
+    - SplitButton : 버튼
+
+    - 속성 - SizingGrip  : 오른쪽 하단의 사이즈조절 아이콘 표시
+    
 ### C# 문법    
 5. 델리게이트(대리자), 이벤트  [C#](./day58/Day05Study/SyntaxWinApp01/FrmMain.cs)
     1. 델리게이트
@@ -1106,7 +1116,7 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
         - delegate : 메서드를 저장하고 실행하는 타입
         - event : delegate에게 '무슨일이 발생하면 실행해'라고 해주는 역할
         - +=, -= : 이벤트 구독(이벤트핸들러 연결), 이벤트 구독해제
-### C# 고급문법
+### C# 고급문법 
 6. 람다식 - C#3.0에서 도입 [C#](./day58/Day05Study/SyntaxWinApp02/FrmMain.cs)
     - 간단한 메서드를 한 줄로 표현하는 문법
     - 코드를 간결하게 작성하고 싶을 때 사용
@@ -1135,11 +1145,170 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
     var resList3 = numbers.Where(n => n % 2 == 0).OrderBy(n=>n);
     ```
     - <img src ='./day58/버튼클릭 후 LINK호출.png'>
-8. 비동기 
-9. 속성
-10. 제너릭
+ 
+8. 속성  - Property  [C#](./day58/Day05Study/SyntaxWinApp02/FrmMain.cs)
+    - 객체 지향 클래스에서 멤버변수(명사) 중 public 변수
+    - 첫번째 글자 대문자
+    - `{get; set;} 형태로 구성`
+    - 일반 클래스(멤버변수) : 객체 데이터 저장, 상태 표현 . 코드로만 작성
+    - `UI 클래스(속성) : UI 상태나 외형, 기능 컨트롤 . 폼 디자인, 코드 둘 다 사용`
+    - FrmMain.Designer.cs 내용은 FrmMain.cs[디자인]에서 마우스나 디자인 설정에 변경하는 값으로 되도록이면 수정하지 말 것
+    - FrmMain_Load 이벤트에 코딩으로 초기화
+    - <img src='./day58/form_load에서 속성 코드 작성.png'>
+9. partial 클래스 : C#에만 존재   [C#](./day58/Day05Study/SyntaxWinApp02/FrmMain.cs)
+    - 하나의 클래스를 여러 파일에 나눠서 정의할 수 있게 해주는 기능
+    - 컴파일될 때 하나의 클래스로 합쳐져요.
+    - 디자인에 관련된 소스코드는 *.Designer.cs로 분리
+    - 기능에 필요한 소스코드만 *.cs로 분리
+    ```cs
+    //FrmMain.cs
+    public partial class FrmMain : Form
 
+    // FrmMain.Designer.cs
+    partial class FrmMain
+
+    //FrmMain.resx
+
+    ```
+    - <img src='./day58/partial클래스.png'>
+9. 제너릭  [C#](./day58/Day05Study/SyntaxWinApp02/FrmMain.cs)
+    - 파이썬에는 필요없음 -> 타입지정이 자유로움
+    - Java, C# 등의 엄격한 데이터타입 객체지향언어에 반드시 필요
+    1. 제너릭 메서드
+    - 제네릭이 없으면, Console.WriteLine()과 같이 타입별로 다 정의해야 함.(Console.WriteLine()이 18개로 정의되어 있음)
+    ```cs
+    public void PrintInt(int data){Debug.WriteLine(data);}
+    public void PrintString(string data){Debug.WriteLine(data);}
+    public void PrintFloat(float data){Debug.WriteLine(data);}
+    ```
+    - 제네릭이 있으면, 위의 3개의 메서드를 아래의 하나의 메서드로 퉁칠 수 있음
+    ```cs
+    public void PrintI<T>(T data){Debug.WriteLine(data);}
+    ```
+    - 대문자 T는 아무거나 사용해도 무방 . 대문자 한글자를 선호
+    2. 제너릭 클래스
+    ```cs
+      public class Box<T> 
+    {
+        public T data {  get; set; } //속성
+
+        public void Show() 
+        {
+            MessageBox.Show($"Box 클래스의 속성 값: {data}" , "제네릭클래스" , MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+    }
+    ```
+    ```cs
+    Box<int> intBox = new Box<int>();
+    intBox.data = 20250424;
+    intBox.Show();
+
+
+    Box<String> strBox = new Box<String>();
+    strBox.data = "애슐리";
+    strBox.Show();
+    ```
+    - where T : class -> 참조형식( class, string, interface, delegate, array)만 허용
+    - where T : struct -> 값형식(int, double, bool, DateTime, enum, struct)만 허용
+    - where T : new() -> 매개변수 없는 생성자가 있어야 함
+    - where T : BaseClass -> 특정 클래스, 인터페이스 상속 필수 (예) where T : Animal, where T : IComparable
+    ```cs
+    public class Box<T>  where T : class //   Box<String> strBox = new Box<String>(); 가능
+    public class Box<T>  where T : struct //  Box<int> intBox = new Box<int>(); 가능
+
+    ```
+10. 비동기 + StatusStrip(StatusLabel, ProgressBar) [C#](./day58/Day05Study/SyntaxWinApp03/FrmMain.cs)
+    - 스레드 - 프로세스에서 여러일을 한꺼번에 수행하기 위해 분리한 업무단위
+    - 멀티프로세스 - 한 프로세스에서 여러 스레드 동작하는 것
+    - <img src ='./day58/프로세스, 스레드.png'>
+    - 윈앱 - 싱글 스레드(UI가 스레드를 제어)
+        - UI프로그램에 응답없음 발생 
+        - 응답없음 발생하면 프로그램의 신뢰도가 떨어짐
+        - 응답없음 발생하면 콘솔에는 실시간 출력, 텍스트박스,진행바에는 실시간 반영 안됨.
+        ```cs
+        private void BtnStart_Click(object sender, EventArgs e)
+        {
+            LblCurrState.Text = "현재상태 : 진행";
+            BtnStart.Text = "진행중";
+            BtnStart.Enabled = false; //처리동안은 버튼 클릭 못함.
+
+            //엄청난 시간이 걸리는 연산 수행
+            long MaxVal =200;
+            long total = 0;
+            PrgProcess.Minimum = 0;
+            PrgProcess.Maximum = 100;
+
+            for (int i = 0; i < MaxVal; i++)
+            {
+                total += i % 3;
+                int progress = (int)((i * 100 / MaxVal))+1;
+                Console.WriteLine(progress.ToString());
+                TxtLog.Text += i.ToString() + "\r\n" ;
+                TxtLog.SelectionStart = TxtLog.Text.Length;
+                TxtLog.ScrollToCaret();
+                PrgProcess.Value = progress;
+                
+                Thread.Sleep(50);  
+
+                    
+            };
+           
+            LblCurrState.Text = "현재상태 : 중지";
+            BtnStart.Text = "시작";
+            BtnStart.Enabled = true;
+        }
+        ```
+        - <img src ='./day58/응답없음.png'>
+        - 첫 번째 해결 방법 : Application.DoEvents()메서드 추가. 권장x
+        - 두 번째 해결 방법 : 비동기 async, await키워드로 해결
+        ```cs
+        private async void BtnStart_Click(object sender, EventArgs e)
+        {
+            LblCurrState.Text = "현재상태 : 진행";
+            BtnStart.Text = "진행중";
+            BtnStart.Enabled = false; //처리동안은 버튼 클릭 못함.
+
+            //1-1.엄청난 시간이 걸리는 연산 수행
+            long MaxVal = 200;
+            long total = 0;
+            PrgProcess.Minimum = 0;
+            PrgProcess.Maximum = 100;
+
+            await Task.Run(() => {
+
+            for (int i = 0; i < MaxVal; i++)
+            {
+                total += i % 3;
+                int progress = (int)((i * 100 / MaxVal)) + 1;
+                Console.WriteLine(progress.ToString());
+                //Task.Run 내 들어가는 UI처리 로직
+                this.Invoke(new Action(() => {
+
+                    TxtLog.Text += i.ToString() + "\r\n";
+                    TxtLog.SelectionStart = TxtLog.Text.Length;
+                    TxtLog.ScrollToCaret();
+                    PrgProcess.Value = progress;
+
+                
+                }));
+                    Thread.Sleep(50);
+
+            }
+
+            });
+            
+            LblCurrState.Text = "현재상태 : 중지";
+            BtnStart.Text = "시작";
+            BtnStart.Enabled = true;
+        }
+        ```
+        - 세 번째 방법 : 전통적인 스레드 사용, 권장 X
+        - 네 번째 방법 : BackgoundWorker 클래스 사용
 ## 59일차(4/25 금)
+### C# 고급문법 
+10. 비동기 + StatusStrip(StatusLabel, ProgressBar) [C#](./day58/Day05Study/SyntaxWinApp03/FrmMain.cs)
+    - 네 번째 방법 : BackgoundWorker 클래스 사용
 ### C# 응용 -WPF
 
 ## 60일차(4/28 월)

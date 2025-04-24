@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             BtnCheck = new Button();
             TxtResult = new TextBox();
+            TxtTest = new TextBox();
+            BtnGeneric = new Button();
             SuspendLayout();
             // 
             // BtnCheck
@@ -51,11 +53,30 @@
             TxtResult.Size = new Size(535, 283);
             TxtResult.TabIndex = 1;
             // 
+            // TxtTest
+            // 
+            TxtTest.Location = new Point(24, 315);
+            TxtTest.Name = "TxtTest";
+            TxtTest.Size = new Size(100, 23);
+            TxtTest.TabIndex = 2;
+            // 
+            // BtnGeneric
+            // 
+            BtnGeneric.Location = new Point(368, 301);
+            BtnGeneric.Name = "BtnGeneric";
+            BtnGeneric.Size = new Size(99, 48);
+            BtnGeneric.TabIndex = 3;
+            BtnGeneric.Text = "제네릭";
+            BtnGeneric.UseVisualStyleBackColor = true;
+            BtnGeneric.Click += BtnGeneric_Click;
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 361);
+            Controls.Add(BtnGeneric);
+            Controls.Add(TxtTest);
             Controls.Add(TxtResult);
             Controls.Add(BtnCheck);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -64,6 +85,7 @@
             Name = "FrmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "고급학습 윈앱";
+            Load += FrmMain_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -72,5 +94,7 @@
 
         private Button BtnCheck;
         private TextBox TxtResult;
+        private TextBox TxtTest;
+        private Button BtnGeneric;
     }
 }

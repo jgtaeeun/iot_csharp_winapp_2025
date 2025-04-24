@@ -1,4 +1,5 @@
-﻿using static System.Windows.Forms.LinkLabel;
+﻿using System.Diagnostics;
+using static System.Windows.Forms.LinkLabel;
 
 namespace SyntaxWinApp02
 {
@@ -8,6 +9,22 @@ namespace SyntaxWinApp02
         {
             InitializeComponent();
         }
+
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            TxtTest.PlaceholderText = "테스트입니다";
+            TxtTest.Size = new Size(200, 23);
+            TxtTest.KeyPress += TxtTest_KeyPress;
+            TxtTest.Font = new Font("휴먼매직체", 10, FontStyle.Italic);
+        }
+
+        private void TxtTest_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+                MessageBox.Show("엔터를 클릭했습니다.", "키프레스",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         public int add(int x, int y)
         {
             return x + y;
@@ -42,15 +59,15 @@ namespace SyntaxWinApp02
             TxtResult.Text += "LINQ 사용 이전\r\n";
             TxtResult.Text += $"원본리스트> {string.Join(" ", numbers)}\r\n";
 
-            TxtResult.Text += $"짝수리스트> {string.Join(" ",resList)}\r\n";
+            TxtResult.Text += $"짝수리스트> {string.Join(" ", resList)}\r\n";
 
             resList.Sort();
             TxtResult.Text += $"정렬리스트> {string.Join(" ", resList)} \r\n\r\n";
 
 
             //기본 LINQ 방식 사용
-            
-            numbers = [14, 20, 11, 15, 19, 18, 16, 13, 12,17];
+
+            numbers = [14, 20, 11, 15, 19, 18, 16, 13, 12, 17];
             var resList2 = from n in numbers
                            where n % 2 == 0
                            orderby n
@@ -61,14 +78,56 @@ namespace SyntaxWinApp02
 
 
             // LINK Method Chain
-            numbers = [24, 30, 21, 25, 29, 28,26, 23, 22, 27];
-            var resList3 = numbers.Where(n => n % 2 == 0).OrderBy(n=>n);
+            numbers = [24, 30, 21, 25, 29, 28, 26, 23, 22, 27];
+            var resList3 = numbers.Where(n => n % 2 == 0).OrderBy(n => n);
             TxtResult.Text += "LINK Method Chain 사용 \r\n";
             TxtResult.Text += $"원본리스트> {string.Join(" ", numbers)}\r\n";
             TxtResult.Text += $"짝수,정렬리스트> {string.Join(" ", resList3)} \r\n\r\n";
-        
+
 
 
         }
+
+
+
+        private void BtnGeneric_Click(object sender, EventArgs e)
+        {
+            PrintGeneric<int>(100);
+            PrintGeneric<float>(3.141592f);
+            PrintGeneric<string>("안녕하세요");
+            PrintGeneric<bool>(true);
+
+            PrintGeneric(200);
+            PrintGeneric(6.141592f);
+            PrintGeneric("적당히 바람이 시원해 기분이 너무 좋아요 유후");
+            PrintGeneric(false);
+
+
+            Box<int> intBox = new Box<int>();
+            intBox.data = 20250424;
+            intBox.Show();
+
+
+            Box<String> strBox = new Box<String>();
+            strBox.data = "애슐리";
+            strBox.Show();
+        }
+
+        public void PrintGeneric<T>(T data) { Debug.WriteLine(data); }
+
+        //제네릭 클래스
+        public class Box<T> 
+        {
+            public T data {  get; set; } //속성
+
+            public void Show() 
+            {
+                MessageBox.Show($"Box 클래스의 속성 값: {data}" , "제네릭클래스" , MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+
+
     }
 }
