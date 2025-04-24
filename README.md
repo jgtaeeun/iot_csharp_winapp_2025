@@ -989,7 +989,117 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
 
 ## 58일차(4/24 목)
 ### C# 문법    
-5. 델리게이트, 이벤트
+5. 델리게이트(대리자), 이벤트
+    1. 델리게이트
+        - 메서드를 변수처럼 저장하고 호출할 수 있는 타입
+        - 보통 선언한 메서드를 직접 호출하는 것과 다르게 대리자는 실행 메서드를 들고 있고, 대리자를 호출하면 대리자가 메서드를 대신 호출해준다.
+        - C++ 함수포인터, 파이썬 콜백함수와 유사한 기능
+        ```c++
+        int add(int a, int b) {
+            return a + b;
+        }
+
+        // 함수 포인터 선언
+        int (*fp)(int, int) = add;
+
+        ```
+        - `델리게이트와 그것이 참조할 메서드는 반드시 시그니처(매개변수 타입과 개수, 반환 타입)가 일치해야 합니다.`
+        - winform에서 버튼을 클릭하면, 직접 메서드를 호출하는 게 아니고, C#이 사용자의 움직임을 체크하고 있다가 클릭이벤트가 발생하면 그에 해당하는 메서드를 대신 실행(호출)시켜주는 것
+        - 이벤트 매개변수는 2개이다. 이벤트핸들러의 매개변수 2개와 동일해야 한다. 
+        ```cs
+        //C#에서 제공하는 System.EventHandler 델리게이트의 정의는 이렇게 되어 있습니다
+        namespace System
+        {
+            public delegate void EventHandler(object? sender, EventArgs e);
+        }
+
+        private void FrmMain_Load(object sender, EventArgs e) { }
+
+        private void BtnCheck_Click(object sender, EventArgs e){}
+        ```
+        - 대리자의 장점
+            - 메서드를 변수처럼 저장
+            - 런타임 시 메서드를 바꿀 수 있음
+            - 하나의 대리자가 여러개의 메서드를 호출할 수 있음
+            ```cs
+            private void BtnCheck_Click(object sender, EventArgs e)
+            {
+                //직접호출
+                SayHello("우리 만날래?");
+                SayGoodBye("나의 로맨스여");
+
+                // 3. 델리게이트 인스턴스 생성
+                MyDelegate del = SayHello;
+                del += SayGoodBye;
+                del -= SayHello;
+                // 4. 델리게이트 호출 (메서드 호출처럼 사용)
+                del("이란 말은 말아요~");
+                del("baby good bye~");
+            }
+            ```
+    2. Action, Func, Predicate
+        - 대리자 생략형
+        ```cs
+         //2. 반환값없는 대리자 - Action
+        Action<string> act = SayHello;
+        act("성시원");
+        ```
+
+    3. 이벤트 : 대리자의 특별한 형태. 어떤 일이 발생하면 연결된 메서드를 호출하는 것
+        - 윈앱 버튼클릭, 마우스드래그, 타이머종료
+        - 모바일, 윈앱, 웹앱 개발 모두 이벤트 덩어리 집합
+        - 자주 쓰이는 이벤트
+            - Form_Load
+            - Button_Click
+            - TextBox_KeyPress
+            - ComboBox_SelectedIndexChanged
+        ```cs
+        public FrmMain()
+        {
+            InitializeComponent();
+           
+            //4.2  이벤트 구독
+            this.SomethingHappend  += MyEventHandlerMethod;
+        }
+
+         //4-1	이벤트와 델리게이트 정의
+        public event EventHandler SomethingHappend;
+
+         private void BtnCheck_Click(object sender, EventArgs e)
+        {
+            //4-3. 이벤트 실행
+            if (SomethingHappend != null)
+            {
+                SomethingHappend(this, new EventArgs());
+            }
+
+
+        }
+
+        private void MyEventHandlerMethod(object sender, EventArgs e)
+        {
+            MessageBox.Show("내부에서 이벤트 감지!", "이벤트 핸들러", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        ```
+    4. `Form 오픈이벤트 및 생성자`
+        - FrmMain 생성자 : 클래스 생성자
+            -  InitializeComponent() 객체 변수 초기화 
+        - FrmMain_Load 이벤트 : 폼이 로드(메모리 업)될 때 처리할 내용
+            - 생성자 이외에 초기화 할 것
+            - 폼 오픈시 이벤트 중에서 가장 중요!!
+        - FrmMain_Activated 이벤트 : 폼이 활성화(바탕화면 가장 위에서 동작하는 상태)될 때 처리될 이벤트
+        - FrmMain_Shown 이벤트 : 폼이 바탕화면에 그려질 때 이벤트
+       
+    5. `Form 클로즈 이벤트`
+        - FrmMain_FormClosing 이벤트 : 폼이 닫히는 도중에 이벤트
+        - FrmMain_FormClosed 이벤트  : 폼이 완전히 닫힌 뒤 이벤트
+    6. 총정리
+        - 메서드 -> 대리자 -> 이벤트 -> 사용자가 연결해서 동작시킴
+        - delegate : 메서드를 저장하고 실행하는 타입
+        - event : delegate에게 '무슨일이 발생하면 실행해'라고 해주는 역할
+        - +=, -= : 이벤트 구독(이벤트핸들러 연결), 이벤트 구독해제
+### C# 고급문법
 6. 람다식
 7. LINQ
 8. 비동기 

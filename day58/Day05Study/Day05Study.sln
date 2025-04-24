@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp01", "SyntaxWinApp01\SyntaxWinApp01.csproj", "{2CFAB0E8-CCFD-406C-8447-8FA99536D8BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp02", "SyntaxWinApp02\SyntaxWinApp02.csproj", "{6FA82D61-1F62-4AFD-95E0-B5C09BC2D097}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CFAB0E8-CCFD-406C-8447-8FA99536D8BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CFAB0E8-CCFD-406C-8447-8FA99536D8BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CFAB0E8-CCFD-406C-8447-8FA99536D8BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CFAB0E8-CCFD-406C-8447-8FA99536D8BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA82D61-1F62-4AFD-95E0-B5C09BC2D097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA82D61-1F62-4AFD-95E0-B5C09BC2D097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA82D61-1F62-4AFD-95E0-B5C09BC2D097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA82D61-1F62-4AFD-95E0-B5C09BC2D097}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12FC309E-879C-40E3-9E15-6148ACF97350}
+	EndGlobalSection
+EndGlobal
