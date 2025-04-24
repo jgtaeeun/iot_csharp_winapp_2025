@@ -1082,7 +1082,7 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
         }
 
         ```
-        - https://github.com/user-attachments/assets/f99fcca1-61d3-45e5-888f-213668270dd0
+        https://github.com/user-attachments/assets/f99fcca1-61d3-45e5-888f-213668270dd0
     4. `Form 오픈이벤트 및 생성자`
         - FrmMain 생성자 : 클래스 생성자
             -  InitializeComponent() 객체 변수 초기화 
@@ -1098,7 +1098,7 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
         - 
 
 
-    - https://github.com/user-attachments/assets/3d38ea99-3b41-4d7c-b198-ddd2fa593345
+       https://github.com/user-attachments/assets/3d38ea99-3b41-4d7c-b198-ddd2fa593345
 
 
     6. 총정리
