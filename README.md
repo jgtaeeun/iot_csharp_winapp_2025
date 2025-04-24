@@ -989,7 +989,7 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
 
 ## 58일차(4/24 목)
 ### C# 문법    
-5. 델리게이트(대리자), 이벤트
+5. 델리게이트(대리자), 이벤트  [C#](./day58/Day05Study/SyntaxWinApp01/FrmMain.cs)
     1. 델리게이트
         - 메서드를 변수처럼 저장하고 호출할 수 있는 타입
         - 보통 선언한 메서드를 직접 호출하는 것과 다르게 대리자는 실행 메서드를 들고 있고, 대리자를 호출하면 대리자가 메서드를 대신 호출해준다.
@@ -1107,8 +1107,34 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
         - event : delegate에게 '무슨일이 발생하면 실행해'라고 해주는 역할
         - +=, -= : 이벤트 구독(이벤트핸들러 연결), 이벤트 구독해제
 ### C# 고급문법
-6. 람다식
-7. LINQ
+6. 람다식 - C#3.0에서 도입 [C#](./day58/Day05Study/SyntaxWinApp02/FrmMain.cs)
+    - 간단한 메서드를 한 줄로 표현하는 문법
+    - 코드를 간결하게 작성하고 싶을 때 사용
+    ```cs
+    Func <int, int, int> add = (a, b) => a + b; 
+    TxtResult.Text += add(10,5);
+
+    Action <string> SayHello = name => MessageBox.Show($"안녕~{name}", "람다식");
+    SayHello("성시원"); 
+    ```
+    - <img src ='./day58/람다식 호출.png'>
+7. LINQ  - C#3.0에서 도입 [C#](./day58/Day05Study/SyntaxWinApp02/FrmMain.cs)
+    - Langauage Integrated Query : 언어에 통합된 쿼리
+    - Database 학습 SQL과 유사
+    - 데이터를 SQL처럼 Query할 수 있는 문법
+    ```cs
+    numbers = [14, 20, 11, 15, 19, 18, 16, 13, 12,17];
+    var resList2 = from n in numbers
+               where n % 2 == 0
+               orderby n
+               select n;
+    ```
+    ```cs
+     // LINK Method Chain : LINK + 람다식
+    numbers = [24, 30, 21, 25, 29, 28,26, 23, 22, 27];
+    var resList3 = numbers.Where(n => n % 2 == 0).OrderBy(n=>n);
+    ```
+    - <img src ='./day58/버튼클릭 후 LINK호출.png'>
 8. 비동기 
 9. 속성
 10. 제너릭

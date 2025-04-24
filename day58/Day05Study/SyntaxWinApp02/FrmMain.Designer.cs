@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             BtnCheck = new Button();
+            TxtResult = new TextBox();
             SuspendLayout();
             // 
             // BtnCheck
@@ -40,12 +41,22 @@
             BtnCheck.TabIndex = 0;
             BtnCheck.Text = "확인";
             BtnCheck.UseVisualStyleBackColor = true;
+            BtnCheck.Click += BtnCheck_Click;
+            // 
+            // TxtResult
+            // 
+            TxtResult.Location = new Point(24, 12);
+            TxtResult.Multiline = true;
+            TxtResult.Name = "TxtResult";
+            TxtResult.Size = new Size(535, 283);
+            TxtResult.TabIndex = 1;
             // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 361);
+            Controls.Add(TxtResult);
             Controls.Add(BtnCheck);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -54,10 +65,12 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "고급학습 윈앱";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button BtnCheck;
+        private TextBox TxtResult;
     }
 }
