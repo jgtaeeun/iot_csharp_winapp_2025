@@ -1,0 +1,153 @@
+
+0. 이미지파일
+0-1)도구상자-공용컨트롤-PictureBox
+로컬이미지/Resources.resxd에서 가져오기 
+Pic.Image = Resources.girl;
+
+0-2)도구상자-구성요소-lmgList 
+로컬에서가져오기
+이미지크기조정
+컨트롤속성에 imageList, imageIndex가 있는 경우 사용가능(예: ListView, TreeView, Button, ToolStrip)
+
+1. 윈앱컨트롤
+1-1)NumericUpDown 
+1-2)RichTextBox 
+마우스 휠로 Ctrl 키와 함께 글자 확대/축소가 되는 건 기본적으로 지원되는 기능
+글꼴, 글자색 변경 가능. ms word파일에서 가능.
+ScrollBars : 컨트롤 오른쪽, 하단에 스크롤바 생성 . 보통 ForcedBoth, ForcedVertical 설정함
+WordWrap : 컨트롤 길이를 넘어가면 자동으로 줄바꿈 여부. true면 자동줄바꿈
+1-3)대부분 컨트롤 속성
+Font
+Anchor
+Dock
+
+2. 예외처리
+try
+catch
+finally
+
+try tab2번하면 trycatch자동완성
+tryf tab2번하면 tryfinally자동완성
+
+textbox글자수제한-maxlength
+0으로 나누는 에러- ArithmeticException
+
+3. 형변환
+큰바이트 데이터형에 작은바이트 데이터형 값을 할당하면 문제없이 사용가능(묵시적 형변환)
+작은바이트 데이터형에 큰바이트 데이터형 값을 할당하면 문법적 오류 => 명시적형변환으로 해결
+
+.parse(string)
+person.Gender = char.Parse(TxtGender.Text.Trim());
+
+Convert.ToInt32
+person.Age = Convert.ToInt32(NudAge.Value);
+
+
+4. 컬렉션 + 콤보박스
+배열
+string[] fruits = { "사과", "바나나", "딸기", "망고", "블루베리" };
+CboArray.Items.AddRange(fruits);
+
+리스트
+List<string> lFruits = ["용과", "망고스틴", "애플망고", "자몽"];
+CboList.DataSource = lFruits;
+
+
+딕셔너리
+Dictionary <string, string> d = new Dictionary<string, string> {
+	{"KR", "대한민국"},
+	{"US","미국"}
+} ;
+
+CboDictionary.DataSource = new BindingSource (dCountry, null);
+CboDictionary.DisplayMember = "Value";  //사용자에게 보이는 이름
+CboDictionary.ValueMember = "Key";      //내부적으로 선택되는 값
+
+*콤보박스에 DataSource를 설정하면: CboList.SelectedIndex,CboDictionary.SelectedIndex는 자동으로 0이 됩니다.
+
+5. 파일입출력
+5-1)txt파일 입출력 
+글자굵기변경,글자색변경하고 저장한 파일을 로드했을 때, 적용이 다 지워짐
+
+string filePath = "sample.txt";
+파일저장)File.WriteAllText(filePath, RtbResult.Text);
+파일로드) if (File.Exists(filePath))
+            {
+                string content = File.ReadAllText(filePath);
+                RtbResult.Text = content;
+            }
+
+5-2)rtf파일 입출력
+string filePath = "sample.rtf";
+파일저장) RtbResult.SaveFile(filePath, RichTextBoxStreamType.RichText);
+파일로드) if (File.Exists(filePath))
+            {
+                 RtbResult.LoadFile(filePath, RichTextBoxStreamType.RichText);
+            }
+
+5-3)openFileDialog, saveFileDialog 이용한 입출력
+OpenFileDialog를 이용해 RTF/Word 파일을 읽고, 그 내용을 RichTextBox에 표시하는 구조야.
+도구상자-대화-OpenFileDialog,saveFileDialog, ColorDialog
+
+ private void BtnLoad_Click(object sender, EventArgs e)
+ {
+            DlgOpen.Filter = "RTF파일 (*.rtf)|*.rtf|워드파일 (*.docx)|*.docx";
+            DlgOpen.Title = "RTF파일 읽기";
+
+            if (DlgOpen.ShowDialog() == DialogResult.OK)
+            {
+                
+                   RtbResult.LoadFile(DlgOpen.FileName, 					RichTextBoxStreamType.RichText);
+
+               }
+                           
+
+ }
+
+  private void BtnSave_Click(object sender, EventArgs e)
+ {
+            DlgSave.Filter = "RTF파일 (*.rtf)|*.rtf|워드파일 (*.docx)|*.docx";
+            DlgSave.Title = "문서파일 저장";
+
+           
+            if (DlgSave.ShowDialog() == DialogResult.OK)
+            {
+             RtbResult.SaveFile(DlgSave.FileName, RichTextBoxStreamType.RichText);
+
+                }
+            
+
+ }
+
+6)RichTextBox의 글꼴, 글색상 바꾸기
+6-1) 글꼴 굵게
+private void BtnBold_Click(object sender, EventArgs e)
+    {
+        Font currFont = RtbResult.SelectionFont;
+        FontStyle newStyle;
+
+        if (currFont.Bold)
+        {
+            newStyle = currFont.Style & ~FontStyle.Bold;  // Bold 제거
+        }
+        else 
+        {
+            newStyle = currFont.Style | FontStyle.Bold;   //Bold 추가
+        }
+        RtbResult.SelectionFont = new Font(currFont, newStyle);
+    }
+
+6-2)DialogColor 
+ColorDialog (DlgColor)은 ShowDialog()를 호출했을 때 사용자에게 색상을 선택하게 해주는 UI를 띄우는 역할을 하므로, 초기 색상을 지정하지 않아도 기본값(보통은 Black)이 사용됩니다.  
+
+ private void BtnRed_Click(object sender, EventArgs e)
+        {
+            
+            if (RtbResult.SelectionLength > 0)
+            {
+                if (DlgColor.ShowDialog() == DialogResult.OK)
+                {
+                    RtbResult.SelectionColor = DlgColor.Color;
+                }
+            }
+        }
