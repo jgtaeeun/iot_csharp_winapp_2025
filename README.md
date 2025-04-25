@@ -1317,7 +1317,7 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
       
          
 ## 59일차(4/25 금)
-### 윈앱 컨트롤 5
+### 윈앱 컨트롤 5   [C#](./day59/Day06Study/ControlZip/FrmMain.cs)
 - BackgoundWorker : 화면 뒷단에서 작업할 일중 스레드 처리가 되어야할 부분을 손쉽게 동작시켜주는 컨트롤(화면 표시X)
 
     - Bgw로 이름 시작
@@ -1325,6 +1325,73 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
     - DoWork : 백그라운드(스레드) 작업
     - ProgressChanged : UI 변화 처리 작업
     - RunWorkerCompleted : 작업완료시 UI 처리
+- CheckBox : 여러개에서 다수를 선택할 수 있는 컨트롤(라디오버튼과 동작이 반대)  
+    - 보통 Chk로 이름 시작
+    - Checked : 선택 여부
+    - CheckedState 
+        - UnChecked : 체크를 안 한 상태
+        - Intermediate : 모호한 상태(하위 체크가 일부는 선택되고, 일부는 체크가 안됐을 때)
+    - (이벤트)CheckedChanged : 기본이벤트. 체크상태가 변경되면 발생
+- TrackBar : 사운드, 화면밝기 등 최소, 최대를 스크롤로 조정하는 컨트롤
+    - 보통 Trb로 이름 시작
+    - Minimum, Maximum
+    - TickFequency  : 간격표시 줄 . (Minimum=0, Maximum=100일 때, TickFequency=10이면 간격10칸)
+    - (이벤트) Scroll : 기본이벤트.가로로 스크롤 이동시 발생하는 이벤트
+- TreeView : 탐색기 하드디스크, 폴더 나타내는 부분과 동일한 컨트롤 
+    - Trv로 이름 시작
+    - ImageList : 아이콘 이미지 설정
+    - (이벤트)AfterSelect, AfterExpand, AfterCollapse
+- ListView : 탐색기 오른쪽 목록을 표시하는 데 사용하는 컨트롤
+    - Lsv로 이름 시작
+    - 속성- View : LargeIcon, SmallIcon, List, Detail 
+    - 속성 - LargeIcon, SmallIcon : 아이콘 이미지설정
+    - (이벤트)SelectedIndexChanged : 아이콘 선택이 변경될 때 이벤트 발생
+- MonthCalendar : 스케줄 등록을 위한 컨트롤
+    - Cal로 이름 시작
+    - FirstDayOfWeek : 한주 시작일을 설정. Default는 일요일부터
+    - (이벤트)DateChanged : 기본이벤트, 날짜 변경 시 발생
+- DateTimePicker : 단순 일자 선택하는 컨트롤
+    - Dtp로 이름 시작
+    - 속성, 이벤트 거의 사용 안함
+- LinkLabel : 링크 클릭 컨트롤
+    - 기존 Label 컨트롤과 유사
+    - (이벤트) LinkClicked : 버튼과 같이 클릭하는 이벤트
+- MenuStrip : 프로그램 메뉴관리
+    - Mnu로 이름 시작. 사용하는 메뉴는 반드시 이름을 변경할 것(예: 끝내기(&X)의 경우, 끝내기XMenuStrip와 같이 이름이 생성되니깐 수정하기)
+    - 메뉴 이름 작성시 (&X)와 같이 사용하면 영문자 아래 밑줄 표시됨
+- ToolTip : 각 컨트롤에 툴팁아이콘 표시 컨트롤
+    - 툴팀컨트롤 하나로 모든 컨트롤의 툴팀 관리 가능
+    - 마우스로 컨트롤에 가져다대면 컨트롤의 설명을 나타남
+    - Form_Load에서 작성
+### C# 기본문법 [C#](./day59/Day06Study/ControlZip/FrmMain.cs)
+- enum : 열거형, 필요한 목록의 수로된 키값을 문자로 변경해서 사용하는 구조체
+    - 비트연산 &, | 
+    ```cs
+    // 굵게, 기울임꼴, 밑줄, 취소선 0001|0010|0100|1000 = 1111
+    // 굵게, 기울임꼴 0001|0010 \0011
+    public enum FontStyle
+    {
+    
+        /// 일반  0000
+        Regular = 0,
+
+        /// 굵게  0001
+        Bold = 1,
+
+        /// 기울임꼴  0010
+        Italic = 2,
+
+        /// 밑줄  0100
+        Underline = 4,
+    
+        /// 취소선  1000
+        Strikeout = 8,
+    }
+    ```
+- 모달창, 모달리스창 : 창위에 다른창을 띄울 때 접근권한 제어 형태
+    - Modal : 부모창과 연관된 작업을 할 때 사용. 모달창이 닫히지 않으면 부모창을 제어할 수 없음
+    - Modaless : 부모창과 상관없이 동작 . 메인창을 언제나 닫을 수 있고 메인창을 닫으면 모두 종료되기에 사용시 주의. 
+    - MessageBox : 기본적으로 Modal창으로 동작.  모달창이 닫히지 않으면 부모창을 제어할 수 없음
 ### C# 고급문법 
 10. 비동기 + StatusStrip(StatusLabel, ProgressBar) [C#](./day59/Day06Study/SyntaxWinApp01/FrmMain.cs)
     - 네 번째 방법 : BackgoundWorker 클래스 사용
@@ -1407,7 +1474,8 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
     https://github.com/user-attachments/assets/c0678e3f-2b7c-43e4-8deb-56289a9b082c
 
 
-### C# 응용 -WPF
-
+### 윈앱컨트롤 모음집 + 모달창 [C#](./day59/Day06Study/ControlZip/FrmMain.cs)
 ## 60일차(4/28 월)
 
+
+### C# 응용 -WPF

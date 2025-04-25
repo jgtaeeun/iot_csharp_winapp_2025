@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp01", "SyntaxWinApp01\SyntaxWinApp01.csproj", "{263C363E-93DD-4F66-ABE4-E02E14F4226A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlZip", "ControlZip\ControlZip.csproj", "{966BAD9E-21C5-4191-BC03-50DFAFC996F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{263C363E-93DD-4F66-ABE4-E02E14F4226A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{263C363E-93DD-4F66-ABE4-E02E14F4226A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{263C363E-93DD-4F66-ABE4-E02E14F4226A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{966BAD9E-21C5-4191-BC03-50DFAFC996F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{966BAD9E-21C5-4191-BC03-50DFAFC996F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{966BAD9E-21C5-4191-BC03-50DFAFC996F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{966BAD9E-21C5-4191-BC03-50DFAFC996F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
