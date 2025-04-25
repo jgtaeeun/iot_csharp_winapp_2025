@@ -1260,6 +1260,11 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
         }
         ```
         - <img src ='./day58/응답없음.png'>
+        
+
+        https://github.com/user-attachments/assets/a6aab8e9-e61f-4f5b-8320-a250fd6d1874
+
+
         - 첫 번째 해결 방법 : Application.DoEvents()메서드 추가. 권장x
         - 두 번째 해결 방법 : 비동기 async, await키워드로 해결
         ```cs
@@ -1303,8 +1308,14 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
             BtnStart.Enabled = true;
         }
         ```
+        
+
+        https://github.com/user-attachments/assets/2a65d156-096b-4d76-bdc6-ec8d593a2321
+
+
         - 세 번째 방법 : 전통적인 스레드 사용, 권장 X
-        - 네 번째 방법 : BackgoundWorker 클래스 사용
+      
+         
 ## 59일차(4/25 금)
 ### C# 고급문법 
 10. 비동기 + StatusStrip(StatusLabel, ProgressBar) [C#](./day58/Day05Study/SyntaxWinApp03/FrmMain.cs)
