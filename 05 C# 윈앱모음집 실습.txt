@@ -1,0 +1,37 @@
+
+0.  메뉴탭 & stateStrip & 튤팀
+
+메뉴탭은 FrmMain[디자인]에서 만든 메뉴 컨트롤의 기본이벤트(클릭)에서 정의
+stateStrip은 stateLabel만들고 필요할 때, label.Text를 할당
+튤팀은 Form_Load()에서 정의
+
+1. 공용컨트롤
+FrmMain_Load(object sender, EventArgs e) 함수내에서 폰트 가져오기
+changeFont() 함수만들기
+체크박스, 콤보박스 컨트롤의 기본이벤트에서 changeFont() 함수호출
+
+
+
+2. 트랙바
+트랙바 기본이벤트에서 진행바의 value = 트랙바의 value
+
+3. 모달, 모달리스
+모달버튼, 모달리스버튼, 메시지박스 버튼 클릭이벤트에서 폼, 메시지박스 만들기
+
+
+4. 트리뷰, 리스트뷰
+트리뷰 컨트롤 + 버튼 컨트롤의 기본이벤트 
+트리뷰(TreeView)의 노드를 ListView에 텍스트 + 깊이 정보 + 아이콘 형태로 옮기는 재귀 함수
+
+5. pictureBox
+이미지 열기 버튼의 기본 클릭이벤트에서 openImageDlg를 이용해서 사진 가져오기 +pictureBox.Image = 가져온사진
+
+6. 스래드, 백그라운드 워커
+6-1)버튼의 기본이벤트클릭에서 동기함수
+6-2)버튼의 기본이벤트클릭에서 비동기함수 (backgroundWorker을 Form_load()에서 정의/backgroundWorker1_DoWork,backgroundWorker1_ProgressChanged,backgroundWorker1_RunWorkerCompleted)
+
+7. 기타 컨트롤
+7-1. monthCalendar의 기본이벤트DateChanged
+7-2. dateTimePicker의 기본이벤트ValueChanged
+7-3 linkLabel의 기본이벤트LinkClicked
+7-4. 파일 읽어오기, 저장은 openfileDlg, saveFileDlg를 이용하기 + 버튼의 기본클릭이벤트
