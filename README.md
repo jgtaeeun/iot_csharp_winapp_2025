@@ -1188,7 +1188,7 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
     - 대문자 T는 아무거나 사용해도 무방 . 대문자 한글자를 선호
     2. 제너릭 클래스
     ```cs
-      public class Box<T> 
+    public class Box<T> 
     {
         public T data {  get; set; } //속성
 
@@ -1317,9 +1317,92 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
       
          
 ## 59일차(4/25 금)
+### 윈앱 컨트롤 5
+- BackgoundWorker : 화면 뒷단에서 작업할 일중 스레드 처리가 되어야할 부분을 손쉽게 동작시켜주는 컨트롤(화면 표시X)
+
+    - Bgw로 이름 시작
+    - 일반 속성은 잘 사용안함 . 이벤트 3가지는 모두 사용
+    - DoWork : 백그라운드(스레드) 작업
+    - ProgressChanged : UI 변화 처리 작업
+    - RunWorkerCompleted : 작업완료시 UI 처리
 ### C# 고급문법 
-10. 비동기 + StatusStrip(StatusLabel, ProgressBar) [C#](./day58/Day05Study/SyntaxWinApp03/FrmMain.cs)
+10. 비동기 + StatusStrip(StatusLabel, ProgressBar) [C#](./day59/Day06Study/SyntaxWinApp01/FrmMain.cs)
     - 네 번째 방법 : BackgoundWorker 클래스 사용
+        - .NET에 특화된 스레드사용 클래스
+        - 전통적인 스레드를 쉽게 쓸 수 있게 변형
+        - 취소기능을 추가할 수 있음
+        ```cs
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            BgwProcess.WorkerReportsProgress = true;
+            BgwProcess.DoWork += BgwProcess_DoWork;  
+            BgwProcess.ProgressChanged += BgwProcess_ProgressChanged; 
+            BgwProcess.RunWorkerCompleted += BgwProcess_RunWorkerCompleted; 
+
+            BtnStart.Click += BtnStart_Click;
+        }
+
+        private void BtnStart_Click(object? sender, EventArgs e)
+        {
+            LblState.Text = "현재상태 : 진행";
+            BtnStart.Text = "진행 중";
+            BtnStart.Enabled = false;
+
+            PrgProcess.Minimum = 0;
+            PrgProcess.Maximum = 100;
+            PrgProcess.Value = 0;
+
+            TxtLog.Clear();
+
+            BgwProcess.RunWorkerAsync(); //백그라운드 작업 시작
+
+        }
+
+        //백그라운드 실제 작업
+        private void BgwProcess_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            long MaxVal = 200;
+            long total = 0;
+
+            for (int i = 0; i < MaxVal; i++) 
+            {
+                total += i % 3;
+
+                int progress = (int)((i * 100) / MaxVal) + 1;
+                BgwProcess.ReportProgress(progress, i);
+
+                Thread.Sleep(50);
+            }
+        }
+
+        //진행상태를 UI에 업데이트
+        private void BgwProcess_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            //DoWork()함수의 ReportProgress(progress, i)
+            int progress = e.ProgressPercentage;  //int형인 progress
+            int currVal = (int) e.UserState;         //object형인 i
+
+            PrgProcess.Value = progress;
+
+            TxtLog.AppendText(currVal.ToString()+"\r\n");
+            TxtLog.SelectionStart = TxtLog.Text.Length;
+            TxtLog.ScrollToCaret();
+
+            LblState.Text = $"현재상태 : {progress}";
+
+
+        }
+        //백그라운드 작업 완료된 후 처리 이벤트
+        private void BgwProcess_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
+        {
+            LblState.Text = "현재상태 : 중지";
+            BtnStart.Text = "시작";
+            BtnStart.Enabled = true;
+
+        }
+        ```
+    - 복잡한 비동기 작업이 많으면 Task기반을 사용권장(async, await, invoke, Task)
+
 ### C# 응용 -WPF
 
 ## 60일차(4/28 월)

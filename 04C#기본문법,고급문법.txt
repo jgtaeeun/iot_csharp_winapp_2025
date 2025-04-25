@@ -1,0 +1,112 @@
+0. 윈앱컨트롤 StatusStrip
+StatusLabel : 글자만 표시 , Lbl로 이름 시작
+
+1. delegate와 이벤트 
+윈앱에서 이벤트처리는 대리자로 이루어진다.
+public delegate void EventHandler(object? sender, EventArgs e);
+private void FrmMain_Load(object sender, EventArgs e) { }
+private void BtnCheck_Click(object sender, EventArgs e){}
+
+델리게이트와 그것이 참조할 메서드는 반드시 시그니처(매개변수 타입과 개수, 반환 타입)가 일치해야 합니다.
+하나의 대리자가 여러개의 메서드를 호출할 수 있음
+delegate void MyDelegate(string msg);
+
+MyDelegate del = SayHello;
+del += SayGoodBye;
+del -= SayHello;
+del("baby good bye~");
+
+FrmMain 생성자 : 클래스 생성자
+FrmMain_Load 이벤트 : 폼이 로드(메모리 업)될 때 처리할 내용
+FrmMain_Activated 이벤트 : 폼이 활성화(바탕화면 가장 위에서 동작하는 상태)될 때 처리될 이벤트
+FrmMain_Shown 이벤트 : 폼이 바탕화면에 그려질 때 이벤트
+ FrmMain_FormClosing 이벤트 : 폼이 닫히는 도중에 이벤트
+FrmMain_FormClosed 이벤트  : 폼이 완전히 닫힌 뒤 이벤트
+
+2. action, Func
+ Action<string> act = SayHello;
+   act("성시원");
+
+3. 람다식
+ Func <int, int, int> add = (a, b) => a + b; 
+ TxtResult.Text += add(10,5);
+
+  Action <string> SayHello = name => MessageBox.Show($"안녕~{name}", "람다식");
+  SayHello("성시원"); 
+
+4. LINQ
+
+numbers = [14, 20, 11, 15, 19, 18, 16, 13, 12,17];
+ var resList2 = from n in numbers
+               where n % 2 == 0
+               orderby n
+               select n;
+
+
+5. 속성
+첫번째 글자 대문자
+{get; set;} 형태로 구성
+UI 클래스(속성) : UI 상태나 외형, 기능 컨트롤 . 폼 디자인, 코드 둘 다 사용
+
+6. partial 클래스
+디자인에 관련된 소스코드는 *.Designer.cs로 분리
+기능에 필요한 소스코드만 *.cs로 분리
+
+7. 제네릭 메서드, 제네릭 클래스
+public void PrintI<T>(T data){Debug.WriteLine(data);
+
+public class Box<T> 
+    {
+        public T data {  get; set; } //속성
+
+        public void Show() 
+        {
+            MessageBox.Show($"Box 클래스의 속성 값: {data}" , "제네릭클래스" , MessageBoxButtons.OK, 		MessageBoxIcon.Information);
+        }
+
+    }
+Box<int> intBox = new Box<int>();
+intBox.data = 20250424;
+intBox.Show();
+
+
+8. 비동기 async, await, Invoke
+  private async void BtnStart_Click(object sender, EventArgs e)
+        {
+            LblCurrState.Text = "현재상태 : 진행";
+            BtnStart.Text = "진행중";
+            BtnStart.Enabled = false; //처리동안은 버튼 클릭 못함.
+
+            //1-1.엄청난 시간이 걸리는 연산 수행
+            long MaxVal = 200;
+            long total = 0;
+            PrgProcess.Minimum = 0;
+            PrgProcess.Maximum = 100;
+
+            await Task.Run(() => {
+
+            for (int i = 0; i < MaxVal; i++)
+            {
+                total += i % 3;
+                int progress = (int)((i * 100 / MaxVal)) + 1;
+                Console.WriteLine(progress.ToString());
+                //Task.Run 내 들어가는 UI처리 로직
+                this.Invoke(new Action(() => {
+
+                    TxtLog.Text += i.ToString() + "\r\n";
+                    TxtLog.SelectionStart = TxtLog.Text.Length;
+                    TxtLog.ScrollToCaret();
+                    PrgProcess.Value = progress;
+
+                
+                }));
+                    Thread.Sleep(50);
+
+            }
+
+            });
+            
+            LblCurrState.Text = "현재상태 : 중지";
+            BtnStart.Text = "시작";
+            BtnStart.Enabled = true;
+        }
