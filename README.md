@@ -1475,6 +1475,18 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
 
 
 ### 윈앱컨트롤 모음집 + 모달창 [C#](./day59/Day06Study/ControlZip/FrmMain.cs)
+- 폰트 굵게 기울임 텍스트 박스, 트랙바, 모달창, 모달리스창, 루트추가 노드추가 ,픽쳐박스 열기 ,메뉴탭 종료
+
+
+https://github.com/user-attachments/assets/a894aa77-136d-4303-91ca-b03d0c5b931d
+
+
+- 노스레드 -응답없음 ,스레드,스레드 - 정지, 달력, dateTimePicker, 네이버링크, 빨간글씨로 강조한 파일 저장, 파일 로드, 폼 종료
+  
+
+https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
+
+
 ## 60일차(4/28 월)
 
 
