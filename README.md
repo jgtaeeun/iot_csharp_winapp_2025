@@ -1402,6 +1402,10 @@ https://github.com/user-attachments/assets/7134d3d5-a5a3-41f7-bd86-4b793a25b0db
         }
         ```
     - 복잡한 비동기 작업이 많으면 Task기반을 사용권장(async, await, invoke, Task)
+    
+
+    https://github.com/user-attachments/assets/c0678e3f-2b7c-43e4-8deb-56289a9b082c
+
 
 ### C# 응용 -WPF
 
