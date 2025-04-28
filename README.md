@@ -1718,6 +1718,11 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
 
         }
         ```
+        
+
+        https://github.com/user-attachments/assets/5930d4dd-b946-4369-b29e-4e2e8884743f
+
+
  ## 61일차(4/29 화)
 - 네비게이션
     - 화면 전환
