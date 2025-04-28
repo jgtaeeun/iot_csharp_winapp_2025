@@ -1576,6 +1576,7 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
+        </Grid>
         ```
         - ColumnDefinition - Width 에 숫자 + *
         - RowDefinition - Height에 숫자 + *

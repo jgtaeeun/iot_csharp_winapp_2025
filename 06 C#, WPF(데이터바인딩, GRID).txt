@@ -1,0 +1,104 @@
+1. WPF 첫 실습
+
+2. WPF GRID
+Grid.Row, Grid.Column
+
+
+Margin : 외부여백
+            - 10 : 전체 다 10의 공백을 여백
+            - 10, 20 : 왼쪽/오른쪽 여백, 위/아래 여백
+            - 10,5,20,30 : 왼쪽, 위, 오른쪽, 아래 여백
+
+<Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+</Grid>
+
+
+ColumnDefinition - Width 에 숫자 + *
+RowDefinition - Height에 숫자 + *
+Width, Height * : 배수
+
+ 숫자만 사용하면 크기 픽쳐박스
+<Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Grid.Column="1" Background="Aquamarine">
+                
+            </Grid>
+</Grid>
+
+
+3. WPF 컨트롤
+StackPanel : 스택처럼 컨트롤을 쌓는 레이아웃. `Orientation
+ DockPanel: DockPanel.Dock
+ WrapPanel:창이 커지면 한줄로 붙기도 함
+ Canvas : 컨트롤 자체 좌표를 제공하는 레이아웃
+
+4. 데이터 바인딩
+4-1. CboCollection.ItemsSource = sungsimdangItems;
+
+4-2.{Binding sungsimdangItems}
+this.DataContext = this;
+
+4-3.NuGet 패키지 관리자
+- DB연결 문자열: connectionString
+        - 쿼리 문자열 : query
+        - DB연결 객체 :  MySqlConnection
+        - 명령실행객체(쿼리문 실행해주는 객체) : MySqlCommand
+        - 실행결과리더객체(쿼리결과 데이터) : MySqlDataReader
+
+
+
+private void LoadDivisionFromDataBase()
+        {
+            string connectionString = "Server=localhost;Database=madang;Uid=root;Pwd=12345;Charset=utf8;";
+            string query = "SELECT publisher, bookname FROM Book";
+
+            List<KeyValuePair<string, string>> divisions = new List<KeyValuePair<string, string>>();
+
+            //db연결, 할당, 
+            //using을 쓰면 db.close()를 using문이 대신 실행
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read()) 
+                    { var division = reader.GetString("publisher");  //reader.GetString(0)은 지양!
+                        var names = reader.GetString("bookname");
+                        divisions.Add(new KeyValuePair<string, string>(division, names));
+                    }
+                
+
+
+                }
+                catch (Exception ex) 
+                { 
+                    MessageBox.Show($"DB연결실패!:{ex.Message}","오류",MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                //conn.Close();
+            }
+
+
+            CboDivision.ItemsSource = divisions;
+
+        }
