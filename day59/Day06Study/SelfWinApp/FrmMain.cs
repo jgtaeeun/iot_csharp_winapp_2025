@@ -14,7 +14,7 @@ namespace SelfWinApp
 
         List<Question> QuizList;
         List<int> QNum;
-
+        List<int> answeredQuestions = new List<int>();   //푼 문제를 다시 풀면 카운팅하지 않도록
         int currentQuestionIndex = 0;  // 현재 보여지는 문제 번호
         int progressNum = 0; //푼 문제 개수
 
@@ -165,7 +165,7 @@ namespace SelfWinApp
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {   
+        {
             if (QNum == null || QNum.Count == 0) return;
 
 
@@ -235,6 +235,52 @@ namespace SelfWinApp
                 }
             }
 
+        }
+
+        private void TooltipSave_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "RTF파일 (*.rtf)|*.rtf|워드파일 (*.docx)|*.docx";
+            saveFileDialog1.Title = "문서파일 저장";
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.RichText);
+
+            }
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("종료하시겠습니까?", "종료여부", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                //종료를 안 시킴
+                e.Cancel = true;
+            }
+        }
+
+        private void ToolTipHelp_Click(object sender, EventArgs e)
+        {
+            Form frmModal = new Form();
+            frmModal.Text = "도움말";
+            frmModal.Width = 400;  // 크기 조정 (너비를 늘려서 텍스트가 잘리지 않게)
+            frmModal.Height =280;  // 폼의 높이 설정
+
+            // 텍스트 내용을 표시할 Label 생성
+            Label lblHelp = new Label();
+            lblHelp.Text = "앱의 목적:\r\n이 앱은 원하는 갯수의 문제를 풀어보며 메모를 색깔을 넣어서 할 수 있는 앱입니다.\r\n\r\n" +
+                "규칙:\r\n각 문제는 4개의 선택지 중 하나를 선택하는 형식입니다.\r\n문제를 푼 후, '정답 확인' 버튼을 눌러 정답을 확인할 수 있습니다.\r\n\r\n" +
+                "조작 방법:\r\n이전’과 ‘다음’ 버튼을 사용하여 문제를 탐색할 수 있습니다.진행률은 프로그레스바를 통해 확인할 수 있습니다.\r\n\r\n"+
+                "추천: 중요한 부분이나 암기해야할 부분을 빨간색으로 강조하여 저장할 수 있는 메모를 활용해보세요";
+            lblHelp.AutoSize = true;  // 내용에 맞게 자동 크기 조정
+            lblHelp.Location = new Point(10, 10);  // 위치 설정 (폼 내에서 10,10 좌표로 위치 지정)
+            lblHelp.MaximumSize = new Size(frmModal.Width - 20, 0);  // 최대 너비를 폼의 너비에 맞게 설정
+
+            // Label을 폼에 추가
+            frmModal.Controls.Add(lblHelp);
+
+            // 모달창 중앙에 띄우기
+            frmModal.StartPosition = FormStartPosition.CenterParent;
+            frmModal.ShowDialog();
         }
     }
 }

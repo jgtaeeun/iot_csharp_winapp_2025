@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             menuStrip1 = new MenuStrip();
             MnuFile = new ToolStripMenuItem();
-            저장ToolStripMenuItem = new ToolStripMenuItem();
+            TooltipSave = new ToolStripMenuItem();
             MnuHelp = new ToolStripMenuItem();
-            도움말보기VToolStripMenuItem = new ToolStripMenuItem();
+            ToolTipHelp = new ToolStripMenuItem();
             radioButton1 = new RadioButton();
             radioButton2 = new RadioButton();
             radioButton3 = new RadioButton();
@@ -72,29 +72,31 @@
             // 
             // MnuFile
             // 
-            MnuFile.DropDownItems.AddRange(new ToolStripItem[] { 저장ToolStripMenuItem });
+            MnuFile.DropDownItems.AddRange(new ToolStripItem[] { TooltipSave });
             MnuFile.Name = "MnuFile";
             MnuFile.Size = new Size(57, 20);
             MnuFile.Text = "파일(&F)";
             // 
-            // 저장ToolStripMenuItem
+            // TooltipSave
             // 
-            저장ToolStripMenuItem.Name = "저장ToolStripMenuItem";
-            저장ToolStripMenuItem.Size = new Size(190, 22);
-            저장ToolStripMenuItem.Text = "다른이름으로 저장(&A)";
+            TooltipSave.Name = "TooltipSave";
+            TooltipSave.Size = new Size(190, 22);
+            TooltipSave.Text = "다른이름으로 저장(&A)";
+            TooltipSave.Click += TooltipSave_Click;
             // 
             // MnuHelp
             // 
-            MnuHelp.DropDownItems.AddRange(new ToolStripItem[] { 도움말보기VToolStripMenuItem });
+            MnuHelp.DropDownItems.AddRange(new ToolStripItem[] { ToolTipHelp });
             MnuHelp.Name = "MnuHelp";
             MnuHelp.Size = new Size(72, 20);
             MnuHelp.Text = "도움말(&H)";
             // 
-            // 도움말보기VToolStripMenuItem
+            // ToolTipHelp
             // 
-            도움말보기VToolStripMenuItem.Name = "도움말보기VToolStripMenuItem";
-            도움말보기VToolStripMenuItem.Size = new Size(150, 22);
-            도움말보기VToolStripMenuItem.Text = "도움말보기(&V)";
+            ToolTipHelp.Name = "ToolTipHelp";
+            ToolTipHelp.Size = new Size(180, 22);
+            ToolTipHelp.Text = "도움말보기(&V)";
+            ToolTipHelp.Click += ToolTipHelp_Click;
             // 
             // radioButton1
             // 
@@ -309,7 +311,9 @@
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "FrmMain";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "퀴즈 윈앱";
+            FormClosing += FrmMain_FormClosing;
             Load += FrmMain_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -324,8 +328,8 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem MnuFile;
         private ToolStripMenuItem MnuHelp;
-        private ToolStripMenuItem 저장ToolStripMenuItem;
-        private ToolStripMenuItem 도움말보기VToolStripMenuItem;
+        private ToolStripMenuItem TooltipSave;
+        private ToolStripMenuItem ToolTipHelp;
         private RadioButton radioButton1;
         private RadioButton radioButton2;
         private RadioButton radioButton3;
