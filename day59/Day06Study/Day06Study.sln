@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxWinApp01", "SyntaxWin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlZip", "ControlZip\ControlZip.csproj", "{966BAD9E-21C5-4191-BC03-50DFAFC996F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfWinApp", "SelfWinApp\SelfWinApp.csproj", "{2464EE20-BED9-40A6-821C-56738224D32F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{966BAD9E-21C5-4191-BC03-50DFAFC996F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{966BAD9E-21C5-4191-BC03-50DFAFC996F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{966BAD9E-21C5-4191-BC03-50DFAFC996F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2464EE20-BED9-40A6-821C-56738224D32F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2464EE20-BED9-40A6-821C-56738224D32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2464EE20-BED9-40A6-821C-56738224D32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2464EE20-BED9-40A6-821C-56738224D32F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

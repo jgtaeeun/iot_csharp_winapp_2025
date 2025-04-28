@@ -1488,6 +1488,239 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
 
 
 ## 60일차(4/28 월)
-
-
 ### C# 응용 -WPF
+- WPF 개요
+    - Window Presentation Foundation 약자. 윈도우에서 표시하기 위한 기초
+    - 윈앱(윈폼즈)을 개선한 버전. 윈앱의 경우, 이미지 표현이 비트맵방식(2D). 용량문제. 계단현상문제가 존재
+    - 비트맵방식의 문제를 해결 -> 벡터방식(텍스트), 속도개선, 용량절약
+
+- WPF 특징
+    - WPF UI 디자인에는 이미지 벡터방식 사용. 비트맵 방식도 혼용가능
+    - XAML : xml 기반의 디자인 문법으로 화면 UI를 디자인. PyQt와 동일
+        - 안드로이드 등 모바일 개발, 자바 FX, Qt디자인 등 화면 UI의 최신 트렌드
+    - HTML로 디자인해도 디자이너가 손쉽게 적용할 수 있음
+    - 백엔드는 C# 윈앱과 거의 동일, 프론트엔드만 차이
+        - 윈앱과는 다르게 코딩으로 디자인을 수행. 윈앱처럼 디자이너 사용 가능
+        - 디자이너 -> Blend for Visual Studio 디자인툴 사용
+        - 개발자 -> VS에거 코딩으로 디자인
+- XAML 
+    - eXtensible Application Markup Langauage : XML 기반 언어
+    - WPF(Windows), UWP(Win, Linux, MacOS), NAUI(모바일) 동일하게 사용
+    - 태그형태로 디자인.<열린태그></닫힌태그> , <태그 내 다른 태크 없을 때 />
+    ```xml
+    <Window x:Class="ex01_wpf_start.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ex01_wpf_start"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+        <Grid>
+            <Button x:Name="BtnClick" Content="CLICK" FontSize="40" FontFamily="NanumGothic" FontWeight="Bold" Click="BtnClick_Click" />
+        </Grid>
+    </Window>
+    
+    ```
+
+- 각 프레임워크별 장점
+    - 윈앱(윈폼)- 오래된 기술로 안정적. 상용/무료 서드파티 컨트롤이 많이 존재. 혼자 UI 개발할 때는 시간절약
+    - WPF 
+        - 비교적 최신기술, UI개발을 코딩으로 가능
+        - MS가 출시하는 대부분의 윈앱이 WPF로 개발
+        - UI 디자인이 매우 세련됨. 키오스크 등 개발에 많이 활용
+        - 디자인 감각만 있으면 직접 컨트롤 제작이 용이
+        - 디자이너와 개발자의 업무를 분리작이 쉬움
+        - GPU를 사용해서 GUI 랜더링을 해서 윈앱보다 성능이 뛰어남
+        - 모바일, UWP 등도 동일하게 개발 가능
+
+- WPF 컴포넌트 (실무에서 쓰이는 UI 컴포넌트) - 서드파티
+    - (상용) 텔레릭 - https://www.telerik.com/
+    - (상용) 데브익스프레스 -https://www.devexpress.com/
+    - (상용) 인프라지틱스 - https://www.infragistics.com/
+    - (무료) **마하앱** -  https://mahapps.com/
+
+### WPF 컨토롤 1
+### WPF 개발방법 
+1. 새프로젝트만들기 - C# , 모든플랫폼, 데스크톱 , **WPF 애플리케이션**       [WPF 시작](./day60/Day07Study//WpfStudyApp01/MainWindow.xaml)
+2. WPF 프로젝트 구조    
+    - 종속성 : 필요한 라이브러리 관리 , NuGet Package로 외부라이브러리 설치
+    - App.xaml : 앱 실행을 관리하는 리소스. 윈앱의 Program.cs와 동일
+        - App.xaml.cs : 비하인드  C# 코드
+    - AssemblyInfo.cs 
+    - MainWindow.xaml : 윈앱의 Form1.Designer.cs와 동일
+        - MainWindow.xaml.cs : 윈앱의 Form1.cs 소스코드와 동일
+3. WPF 기본개발은 윈앱과 거의 일치
+4. WPF 실제개발법
+    - Window : 전체 partial 클래스
+        - MainWindow.xaml.cs와 컴파일시 하나로 통합
+    - UI 작업, 레이아웃 설계부터 시작  [WPF GRID](./day60/Day07Study/WpfStudyApp02/MainWindow.xaml)
+    - Grid 컨트롤: WPF에서 가장 많이 사용하는 레이아웃(중요!) [WPF GRID](./day60/Day07Study/WpfStudyApp03/MainWindow.xaml)
+        - Responsive UI 사용 -  WPF의 기본 디자인 정책
+        - `Grid.Row, Grid.Column `: 그리드 상 컨트롤 위치할 행과 열 인덱스
+        - Margin : 외부여백
+            - 10 : 전체 다 10의 공백을 여백
+            - 10, 20 : 왼쪽/오른쪽 여백, 위/아래 여백
+            - 10,5,20,30 : 왼쪽, 위, 오른쪽, 아래 여백
+        - Padding : 컨트롤 내부 여백
+        - 디자인할 창의 구역을 나눌 때 사용    
+        ```xml
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+        ```
+        - ColumnDefinition - Width 에 숫자 + *
+        - RowDefinition - Height에 숫자 + *
+        - Width, Height * : 배수
+        - 숫자만 사용하면 크기 픽쳐박스
+        - Row, Column를 세부분으로 나눈 뒤, 중앙 외는 고정된 값으로 지정
+        - 외부 그리드와 내부 그리드로 나눠서 작업 수행
+
+        ```xml
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Grid.Column="1" Background="Aquamarine">
+                
+            </Grid>
+        </Grid>
+        ```
+        - <img src='./day60/숫자,배수로 그리드 나누기.png'>
+    - StackPanel : 스택처럼 컨트롤을 쌓는 레이아웃. 
+        - `Orientation`: Vertical(기본), Horizontal
+        - Padding이 없음. 내부 컨트롤에 Margin 처리
+
+    - DockPanel : 윈앱 Dock 속성과 동일
+        - `DockPanel.Dock` : Left, Right, Top, Bottom
+    - WrapPanel : 넓이 영역을 벗어나면 아래로 위치되는 레이아웃
+        - 왼쪽부터 오른쪽으로 컨트롤 위치
+        - 컨트롤 길이가 전체 넓이를 벗어나면 아래로 위치되는
+        - 창이 커지면 한줄로 붙기도 함
+
+    - Canvas : 컨트롤 자체 좌표를 제공하는 레이아웃
+        - `Canvas.Left, Right, Top, Bottom`
+    <img src='./day60/레이아웃 설계(스택,dock, wrap, canvas).png'>
+
+- 데이터바인딩  [WPF 바인딩](./day60/Day07Study/WpfStudyApp04/MainWindow.xaml)
+    - 바인딩방법
+        1. 컬렉션을 생성해서 데이터를 컨트롤에 할당
+        2. DB에서 데이터 가져온 뒤 컨트롤에 할당
+    - 바인딩 방식  
+        1. 직접코드 할당방식
+            - CboCollection.ItemsSource = sungsimdangItems;
+            - 기존 윈앱 방식과 동일
+            - 메모리에 있는 sungsimdangItems 데이터를 대입(할당)
+            - 단순한 속성 사용방식
+        2. `XAML Binding 방식`   
+            - `{Binding sungsimdangItems}`
+            - `this.DataContext = this;`
+            - DataContext 기반으로 속성명 sungsimdangItems을 검색
+            - DataContext에 없으면 실패
+            - BindingManager이 작업을 수행
+            - DataContext는 컨트롤 자체에 할당해도 됨.
+        ```csharp
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            sungsimdangItems = new ObservableCollection<string>
+            {
+                "회오리소세지",
+                "애플브리치즈 샌드위치",
+                "이탈리안 샌드위치",
+                "초코튀소"
+            };
+            //윈앱의 컨트롤.DataSource와 동일한 속성
+            CboCollection.ItemsSource = sungsimdangItems;
+
+            volleyballTeams = new Dictionary<string, string>() {
+                { "천안" , "현대캐피탈 스카이워커스" },
+                { "인천" , "흥국생명 핑크스파이더스"},
+                { "수원"  ,"한국전력 빅스톰"},
+                { "광주"  ,"페퍼저축은행 AI PEPPERS"}
+            };
+
+            //WPF xaml의 전체의 데이터컨텍스트에 현재값을 바인딩
+            this.DataContext = this;
+        }
+        ```
+    - 바인딩 순서
+        1. WPF 바이딩 엔진은 DataContext 객체 안에서 public 접근제어자의 sungsimdangItems라는 값을 검색
+        2. this.DataContext 설정이 없으면 null 상태
+        3. this.DataContext = this로 할당 -> xaml로 전달
+    - 바인딩 모드 : 총 4가지 모드. 그중 2가지만 알면 됨
+        1. TwoWay : 사용중인 곳의 데이터가 변경되면 <-> 원본도 변경
+        2. OneWay : 원본테이터 변경될 때만 -> 사용중인 데이터도 변경
+        3. OneWayToSource : 사용중 데이터가 변경되면 -> 원본을 변경
+        4. OneTime : 앱 시작시 최초에만 사용할 데이터에 업데이트
+- 데이터베이스 데이터 바인딩
+    - NuGet 패키지 관리자 - 파이썬 pip 역할
+    1. 도구- NuGet 패키지 관리자(파이썬 pip 역할)-솔루션용 NuGet패키지 관리 - 찾아보기- MySQL 검색 - 프로젝트 선택 및 mysql 버전 선택 후 설치
+        - <img src='./day60/nuget패키지관리자.png'>
+        - <img src ='./day60/nuget패키지 설치 후 모습.png'>
+    2. MainWindow.xaml의 xml코드에 콤보박스 추가
+    3. MainWindow.xaml.cs 비하인드 코드에서 MySQL 소스 추가
+        - DB연결 문자열: connectionString
+        - 쿼리 문자열 : query
+        - DB연결 객체 :  MySqlConnection
+        - 명령실행객체(쿼리문 실행해주는 객체) : MySqlCommand
+        - 실행결과리더객체(쿼리결과 데이터) : MySqlDataReader
+        - 트랜잭션객체 : 옵션, 트랜잭션 처리시 필요
+        ```csharp
+        private void LoadDivisionFromDataBase()
+        {
+            string connectionString = "Server=localhost;Database=madang;Uid=root;Pwd=12345;Charset=utf8;";
+            string query = "SELECT publisher, bookname FROM Book";
+
+            List<KeyValuePair<string, string>> divisions = new List<KeyValuePair<string, string>>();
+
+            //db연결, 할당, 
+            //using을 쓰면 db.close()를 using문이 대신 실행
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read()) 
+                    { var division = reader.GetString("publisher");  //reader.GetString(0)은 지양!
+                        var names = reader.GetString("bookname");
+                        divisions.Add(new KeyValuePair<string, string>(division, names));
+                    }
+                
+
+
+                }
+                catch (Exception ex) 
+                { 
+                    MessageBox.Show($"DB연결실패!:{ex.Message}","오류",MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                //conn.Close();
+            }
+
+
+            CboDivision.ItemsSource = divisions;
+
+        }
+        ```
+ ## 61일차(4/29 화)
+- 네비게이션
+    - 화면 전환
+
+- 컨트롤 디자인, 리소스
+- MVVM 디자인 패턴
