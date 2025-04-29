@@ -2028,11 +2028,15 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
                         <ComboBoxItem Content="Marathon"></ComboBoxItem> 
             </ComboBox>
             ```
-</StackPanel>
-- MVVM 디자인 패턴
+
+
+            https://github.com/user-attachments/assets/4b0192cb-8771-4b0e-8dc6-c1c9ac5a2f83
+
+
+
 
 ## 62일차(4/30)
-
+- MVVM 디자인 패턴
 ## 63일차(5/7)
 - 코딩테스트 대체 과제
     - toyProject 폴더에 코드 넣기 + ReadMe.md10일차에 영상과 설명글
