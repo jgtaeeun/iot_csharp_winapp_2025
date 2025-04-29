@@ -1725,8 +1725,55 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
 
 
  ## 61일차(4/29 화)
-- 네비게이션
-    - 화면 전환
-
-- 컨트롤 디자인, 리소스
+- 데이터베이스 데이터 바인딩 [WPF Binding, this](./day61/Day08Study/WpfStudyApp01/MainWindow.xaml)
+    - xaml Binding 방식
+    - 프로젝트명 오른쪽마우스- Nuget패키지 관리-찾아보기 mysql -설치
+ 
+- 네비게이션  [WPF 네비게이션](./day61/Day08Study/WpfStudyApp02/MainWindow.xaml)
+    - 메뉴 클릭으로 화면전환
+    - Window, Page 컨트롤
+        - Window(창) : 메인페이지
+        - Page(페이지) : 서브페이지
+    - 프로젝트명 오른쪽 마우스 - 추가 - 페이지
+    - NavigationService 사용
+    - NavigationUIVisibility 속성
+    
+    ```xml
+    <Button x:Name="BtnMenu1" Content ="메뉴1" Margin="10" Width="100" Click="BtnMenu1_Click"></Button>
+    <Frame x:Name="MainFrame" Grid.Row="2" Grid.Column="1" NavigationUIVisibility="Visible"></Frame>
+    ```
+    ```csharp
+    private void BtnMenu1_Click(object sender, RoutedEventArgs e)
+    {
+        MainFrame.Navigate(
+            new Uri("/MenuPage1.xaml", UriKind.RelativeOrAbsolute)
+        );
+    }
+    ```
+- 비트맵 디자인, 벡터 디자인 [WPF ui 컨트롤 구성](./day61/Day08Study/WpfStudyApp03/MainWindow.xaml)
+    1. 비트맵 디자인
+    - 이미지: 속성>빌드작업>리소스 선택 ,속성>출력 디렉토리로 복사> 복사안함 선택
+    ```xml
+    <Image Source="/dog.png" Canvas.Left="20" Canvas.Top="40" Width="64" Height="64"/>
+    <Image Source="/dog.png" Canvas.Left="20" Canvas.Top="110" Width="256" Height="256"/>
+    ``` 
+    2. 벡터 디자인
+    ```xml
+    <Rectangle Width="50" Height="50" Fill="Red" Stroke="Black" StrokeThickness="3" Canvas.Left="10" Canvas.Top="30"></Rectangle>
+    <Ellipse Width="216" Height="50" Fill="Blue" Stroke="Yellow" StrokeThickness="5" Canvas.Left="70" Canvas.Top="30" HorizontalAlignment="Left" VerticalAlignment="Center"></Ellipse>
+    <Path Stroke="Black" Fill="SkyBlue" StrokeThickness="2" Canvas.Left="20" Canvas.Top="85" Width="244" Height="229"
+        Data="M20,60
+                Q10,40 30,40
+                Q25,20 50,20
+                Q70,10 80,30
+                Q100,30 100,50
+                Q120,50 120,70
+                Q100,90 80,80
+                Q70,100 50,90
+                Q40,110 20,90
+                Q0,80 20,60 Z" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top"></Path>
+    ```
+    <img src='./day61/비트맵,벡터 이미지 깨짐유무.png'>
+    <img src='./day61/비트맵, 벡터 이미지 깨짐유무2.png'>
+- 컨트롤 디자인, 리소스 
 - MVVM 디자인 패턴

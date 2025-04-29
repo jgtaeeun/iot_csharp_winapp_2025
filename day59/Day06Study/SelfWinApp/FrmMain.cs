@@ -12,11 +12,13 @@ namespace SelfWinApp
             InitializeComponent();
         }
 
-        List<Question> QuizList;
-        List<int> QNum;
+        List<Question> QuizList;    //출제문제
+        List<int> QNum;             //내가 풀 문제 개수
         List<int> answeredQuestions = new List<int>();   //푼 문제를 다시 풀면 카운팅하지 않도록
         int currentQuestionIndex = 0;  // 현재 보여지는 문제 번호
         int progressNum = 0; //푼 문제 개수
+        int correctNum = 0; //맞힌 문제 개수
+        List<int> wrongNum = new List<int>();  //틀린문제 출제문제번호 저장
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
@@ -167,7 +169,11 @@ namespace SelfWinApp
         private void button3_Click(object sender, EventArgs e)
         {
             if (QNum == null || QNum.Count == 0) return;
-
+            if (answeredQuestions.Contains(currentQuestionIndex))
+            {
+                MessageBox.Show("이미 푼 문제입니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
             int questionIndex = QNum[currentQuestionIndex];   //문제번호
             var question = QuizList[questionIndex];         //문제
@@ -187,15 +193,60 @@ namespace SelfWinApp
 
             if (selectedAnswer == correctAnswer)
             {
+                correctNum++;
                 MessageBox.Show("정답입니다!", "정답 확인", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
+                wrongNum.Add(questionIndex);
                 MessageBox.Show("오답입니다.", "정답 확인", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
             progressNum++;
             textBox1.Text = question.Answer;
             progressBar1.Value = (int)((progressNum / (double)numericUpDown1.Value) * 100);
+            label5.Text = $"{correctNum}/{numericUpDown1.Value}";
+            answeredQuestions.Add(currentQuestionIndex); //이미 푼 문제는 진행률에 포함시키지 않기 위해서
+        }
+
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            
+            Form frmModaless = new Form();
+            frmModaless.Text = "오답노트";
+            frmModaless.Width = 300;
+            frmModaless.Height = 100;
+            
+
+            // 텍스트 내용을 표시할 Label 생성
+            Label lblHelp = new Label();
+            for (int i=0; i<wrongNum.Count; i++) 
+            {
+                switch (wrongNum[i]) 
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+
+                }
+                lblHelp.Text += $"{QuizList[i]}\r\n\r\n" ;
+            }
+         
+            lblHelp.AutoSize = true;  // 내용에 맞게 자동 크기 조정
+            lblHelp.Location = new Point(10, 10);  // 위치 설정 (폼 내에서 10,10 좌표로 위치 지정)
+            lblHelp.MaximumSize = new Size(frmModaless.Width - 20, 0);  // 최대 너비를 폼의 너비에 맞게 설정
+
+            // Label을 폼에 추가
+            frmModaless.Controls.Add(lblHelp);
+
+            //모달리스창일 때 부모창을 클릭할 수 있음->그러므로 부모center이 안 먹힘.
+            frmModaless.StartPosition = FormStartPosition.Manual;
+            frmModaless.Location = new Point(this.Location.X + (this.Width - frmModaless.Width) / 2, this.Location.Y + (this.Height - frmModaless.Height) / 2);
+            frmModaless.Show(this);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -237,6 +288,7 @@ namespace SelfWinApp
 
         }
 
+      
         private void TooltipSave_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "RTF파일 (*.rtf)|*.rtf|워드파일 (*.docx)|*.docx";
@@ -263,13 +315,13 @@ namespace SelfWinApp
             Form frmModal = new Form();
             frmModal.Text = "도움말";
             frmModal.Width = 400;  // 크기 조정 (너비를 늘려서 텍스트가 잘리지 않게)
-            frmModal.Height =280;  // 폼의 높이 설정
+            frmModal.Height = 280;  // 폼의 높이 설정
 
             // 텍스트 내용을 표시할 Label 생성
             Label lblHelp = new Label();
             lblHelp.Text = "앱의 목적:\r\n이 앱은 원하는 갯수의 문제를 풀어보며 메모를 색깔을 넣어서 할 수 있는 앱입니다.\r\n\r\n" +
                 "규칙:\r\n각 문제는 4개의 선택지 중 하나를 선택하는 형식입니다.\r\n문제를 푼 후, '정답 확인' 버튼을 눌러 정답을 확인할 수 있습니다.\r\n\r\n" +
-                "조작 방법:\r\n이전’과 ‘다음’ 버튼을 사용하여 문제를 탐색할 수 있습니다.진행률은 프로그레스바를 통해 확인할 수 있습니다.\r\n\r\n"+
+                "조작 방법:\r\n이전’과 ‘다음’ 버튼을 사용하여 문제를 탐색할 수 있습니다.진행률은 프로그레스바를 통해 확인할 수 있습니다.\r\n\r\n" +
                 "추천: 중요한 부분이나 암기해야할 부분을 빨간색으로 강조하여 저장할 수 있는 메모를 활용해보세요";
             lblHelp.AutoSize = true;  // 내용에 맞게 자동 크기 조정
             lblHelp.Location = new Point(10, 10);  // 위치 설정 (폼 내에서 10,10 좌표로 위치 지정)
@@ -282,5 +334,6 @@ namespace SelfWinApp
             frmModal.StartPosition = FormStartPosition.CenterParent;
             frmModal.ShowDialog();
         }
+
     }
 }
