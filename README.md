@@ -1750,6 +1750,11 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
         );
     }
     ```
+    
+
+    https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
+
+
 - 비트맵 디자인, 벡터 디자인 [WPF ui 컨트롤 구성](./day61/Day08Study/WpfStudyApp03/MainWindow.xaml)
     1. 비트맵 디자인
     - 이미지: 속성>빌드작업>리소스 선택 ,속성>출력 디렉토리로 복사> 복사안함 선택
