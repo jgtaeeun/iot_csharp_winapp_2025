@@ -1535,13 +1535,13 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
         - 모바일, UWP 등도 동일하게 개발 가능
 
 - WPF 컴포넌트 (실무에서 쓰이는 UI 컴포넌트) - 서드파티
-    - (상용) 텔레릭 - https://www.telerik.com/
-    - (상용) 데브익스프레스 -https://www.devexpress.com/
-    - (상용) 인프라지틱스 - https://www.infragistics.com/
-    - (무료) **마하앱** -  https://mahapps.com/
-
-### WPF 컨토롤 1
-### WPF 개발방법 
+    - 참조 -  https://github.com/Carlos487/awesome-wpf
+    - 상용 컴포넌트 제외
+    - (무료) **MahApps.Metro** -  https://mahapps.com/
+    - (무료) Material Design IN XAML ToolKit - http://materialdesigninxaml.net/
+    - (무료) **WPF UI** - https://github.com/lepoco/wpfui
+### WPF 컨트롤 1
+#### WPF 개발방법 
 1. 새프로젝트만들기 - C# , 모든플랫폼, 데스크톱 , **WPF 애플리케이션**       [WPF 시작](./day60/Day07Study//WpfStudyApp01/MainWindow.xaml)
 2. WPF 프로젝트 구조    
     - 종속성 : 필요한 라이브러리 관리 , NuGet Package로 외부라이브러리 설치
