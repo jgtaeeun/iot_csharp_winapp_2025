@@ -13,7 +13,8 @@ namespace SelfWinApp
         }
 
         List<Question> QuizList;    //출제문제
-        List<int> QNum;             //내가 풀 문제 개수
+        int questionCount;          //내가 풀 문제 개수
+        List<int> QNum;             //내가 풀 문제 개수별 랜덤문제 배정
         List<int> answeredQuestions = new List<int>();   //푼 문제를 다시 풀면 카운팅하지 않도록
         int currentQuestionIndex = 0;  // 현재 보여지는 문제 번호
         int progressNum = 0; //푼 문제 개수
@@ -52,12 +53,12 @@ namespace SelfWinApp
                     Answer ="IP: 192.168.10.0/26\r\n/26 → 남은 호스트 비트: 32 - 26 = 6\r\n가능한 주소 수: 2^6 = 64\r\n사용 가능한 호스트 수: 64 - 2 = 62 (네트워크 주소 + 브로드캐스트 주소 제외)"
                 },
             };
-            pictureBox1.Image = Resources.문제1연산자우선순위;
-            radioButton1.Text = QuizList[0].Choices[0];
-            radioButton2.Text = QuizList[0].Choices[1];
-            radioButton3.Text = QuizList[0].Choices[2];
-            radioButton4.Text = QuizList[0].Choices[3];
-
+            //pictureBox1.Image = Resources.문제1연산자우선순위;
+            //radioButton1.Text = QuizList[0].Choices[0];
+            //radioButton2.Text = QuizList[0].Choices[1];
+            //radioButton3.Text = QuizList[0].Choices[2];
+            //radioButton4.Text = QuizList[0].Choices[3];
+            numericUpDown1.Value = 0; // 혹은 기본 문제 수 설정
 
         }
 
@@ -94,7 +95,28 @@ namespace SelfWinApp
         }
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
+            // 문제 수만 저장
+            questionCount = (int)numericUpDown1.Value;
 
+           
+        }
+
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (questionCount <= 0)
+            {
+                MessageBox.Show("문제 수를 선택해주세요.");
+                return;
+            }
+
+            InitQuestions(questionCount); // 여기에 문제 생성, 타이머 초기화 등 다 넣음
+            currentQuestionIndex = 0;
+            LoadQuestion(currentQuestionIndex);
+        }
+
+        private void InitQuestions(int questionCount)
+        {
             QNum = new List<int>();
             Random rand = new Random();
 
@@ -143,8 +165,12 @@ namespace SelfWinApp
                 int index = i; // 클로저 문제 방지
                 questionTimers[i].Tick += (s, e) => Timer_Tick(index);
             }
-            currentQuestionIndex = 0;
-            LoadQuestion(currentQuestionIndex);
+
+            // 기존 상태 초기화
+            progressNum = 0;
+            correctNum = 0;
+            answeredQuestions.Clear();
+            wrongNum.Clear();
         }
 
         private void Timer_Tick(int index)
@@ -231,7 +257,7 @@ namespace SelfWinApp
 
         private void button3_Click(object sender, EventArgs e)
         {
-           
+
 
             if (QNum == null || QNum.Count == 0) return;
             if (answeredQuestions.Contains(currentQuestionIndex))
@@ -334,7 +360,7 @@ namespace SelfWinApp
 
         }
 
-      
+
         private void TooltipSave_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "RTF파일 (*.rtf)|*.rtf|워드파일 (*.docx)|*.docx";
@@ -381,5 +407,6 @@ namespace SelfWinApp
             frmModal.ShowDialog();
         }
 
+        
     }
 }
