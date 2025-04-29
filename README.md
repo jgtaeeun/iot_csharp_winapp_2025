@@ -1883,6 +1883,11 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
             <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource niceButton}"></Button>
             </Window>
             ```
+            
+
+            https://github.com/user-attachments/assets/7e8eee87-dff0-4a15-84f0-7dd62d3d4bff
+
+
 - MahApps.Metro 프레임워크 [WPF MahApps](./day61/Day08Study/WpfStudyApp05/MainWindow.xaml)
     - 공식사이트 - https://mahapps.com/
     - 최소한 노력으로 Metro UI/Modern UI를 적용시킬 수 있는 프레임워크
@@ -1941,6 +1946,10 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
 
             ```
       
+
+            https://github.com/user-attachments/assets/b1e81643-18fc-4123-a26b-cb0d3a16da80
+
+
 - MVVM 디자인 패턴
 
 ## 62일차(4/30)
