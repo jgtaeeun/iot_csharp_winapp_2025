@@ -237,6 +237,7 @@ C# /윈도우 애플리케이션
         - None  : 테두리 없음
         - FixedSingle : 검은색 테두리
         - Fixed3D : 입체감 있는 테두리
+    - PasswordChar : 들어가는 텍스트를 암호처럼 숨길 때 사용. 보통 ㅁ한자키 특수문자● 사용
     - (이벤트)TextChanged : 글자가 변경되면 발생하는 이벤트
     - (이벤트)KeyPress : 키보드 입력이 생기면 발생하는 이벤트 
 - ComboBox : 여러 개 중 아이템을 선택하는 컨트롤 . 기본적으로 단일 선택만 가능합니다. 
@@ -1948,7 +1949,86 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
 
             https://github.com/user-attachments/assets/b1e81643-18fc-4123-a26b-cb0d3a16da80
 
+        7. 아이콘
+            - IconPacks.Browser-net8-v2.0.0.의 IconPacks.Browser에서 왼쪽 폴더명 중 JamIcons을 클릭해서 github아이콘 선택
+            ```xml
+             <mah:MetroWindow.IconTemplate>
+                <DataTemplate>
+                    <iconPacks:PackIconJamIcons Kind="Github" Margin="10,7,0,0" Foreground="White"/>
+                </DataTemplate>
+            </mah:MetroWindow.IconTemplate>
+            ```
+            <img src='./day61/아이콘(iconpacks).png'>
+        8. Theme - Light, Dark 2개
+        9. Accent - Amber~ Yellow 총 23개
+            ```xml
+            <!--App.xaml-->
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Yellow.xaml" />
+            ```
+            <img src='./day61/theme, accent.png'>
+        10. HamburgerMenu 실습
+            - GroupBox 
+            ```xml
+            <GroupBox Grid.Row="1" Grid.Column="2" Margin="5" Header="Control 2">
 
+            </GroupBox>
+            ```
+            - TextBox
+            ```xml
+            <!--AutoWatermark : 워터마크가 글씨가 적히지 않을 때 두껍게 보이고 글자써지면 투명해짐-->
+             <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtName" Margin="2"
+                InputMethod.PreferredImeState="On"
+                InputMethod.PreferredImeConversionMode="Native"
+                mah:TextBoxHelper.AutoWatermark="True"        
+                mah:TextBoxHelper.Watermark="이름입력"
+                mah:TextBoxHelper.ClearTextButton="True"/>
+            ```
+            - RadioButton
+            ```xml
+            <StackPanel Grid.Row="1" Grid.Column="1" Margin="2" Orientation="Horizontal">
+                <RadioButton Content="남자" Margin="5,0"  IsChecked="True"></RadioButton>
+                <RadioButton Content="여자" Margin="5,0" ></RadioButton>
+            </StackPanel>
+            ```
+            - PasswordBox
+            ```xml
+            <!--내가 입력한 비밀번호를 맞는지 확인하기 위해서-->
+            <PasswordBox Grid.Row="2" Grid.Column="1" x:Name="TxtPassword" Password="12345"
+             Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}"/>
+            ```
+            - NumericUpDown
+            ```xml
+             <mah:NumericUpDown Grid.Row="3" Grid.Column="1" Margin="2" Minimum="10" Maximum="90" Value="20"
+                    mah:TextBoxHelper.ClearTextButton="True"/>
+            ```
+            - Gird.ColumnSpan
+            ```xml
+            <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Width="90" Content="Save" Margin="0,0,10,0" 
+                        Style="{StaticResource MahApps.Styles.Button.Square.Accent}"></Button>
+                <Button  Width="90" Content="Cancel"
+                        Background="{StaticResource MahApps.Brushes.Accent}"
+                        Foreground="{StaticResource MahApps.Brushes.Gray10}" />
+            </StackPanel>
+            ```
+            - Grid.RowSpan
+            ```xml
+            <StackPanel Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" >
+                
+            </StackPanel>
+            ```
+            - ComboBox
+            ```xml
+            <ComboBox Grid.Row="4" Grid.Column="1" Margin="2" 
+                    mah:TextBoxHelper.ClearTextButton="True"
+                    mah:ComboBoxHelper.CharacterCasing="Upper">
+                        <ComboBoxItem Content="Cycle"></ComboBoxItem>
+                        <ComboBoxItem Content="Weight Training"></ComboBoxItem>
+                        <ComboBoxItem Content="Climbing"></ComboBoxItem>
+                        <ComboBoxItem Content="Marathon"></ComboBoxItem> 
+            </ComboBox>
+            ```
+</StackPanel>
 - MVVM 디자인 패턴
 
 ## 62일차(4/30)

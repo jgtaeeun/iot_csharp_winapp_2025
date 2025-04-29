@@ -59,6 +59,7 @@
             label1 = new Label();
             label5 = new Label();
             button7 = new Button();
+            labelTimer = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -312,12 +313,22 @@
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
             // 
+            // labelTimer
+            // 
+            labelTimer.AutoSize = true;
+            labelTimer.Location = new Point(170, 309);
+            labelTimer.Name = "labelTimer";
+            labelTimer.Size = new Size(55, 15);
+            labelTimer.TabIndex = 15;
+            labelTimer.Text = "남은시간";
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(button7);
+            Controls.Add(labelTimer);
             Controls.Add(label5);
             Controls.Add(label1);
             Controls.Add(label4);
@@ -389,5 +400,6 @@
         private Label label1;
         private Label label5;
         private Button button7;
+        private Label labelTimer;
     }
 }

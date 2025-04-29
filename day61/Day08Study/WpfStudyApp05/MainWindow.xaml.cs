@@ -20,6 +20,10 @@ namespace WpfStudyApp05
         public MainWindow()
         {
             InitializeComponent();
+            this.Loaded += (s, e) =>
+            {
+                Keyboard.Focus(this);  // 창 전체에 포커스 주기
+            };
         }
     }
 }

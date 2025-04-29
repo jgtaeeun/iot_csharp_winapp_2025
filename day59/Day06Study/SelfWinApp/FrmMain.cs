@@ -20,6 +20,12 @@ namespace SelfWinApp
         int correctNum = 0; //맞힌 문제 개수
         List<int> wrongNum = new List<int>();  //틀린문제 출제문제번호 저장
 
+
+        // 타이머 관련 필드 추가
+        System.Windows.Forms.Timer[] questionTimers;
+        int[] timeLeft;
+
+
         private void FrmMain_Load(object sender, EventArgs e)
         {
             QuizList = new List<Question>
@@ -79,6 +85,12 @@ namespace SelfWinApp
             radioButton3.Text = question.Choices[2];
             radioButton4.Text = question.Choices[3];
 
+            // 타이머 표시 및 실행
+            labelTimer.Text = $"남은 시간: {timeLeft[index]}초";
+            if (!answeredQuestions.Contains(index))
+            {
+                questionTimers[index].Start();
+            }
         }
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
@@ -120,8 +132,59 @@ namespace SelfWinApp
 
             }
 
+            questionTimers = new System.Windows.Forms.Timer[QNum.Count];
+            timeLeft = new int[QNum.Count];
+
+            for (int i = 0; i < QNum.Count; i++)
+            {
+                timeLeft[i] = 60;
+                questionTimers[i] = new System.Windows.Forms.Timer();
+                questionTimers[i].Interval = 1000;
+                int index = i; // 클로저 문제 방지
+                questionTimers[i].Tick += (s, e) => Timer_Tick(index);
+            }
             currentQuestionIndex = 0;
             LoadQuestion(currentQuestionIndex);
+        }
+
+        private void Timer_Tick(int index)
+        {
+            timeLeft[index]--;
+
+            // 현재 보여지는 문제일 경우만 시간 표시 갱신
+            if (index == currentQuestionIndex)
+            {
+                labelTimer.Text = $"남은 시간: {timeLeft[index]}초";
+            }
+
+            if (timeLeft[index] <= 0)
+            {
+                questionTimers[index].Stop();
+                if (!answeredQuestions.Contains(index))
+                {
+                    Invoke(new Action(() =>
+                    {
+                        MessageBox.Show("시간 초과! 자동으로 정답 확인합니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AutoCheckAnswer(index);
+                    }));
+                }
+            }
+        }
+
+        private void AutoCheckAnswer(int index)
+        {
+            int questionIndex = QNum[index];
+            var question = QuizList[questionIndex];
+            int correctAnswer = question.CorrectAnswer;
+
+            // 자동이니까 오답 처리
+            wrongNum.Add(questionIndex);
+
+            progressNum++;
+            textBox1.Text = question.Answer;
+            progressBar1.Value = (int)((progressNum / (double)numericUpDown1.Value) * 100);
+            label5.Text = $"{correctNum}/{numericUpDown1.Value}";
+            answeredQuestions.Add(index);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -168,6 +231,8 @@ namespace SelfWinApp
 
         private void button3_Click(object sender, EventArgs e)
         {
+           
+
             if (QNum == null || QNum.Count == 0) return;
             if (answeredQuestions.Contains(currentQuestionIndex))
             {
@@ -201,6 +266,9 @@ namespace SelfWinApp
                 wrongNum.Add(questionIndex);
                 MessageBox.Show("오답입니다.", "정답 확인", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            // 여기에 타이머 중지 추가
+            questionTimers[currentQuestionIndex].Stop();
 
             progressNum++;
             textBox1.Text = question.Answer;
