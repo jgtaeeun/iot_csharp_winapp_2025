@@ -212,36 +212,14 @@ namespace SelfWinApp
 
         private void button7_Click(object sender, EventArgs e)
         {
-            
-            Form frmModaless = new Form();
-            frmModaless.Text = "오답노트";
-            frmModaless.Width = 300;
-            frmModaless.Height = 100;
-            
 
-            // 텍스트 내용을 표시할 Label 생성
-            Label lblHelp = new Label();
-            for (int i=0; i<wrongNum.Count; i++) 
+            Modaless frmModaless = new Modaless();
+
+            for (int i = 0; i < wrongNum.Count; i++)
             {
-                switch (wrongNum[i]) 
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-
-                }
-                lblHelp.Text += $"{QuizList[i]}\r\n\r\n" ;
+                frmModaless.AddPicture(wrongNum[i]);
             }
-         
-            lblHelp.AutoSize = true;  // 내용에 맞게 자동 크기 조정
-            lblHelp.Location = new Point(10, 10);  // 위치 설정 (폼 내에서 10,10 좌표로 위치 지정)
-            lblHelp.MaximumSize = new Size(frmModaless.Width - 20, 0);  // 최대 너비를 폼의 너비에 맞게 설정
 
-            // Label을 폼에 추가
-            frmModaless.Controls.Add(lblHelp);
 
             //모달리스창일 때 부모창을 클릭할 수 있음->그러므로 부모center이 안 먹힘.
             frmModaless.StartPosition = FormStartPosition.Manual;
