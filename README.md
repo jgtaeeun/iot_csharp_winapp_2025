@@ -1869,7 +1869,7 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
                 </RadialGradientBrush>
             </ResourceDictionary>
             ```
-              ```xml
+            ```xml
             <!--리소스 사용  MainWindow.xaml-->
             <Window x:Class="WpfStudyApp04.MainWindow"
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1943,7 +1943,6 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
 
                     </Grid>
             </mah:MetroWindow>
-
             ```
       
 
