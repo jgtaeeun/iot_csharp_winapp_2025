@@ -2340,6 +2340,11 @@ https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
     ```xml
     <ui:InfoBar Title="Title" Message="Essential message." IsOpen="True"  Severity="Success" Margin="10"/>
     ```
+    
+
+    https://github.com/user-attachments/assets/8b8499f5-f4fe-4d9a-8dc4-3aecfcab27f9
+
+
 ## 63일차(5/7)
 - 코딩테스트 대체 과제
     - toyProject 폴더에 코드 넣기 + ReadMe.md10일차에 영상과 설명글
