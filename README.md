@@ -2036,8 +2036,140 @@ https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
 
 
 ## 62일차(4/30)
+### MahApps.Metro 프레임워크 
+- MahApps 시작
+    1. Nuget 패키지 관리에서 MahApps.Metro , MahApps.Metro.IconPacks 설치
+    2. App.axml 
+    ```xml
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+    ```
+    3. MainWindow.xaml
+    ```xml
+    <mah:MetroWindow x:Class="WpfStudyApp01.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah ="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+        xmlns:local="clr-namespace:WpfStudyApp01"
+        mc:Ignorable="d"
+        Title="MahApps.Metro" Height="350" Width="600">
+    </mah:MetroWindow>
+    ```
+    4. MainWindow.xaml.cs
+    ```csharp
+    using MahApps.Metro.Controls;
+    public partial class MainWindow : MetroWindow
+    ```
+- 컨트롤 사용법  [WPF 컨트롤 사용](./day62/Day09Study/WpfStudyApp01/MainWindow.xaml)
+    - 아이콘 넣기
+        1. C:\Source\MahApps 환경\IconPacks.Browser-net8-v2.0.0에 위치한 IconPacks.Browser 실행파일 열기
+        2. 원하는 아이콘 폴더명, 아이콘 이름 찾기 (예) Ionicons에 위치한 AlarmiOS
+        3. MainWindow.xaml에 코드 넣기
+        ```xml
+        <mah:MetroWindow x:Class="WpfStudyApp01.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah ="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+        xmlns:local="clr-namespace:WpfStudyApp01"
+        mc:Ignorable="d"
+        Title="MahApps.Metro" Height="350" Width="600">
+        <mah:MetroWindow.IconTemplate>
+            <DataTemplate>
+                <iconPacks:PackIconIonicons Kind="AlarmiOS" Margin="10,7,0,0" Foreground="White"/>
+            </DataTemplate>
+        </mah:MetroWindow.IconTemplate>
+        ```
+    - GroupBox + Grid
+    ```xml
+    <GroupBox Grid.Row="0" Grid.Column="1" Margin="5"  Header="Tab" >
+        <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row = "1" Grid.Column = "0" Orientation="Horizontal">
+                    <TextBox Text="야옹"/>
+                    <TextBox Text="테스트" mah:TextBoxHelper.AutoWatermark="True" mah:TextBoxHelper.ClearTextButton="True"/>
+                </StackPanel>
+        </Grid>
+    </GroupBox>
+    ```
+    - ProgressBar 
+    ```xml
+    <ProgressBar x:Name="PrgProcess1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="2" Minimum="0" Maximum="100" Value="0" ></ProgressBar>
+    ```
+    - mah:MetroProgressBar 
+     ```xml
+    <mah:MetroProgressBar x:Name="PrgProcess2"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="2" Minimum="0" Maximum="100" Value="100" ></mah:MetroProgressBar>
+    ```
+    - Slider
+     ```xml
+     <Slider  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="2"  Minimum="0" Maximum="100" 
+          ValueChanged="Slider_ValueChanged"
+          mah:SliderHelper.ChangeValueBy="LargeChange"
+          mah:SliderHelper.EnableMouseWheel="MouseHover"
+    ></Slider>
+    ```
+    - mah:ProgressRing
+     ```xml
+    <mah:ProgressRing Grid.Row="4" Grid.Column="0"  Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="2"/>
+    ```
+    - TabControl, TabItem
+    ```xml
+    <!-- SelectedIndex="1"은 Tab2를 시작화면에 띄운다.-->
+    <TabControl SelectedIndex="1"  
+                mah:TabControlHelper.Underlined="SelectedTabItem"
+                mah:HeaderedControlHelper.HeaderFontSize="12"
+                mah:HeaderedControlHelper.HeaderFontWeight="Bold">   
+        <TabItem Header="Tab1">
+            <StackPanel>
+                <TextBox Text="야옹"/>
+                <TextBox Text="테스트" 
+                    mah:TextBoxHelper.AutoWatermark="True"
+                    mah:TextBoxHelper.ClearTextButton="True"/>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Tab2">
+            <Canvas>
+                <Ellipse Width="100" Height="100" Fill="Red"></Ellipse>
+            </Canvas>
+        </TabItem>
+        <TabItem Header="Tab3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <ProgressBar IsIndeterminate="True" Margin="10"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+    ```
+### WPF UI 프레임워크
+- 기본사용법
 
-- MVVM 디자인 패턴
+### MVVM 디자인 패턴
 ## 63일차(5/7)
 - 코딩테스트 대체 과제
     - toyProject 폴더에 코드 넣기 + ReadMe.md10일차에 영상과 설명글

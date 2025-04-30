@@ -20,7 +20,7 @@ namespace SelfWinApp
         int progressNum = 0; //푼 문제 개수
         int correctNum = 0; //맞힌 문제 개수
         List<int> wrongNum = new List<int>();  //틀린문제 출제문제번호 저장
-
+        DateTime selectedDate; //선택한 날짜 저장하는 변수
 
         // 타이머 관련 필드 추가
         System.Windows.Forms.Timer[] questionTimers;
@@ -59,7 +59,7 @@ namespace SelfWinApp
             //radioButton3.Text = QuizList[0].Choices[2];
             //radioButton4.Text = QuizList[0].Choices[3];
             numericUpDown1.Value = 0; // 혹은 기본 문제 수 설정
-
+            selectedDate = dateTimePicker1.Value;
         }
 
         private void LoadQuestion(int index)
@@ -98,7 +98,7 @@ namespace SelfWinApp
             // 문제 수만 저장
             questionCount = (int)numericUpDown1.Value;
 
-           
+
         }
 
 
@@ -328,6 +328,7 @@ namespace SelfWinApp
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                richTextBox1.Text += "\r\n" + selectedDate;
                 richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.RichText);
 
             }
@@ -368,6 +369,7 @@ namespace SelfWinApp
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                richTextBox1.Text += "\r\n" + selectedDate;
                 richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.RichText);
 
             }
@@ -407,6 +409,9 @@ namespace SelfWinApp
             frmModal.ShowDialog();
         }
 
-        
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            selectedDate = dateTimePicker1.Value;
+        }
     }
 }
