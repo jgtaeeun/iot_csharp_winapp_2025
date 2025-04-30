@@ -2166,6 +2166,11 @@ https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
         </TabItem>
     </TabControl>
     ```
+    
+
+    https://github.com/user-attachments/assets/e8e31960-08fe-4ab5-b9fc-664a5d2e15fa
+
+
 ### WPF UI 프레임워크
 - 기본사용법
 
