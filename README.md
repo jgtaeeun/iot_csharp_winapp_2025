@@ -2346,5 +2346,164 @@ https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
 
 
 ## 63일차(5/7)
-- 코딩테스트 대체 과제
-    - toyProject 폴더에 코드 넣기 + ReadMe.md10일차에 영상과 설명글
+### 코딩테스트 
+#### 학습용 문제풀이 Windows Forms 애플리케이션 보고서 [selfWinApp](./toyProject/SelfWinApp/FrmMain.cs)
+- 파일위치 : toyProject
+1. 시스템 개요
+    - 본 애플리케이션은 사용자가 특정 개수의 기출문제를 선택하여 풀고, 해설을 확인하며 학습할 수 있도록 설계된 Windows Forms 기반 퀴즈 학습 프로그램입니다. 
+    - 각 문제는 4지 선다형 객관식이며, 타이머를 통해 제한 시간 내에 문제를 풀 수 있도록 설계되었습니다.
+2. 주요 기능
+
+|기능구분|설명|
+|:--:|:--:|
+|문제 선택|사용자가 풀 문제의 개수를 numericUpDown 컨트롤로 선택|
+|문제 랜덤 배정|3개 이상의 문제 요청 시 중복 포함 랜덤 배정|
+|문제 시작 버튼<br>이전 문제 버튼<br>다음 문제 버튼||
+|타이머 기능|문제별 60초 제한 시간 설정|
+|정답 확인|정답 여부와 해설을 확인할 수 있음|
+|정답률<br>진행률|정답 개수와 진행률을 실시간으로 확인 가능|
+|틀린 문제 복습|Modaless 폼을 통해 틀린 문제만 이미지 형태로 한 번에 확인 가능|
+|메모|RichTextBox를 활용한 학습자의 필기 메모 작성 및 저장/불러오기 지원|
+|강조 기능|특정 텍스트를 색상 강조 가능|
+|파일 저장<br>불러오기|RTF 또는 DOCX 형식으로 저장 및 불러오기 지원|
+|도움말 메뉴|앱 사용법 및 목적을 안내하는 도움말 창 제공|
+
+3. 시스템 구조 (Architecture)
+
+|구성 요소|설명|
+|:--:|:--:|
+|FrmMain|메인 폼, 전체 UI와 이벤트 처리 담당|
+|Modaless|모달창에 이미지를 여러개 넣기 위해 만든 사용자 정의 클래스|
+|Question|문제 정보를 담는 사용자 정의 클래스 (Choices-4지선다 보기, CorrectAnswer-정답 보기번호, Answer-해설)|
+|QuizList|모든 기출문제를 보관하는 리스트|
+|QNum|사용자가 풀 문제의 인덱스를 저장하는 리스트|
+|answeredQuestions|이미 풀은 문제의 인덱스를 저장하여 중복 처리 방지|
+|wrongNum|틀린 문제의 번호를 저장해 오답 복습용으로 사용|
+|questionTimers[]|각 문제별 타이머를 배열로 관리|
+|timeLeft[]|문제별 남은 시간 저장 배열|
+
+4. 실행 결과
+
+|화면|설명|
+|:--:|:--:|
+|기본 화면|사용자는 날짜 선택,문제 개수 선택이 가능<br>시작 버튼 클릭 시 문제 출제 및 진행 시작|
+|문제 풀이 화면|이미지로 문제 제시<br>보기(4개) 선택 가능<br>정답 확인 시 결과 메시지 및 해설 표시<br>타이머가 0이 되면 자동 정답 확인|
+|진행 상태 표시|진행률: ProgressBar를 통해 시각화<br>정답률: 맞춘 문제 수 / 전체 문제 수 표시|
+|메모 작성|RichTextBox를 통해 해설 요약 작성<br>강조 기능 사용 가능 (글자색 변경)<br>파일로 저장 및 로드 가능|
+|오답 복습|틀린 문제만 이미지로 모아 모달리스 창에 표시|
+
+5. 프로젝트 수행 중 새롭게 학습한 내용
+    1. 문제별 타이머 배열 구현
+    - 선언부
+    ```csharp
+    System.Windows.Forms.Timer[] questionTimers; // 각 문제별 개별 타이머 배열
+    int[] timeLeft; // 각 문제별 남은 시간을 저장하는 배열
+    ```
+    - InitQuestions() 내부
+    ```csharp
+    questionTimers = new System.Windows.Forms.Timer[QNum.Count]; // 문제 수만큼 타이머 배열 생성
+    timeLeft = new int[QNum.Count]; // 문제 수만큼 남은 시간 배열 생성
+
+    for (int i = 0; i < QNum.Count; i++)
+    {
+        timeLeft[i] = 60; // 각 문제당 60초 초기화
+        questionTimers[i] = new System.Windows.Forms.Timer(); // 타이머 인스턴스 생성
+        questionTimers[i].Interval = 1000; // 타이머 간격은 1초 (1000ms)
+        
+        int index = i; // 클로저 문제 방지용 변수 (이 인덱스를 Tick 이벤트 핸들러에 전달)
+        questionTimers[i].Tick += (s, e) => Timer_Tick(index); // 각 타이머마다 고유한 Tick 이벤트 핸들러 지정
+    }
+    ```
+    - LoadQuestion
+    ```csharp
+    LblTimer.Text = $"남은 시간: {timeLeft[index]}초"; // 현재 문제의 남은 시간을 라벨에 표시
+    if (!answeredQuestions.Contains(index)) // 아직 풀지 않은 문제라면
+    {
+        questionTimers[index].Start(); // 해당 타이머 시작
+    }
+    else
+    {
+        TxtAnswer.Text = question.Answer; // 이미 푼 문제면 정답 표시
+    }
+
+    ```
+    - Timer_Tick 함수
+    ```csharp
+    timeLeft[index]--; // 1초 감소
+
+    if (index == currentQuestionIndex) // 현재 화면에 보이는 문제일 경우만
+    {
+        LblTimer.Text = $"남은 시간: {timeLeft[index]}초"; // 타이머 UI 업데이트
+    }
+
+    if (timeLeft[index] <= 0) // 시간이 다 되면
+    {
+        questionTimers[index].Stop(); // 해당 타이머 정지
+        if (!answeredQuestions.Contains(index)) // 아직 풀지 않았다면
+        {
+            Invoke(new Action(() => // UI 스레드에서 동작하도록 Invoke
+            {
+                MessageBox.Show("시간 초과! 자동으로 정답을 확인합니다.", "알림");
+                AutoCheckAnswer(index); // 자동 정답 처리 호출
+            }));
+        }
+    }
+    ```
+    2. 모달리스 사용자 정의 폼(Modaless) 생성
+    - 목적 - 한 번에 여러 오답 문제의 이미지를 모달리스 창에 스크롤 가능한 방식으로 나열
+    - Modaless.cs
+    ```csharp
+     internal class Modaless : Form    // Form을 상속받은 모달리스(비동기) 창 정의
+    {
+        private FlowLayoutPanel flowPanel;   // 이미지들을 나열할 패널
+
+        public Modaless()
+        {
+            this.Text = "오답노트";            // 창 제목 설정
+            this.Size = new Size(600, 400);  // 창 크기 설정 (가로 600, 세로 400)
+
+            flowPanel = new FlowLayoutPanel();    // 자동 정렬되는 패널 생성
+            flowPanel.Dock = DockStyle.Fill;      // 폼에 꽉 차도록 설정
+            flowPanel.AutoScroll = true;          // 이미지가 많을 경우 스크롤 가능하게 설정
+
+            this.Controls.Add(flowPanel);         // 패널을 폼에 추가
+        }
+
+        public void AddPicture(int num)           // 문제 번호를 받아 해당 이미지 추가
+        {
+            Image image = null;                   // 이미지 변수 선언
+
+            switch (num)                          // 문제 번호에 따라 이미지 선택
+            {
+                case 0:
+                    image = Resources.문제1연산자우선순위;  // 문제 1 이미지 불러오기
+                    break;
+                case 1:
+                    image = Resources.문제2후위연산;        // 문제 2 이미지 불러오기
+                    break;
+                case 2:
+                    image = Resources.문제3서브넷마스크;    // 문제 3 이미지 불러오기
+                    break;
+                default:
+                    break;
+            }
+
+            if (image != null)                    // 이미지가 정상적으로 불러와졌다면
+            {
+                PictureBox pictureBox = new PictureBox();     // 새 PictureBox 생성
+                pictureBox.Image = image;                     // 이미지 설정
+                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;  // 크기에 맞게 자동 조절
+                pictureBox.Width = 500;                       // 가로 크기 설정
+                pictureBox.Height = 300;                      // 세로 크기 설정
+                pictureBox.Margin = new Padding(10);          // 여백 설정
+
+                flowPanel.Controls.Add(pictureBox);           // FlowLayoutPanel에 PictureBox 추가
+            }
+            else
+            {
+                // 이미지가 없을 경우 오류 메시지 출력
+                MessageBox.Show("이미지를 불러올 수 없습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+    ```

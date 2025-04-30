@@ -21,7 +21,7 @@ namespace SelfWinApp
         int correctNum = 0; //맞힌 문제 개수
         List<int> wrongNum = new List<int>();  //틀린문제  기출문제번호 저장
         DateTime selectedDate; //선택한 날짜 저장하는 변수
-        
+
 
         // 타이머 관련 필드 추가
         System.Windows.Forms.Timer[] questionTimers;
@@ -54,7 +54,7 @@ namespace SelfWinApp
                     Answer ="IP: 192.168.10.0/26\r\n/26 → 남은 호스트 비트: 32 - 26 = 6\r\n가능한 주소 수: 2^6 = 64\r\n사용 가능한 호스트 수: 64 - 2 = 62 (네트워크 주소 + 브로드캐스트 주소 제외)"
                 },
             };
-            
+
             numericUpDown1.Value = 0; //  기본 문제 수 0
             selectedDate = dateTimePicker1.Value;
         }
@@ -83,7 +83,7 @@ namespace SelfWinApp
             radioButton3.Text = question.Choices[2];
             radioButton4.Text = question.Choices[3];
 
-            
+
             // 타이머 표시 및 실행
             LblTimer.Text = $"남은 시간: {timeLeft[index]}초";
             if (!answeredQuestions.Contains(index))
@@ -125,7 +125,7 @@ namespace SelfWinApp
 
             int num;
 
-          
+
             if (questionCount > 3)
             {
                 QNum.Add(0);
@@ -227,7 +227,7 @@ namespace SelfWinApp
                 return;
             }
 
-         
+
 
             if (currentQuestionIndex > 0)
             {
