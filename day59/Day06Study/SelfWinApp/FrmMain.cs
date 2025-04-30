@@ -21,6 +21,7 @@ namespace SelfWinApp
         int correctNum = 0; //맞힌 문제 개수
         List<int> wrongNum = new List<int>();  //틀린문제 출제문제번호 저장
         DateTime selectedDate; //선택한 날짜 저장하는 변수
+        Dictionary<string, string> solution = new Dictionary<string, string>();//푼 문제에 대한 해설집 저장
 
         // 타이머 관련 필드 추가
         System.Windows.Forms.Timer[] questionTimers;
@@ -285,6 +286,7 @@ namespace SelfWinApp
             if (selectedAnswer == correctAnswer)
             {
                 correctNum++;
+                
                 MessageBox.Show("정답입니다!", "정답 확인", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else

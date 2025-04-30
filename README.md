@@ -1538,9 +1538,9 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
 - WPF 컴포넌트 (실무에서 쓰이는 UI 컴포넌트) - 서드파티
     - 참조 -  https://github.com/Carlos487/awesome-wpf
     - 상용 컴포넌트 제외
-    - (무료) **MahApps.Metro** -  https://mahapps.com/
+    - (무료) **MahApps.Metro** -  https://mahapps.com/   , https://github.com/MahApps/MahApps.Metro
     - (무료) Material Design IN XAML ToolKit - http://materialdesigninxaml.net/
-    - (무료) **WPF UI** - https://github.com/lepoco/wpfui
+    - (무료) **WPF UI** - https://wpfui.lepo.co/   ,   https://github.com/lepoco/wpfui
 ### WPF 컨트롤 1
 #### WPF 개발방법 
 1. 새프로젝트만들기 - C# , 모든플랫폼, 데스크톱 , **WPF 애플리케이션**       [WPF 시작](./day60/Day07Study//WpfStudyApp01/MainWindow.xaml)
@@ -2036,7 +2036,7 @@ https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
 
 
 ## 62일차(4/30)
-### MahApps.Metro 프레임워크 
+### MahApps.Metro 프레임워크   [WPF MahApps 컨트롤 사용](./day62/Day09Study/WpfStudyApp01/MainWindow.xaml)
 - MahApps 시작
     1. Nuget 패키지 관리에서 MahApps.Metro , MahApps.Metro.IconPacks 설치
     2. App.axml 
@@ -2171,10 +2171,175 @@ https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
     https://github.com/user-attachments/assets/e8e31960-08fe-4ab5-b9fc-664a5d2e15fa
 
 
-### WPF UI 프레임워크
+### WPF UI 프레임워크  
+- 개요
+    - Fluent UI라 이름의 Modern UI의 한 스타일 UI 프레임워크
+    - 2021년 1.0배포, 현재 버전 4.0.2
 - 기본사용법
+    - 새프로젝트만들기 - 템플렛 WPF 앱 [윈앱으로 WPF - UI 시작](./day62/Day09Study/WpfStudyApp02/MainWindow.xaml)
+        1. https://apps.microsoft.com/detail/9n9lkv8r9vgm?cid=windows-lp-hero&hl=ko-KR&gl=KR 에서 데모 다운로드 받기
+        2. https://wpfui.lepo.co/documentation/nuget.html 를 참고하여    Nuget패키지관리자에서 WPF-UI 설치
+        3. https://wpfui.lepo.co/documentation/getting-started.html 를 참고하여 WPF UI 사용하기 위한 세팅 
+        4. App.xaml
+        ```xml
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        <Application.Resources>
+            <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary Theme="Dark" />
+                <ui:ControlsDictionary />
+            </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Application.Resources>
+        ```
+        5. MainWindow.xaml +  아이콘
+        ```xml
+        <Window x:Class="WpfStudyApp02.MainWindow"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+            xmlns:local="clr-namespace:WpfStudyApp02"
+            mc:Ignorable="d"
+            Title="WPF UI App" Height="350" Width="600">
+            <Grid>
+                <ui:SymbolIcon Symbol="Fluent24"/>
+            </Grid>
+        </Window>
+        ```
+        <img src='./day62/WinApp으로 WPF -UI  시작하기.png'>
 
-### MVVM 디자인 패턴
+    - 새프로젝트만들기 - 템플렛  WPF UI Blank Project   [WPF UI - Blank Project 시작](./day62/Day09Study/UiDesktopApp01/MainWindow.xaml)
+        1. https://apps.microsoft.com/detail/9n9lkv8r9vgm?cid=windows-lp-hero&hl=ko-KR&gl=KR 에서 데모 다운로드 받기
+        2. https://wpfui.lepo.co/documentation/extension.html 를 참고하여 visual studio extension에서 WPF-UI 설치하기 누르고 VS닫고 재시작
+        3. App.xaml.cs
+        ```csharp
+        private static readonly IHost _host = Host
+        .CreateDefaultBuilder()
+        .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(AppContext.BaseDirectory)); })
+        .ConfigureServices((context, services) =>
+        {
+            //throw new NotImplementedException("No service or window was registered.");
+            //Singleton 디자인패턴 방식으로 MainWindow 등록
+            services.AddSingleton<MainWindow>();
+        }).Build();
+
+        private async void OnStartup(object sender, StartupEventArgs e)
+        {
+            await _host.StartAsync();
+            //MainWindow 인스턴스 생성
+            var mainWindow = _host.Services.GetRequiredService<MainWinow>();
+            mainWindow.Show();
+        }
+        ```
+        4. MainWindow.xaml 창 생성 및 코드 작성
+        ```xml
+        <ui:FluentWindow x:Class="UiDesktopApp01.MainWindow"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" 
+                xmlns:local="clr-namespace:UiDesktopApp01"
+                mc:Ignorable="d"
+                Title="MainWindow" Height="450" Width="800">
+            <Grid>
+                <ui:SymbolIcon Symbol="Fluent24"/>
+            </Grid>
+        </FluentWindow>
+
+        ```
+        5. MainWindow.xaml.cs
+        ```csharp
+        using Wpf.Ui.Controls;
+         public partial class MainWindow : FluentWindow
+        ```
+        - <img src='./day62/WPF-UI Blank Project시작하기.png'>
+        6. ALT + F4로 WFP 실행창 닫기
+- 컨트롤 사용법   [WPF UI - Blank Project 컨트롤 사용](./day62/Day09Study/UiDesktopApp01/MainWindow.xaml)
+    - ui:TextBox 
+    ```xml
+    <ui:TextBox Grid.Row="0" Grid.Column="1" Margin="3"></ui:TextBox>
+    ```
+    - RadioButton
+    ```xml
+    <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical">
+        <RadioButton Content="여자" IsChecked="True" Margin="3" ></RadioButton>
+        <RadioButton Content="남자" Margin="3"></RadioButton>
+    </StackPanel>
+    ```
+    - PasswordBox
+    ```xml
+     <ui:PasswordBox Grid.Row="3" Grid.Column="1" PlaceholderText="Password..." Margin="2">
+        <ui:PasswordBox.Icon>
+            <ui:SymbolIcon Symbol="Password24"/>
+        </ui:PasswordBox.Icon>
+    </ui:PasswordBox>
+    ``` 
+    - NumberBox
+    ```xml
+    <ui:NumberBox Grid.Row="4" Grid.Column="1" PlaceholderText="Enter your age" Margin="1" Minimum="10" Maximum="100">
+        <ui:NumberBox.Icon>
+            <ui:SymbolIcon Symbol="NumberSymbolSquare24"/>
+        </ui:NumberBox.Icon>
+    </ui:NumberBox>
+    ```
+    - ComboBox
+    ```xml
+     <ComboBox Grid.Row="5" Grid.Column="1" Margin="1">
+        <ComboBoxItem Content="Cycle"></ComboBoxItem>
+        <ComboBoxItem Content="Weight Training"></ComboBoxItem>
+        <ComboBoxItem Content="Climbing"></ComboBoxItem>
+        <ComboBoxItem Content="Marathon"></ComboBoxItem>
+    </ComboBox>
+    ```
+    - Button
+    ```xml
+     <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <ui:Button Content=" SAVE " Appearance="Primary" Margin="2">
+            <ui:Button.Icon>
+                <ui:SymbolIcon Symbol="Save16"/>
+            </ui:Button.Icon>
+        </ui:Button>
+        <ui:Button Content="CANCEL" Appearance="Secondary" Margin="2">
+            <ui:Button.Icon>
+                <ui:SymbolIcon Symbol="CalendarCancel16"/>
+            </ui:Button.Icon>
+        </ui:Button>
+    </StackPanel>
+    ```
+    - Tab
+    ```xml
+     <TabControl>          
+        <TabItem  Width="90" >
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <ui:SymbolIcon Symbol="Tabs20" Margin="0,0,5,0"/>
+                    <Label Content="Tab1"/>
+                </StackPanel>
+            </TabItem.Header>
+            <ProgressBar Minimum="0" Maximum="100" Value="50" Height="20" IsIndeterminate="True" Margin="2"></ProgressBar>
+        </TabItem>
+        <TabItem  Width="90">
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <ui:SymbolIcon Symbol="Tabs20" Margin="0,0,5,0"/>
+                    <Label Content="Tab2"/>
+                </StackPanel>
+            </TabItem.Header>
+            <Canvas>
+                <Path Data="M176,56H80a72,72,0,0,0,0,144h96a72,72,0,0,0,0-144Zm0,112a40,40,0,1,1,40-40A40,40,0,0,1,176,168Z"
+                Fill="LightGreen" HorizontalAlignment="Center" Canvas.Top="-42" VerticalAlignment="Top"></Path>
+            </Canvas>
+        </TabItem>
+    </TabControl>
+    ```
+
+    - InfoBar
+    ```xml
+    <ui:InfoBar Title="Title" Message="Essential message." IsOpen="True"  Severity="Success" Margin="10"/>
+    ```
 ## 63일차(5/7)
 - 코딩테스트 대체 과제
     - toyProject 폴더에 코드 넣기 + ReadMe.md10일차에 영상과 설명글
