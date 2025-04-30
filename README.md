@@ -1725,317 +1725,318 @@ https://github.com/user-attachments/assets/970721dc-2aad-4fd6-b3e7-38bf6b98a9f8
         https://github.com/user-attachments/assets/5930d4dd-b946-4369-b29e-4e2e8884743f
 
 
- ## 61일차(4/29 화)
-- 데이터베이스 데이터 바인딩 [WPF Binding, this](./day61/Day08Study/WpfStudyApp01/MainWindow.xaml)
-    - xaml Binding 방식
-    - 프로젝트명 오른쪽마우스- Nuget패키지 관리-찾아보기 mysql -설치
+## 61일차(4/29 화)
+### 데이터베이스 데이터 바인딩 [WPF Binding, this](./day61/Day08Study/WpfStudyApp01/MainWindow.xaml)
+- xaml Binding 방식
+- 프로젝트명 오른쪽마우스- Nuget패키지 관리-찾아보기 mysql -설치
  
-- 네비게이션  [WPF 네비게이션](./day61/Day08Study/WpfStudyApp02/MainWindow.xaml)
-    - 메뉴 클릭으로 화면전환
-    - Window, Page 컨트롤
-        - Window(창) : 메인페이지
-        - Page(페이지) : 서브페이지
-    - 프로젝트명 오른쪽 마우스 - 추가 - 페이지
-    - NavigationService 사용
-    - NavigationUIVisibility 속성
+### 네비게이션  [WPF 네비게이션](./day61/Day08Study/WpfStudyApp02/MainWindow.xaml)
+- 메뉴 클릭으로 화면전환
+- Window, Page 컨트롤
+    - Window(창) : 메인페이지
+    - Page(페이지) : 서브페이지
+- 프로젝트명 오른쪽 마우스 - 추가 - 페이지
+- NavigationService 사용
+- NavigationUIVisibility 속성
+
+```xml
+<Button x:Name="BtnMenu1" Content ="메뉴1" Margin="10" Width="100" Click="BtnMenu1_Click"></Button>
+<Frame x:Name="MainFrame" Grid.Row="2" Grid.Column="1" NavigationUIVisibility="Visible"></Frame>
+```
+```csharp
+private void BtnMenu1_Click(object sender, RoutedEventArgs e)
+{
+    MainFrame.Navigate(
+        new Uri("/MenuPage1.xaml", UriKind.RelativeOrAbsolute)
+    );
+}
+```
     
+
+https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
+
+
+### 비트맵 디자인, 벡터 디자인 [WPF ui 컨트롤 구성](./day61/Day08Study/WpfStudyApp03/MainWindow.xaml)
+1. 비트맵 디자인
+    - 이미지: 속성>빌드작업>리소스 선택 ,속성>출력 디렉토리로 복사> 복사안함 선택
     ```xml
-    <Button x:Name="BtnMenu1" Content ="메뉴1" Margin="10" Width="100" Click="BtnMenu1_Click"></Button>
-    <Frame x:Name="MainFrame" Grid.Row="2" Grid.Column="1" NavigationUIVisibility="Visible"></Frame>
+    <Image Source="/dog.png" Canvas.Left="20" Canvas.Top="40" Width="64" Height="64"/>
+    <Image Source="/dog.png" Canvas.Left="20" Canvas.Top="110" Width="256" Height="256"/>
+    ``` 
+2. 벡터 디자인
+    ```xml
+    <Rectangle Width="50" Height="50" Fill="Red" Stroke="Black" StrokeThickness="3" Canvas.Left="10" Canvas.Top="30"></Rectangle>
+    <Ellipse Width="216" Height="50" Fill="Blue" Stroke="Yellow" StrokeThickness="5" Canvas.Left="70" Canvas.Top="30" HorizontalAlignment="Left" VerticalAlignment="Center"></Ellipse>
+    <Path Stroke="Black" Fill="SkyBlue" StrokeThickness="2" Canvas.Left="20" Canvas.Top="85" Width="244" Height="229"
+        Data="M20,60
+                Q10,40 30,40
+                Q25,20 50,20
+                Q70,10 80,30
+                Q100,30 100,50
+                Q120,50 120,70
+                Q100,90 80,80
+                Q70,100 50,90
+                Q40,110 20,90
+                Q0,80 20,60 Z" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top"></Path>
     ```
-    ```csharp
-    private void BtnMenu1_Click(object sender, RoutedEventArgs e)
-    {
-        MainFrame.Navigate(
-            new Uri("/MenuPage1.xaml", UriKind.RelativeOrAbsolute)
-        );
-    }
+    <img src='./day61/비트맵,벡터 이미지 깨짐유무.png'>
+    <img src='./day61/비트맵, 벡터 이미지 깨짐유무2.png'>
+
+### 컨트롤 디자인, 리소스 [WPF 컨트롤 디자인, 리소스](./day61/Day08Study/WpfStudyApp04/MainWindow.xaml)
+- WPF는 컨트롤에 디자인도 맘대로 변경가능
+
+1. 컨트롤.Template, ControlTemplate
+    ```xml
+    <!--MainWindow.xaml-->
+    <Button Grid.Row ="1" Grid.Column="1" Content="CHECK" Margin="10" Click="Button_Click">
+        <Button.Template>
+            <ControlTemplate TargetType="Button">
+                <!--ControlTemplate 태그 안에는 한개의 태그만 가능함
+                여러개의 태그 넣으려면 grid태그 사용하면 됨-->
+                <Grid>
+                    <Ellipse Fill="GreenYellow"></Ellipse>
+                    <Label Content="CHECK" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </Grid>
+            </ControlTemplate>
+        </Button.Template>
+    </Button>
     ```
-    
-
-    https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
-
-
-- 비트맵 디자인, 벡터 디자인 [WPF ui 컨트롤 구성](./day61/Day08Study/WpfStudyApp03/MainWindow.xaml)
-    1. 비트맵 디자인
-        - 이미지: 속성>빌드작업>리소스 선택 ,속성>출력 디렉토리로 복사> 복사안함 선택
+    <img src='./day61/컨트롤디자인.png'>
+2. 리소소 : 컨트롤의 공유화
+    - `App.xaml의 Application.Resources`에 필요한 컨트롤 디자인을 정의
+    - 각각의 Window, Page.xaml에 사용
         ```xml
-        <Image Source="/dog.png" Canvas.Left="20" Canvas.Top="40" Width="64" Height="64"/>
-        <Image Source="/dog.png" Canvas.Left="20" Canvas.Top="110" Width="256" Height="256"/>
-        ``` 
-    2. 벡터 디자인
-        ```xml
-        <Rectangle Width="50" Height="50" Fill="Red" Stroke="Black" StrokeThickness="3" Canvas.Left="10" Canvas.Top="30"></Rectangle>
-        <Ellipse Width="216" Height="50" Fill="Blue" Stroke="Yellow" StrokeThickness="5" Canvas.Left="70" Canvas.Top="30" HorizontalAlignment="Left" VerticalAlignment="Center"></Ellipse>
-        <Path Stroke="Black" Fill="SkyBlue" StrokeThickness="2" Canvas.Left="20" Canvas.Top="85" Width="244" Height="229"
-            Data="M20,60
-                    Q10,40 30,40
-                    Q25,20 50,20
-                    Q70,10 80,30
-                    Q100,30 100,50
-                    Q120,50 120,70
-                    Q100,90 80,80
-                    Q70,100 50,90
-                    Q40,110 20,90
-                    Q0,80 20,60 Z" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top"></Path>
+        <!--App.xaml-->
+        <Application x:Class="WpfStudyApp04.App"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:local="clr-namespace:WpfStudyApp04"
+            StartupUri="MainWindow.xaml">
+            <Application.Resources>
+                <Button x:Key="custButton">HELLO, WPF</Button>
+                <SolidColorBrush x:Key="accentRed" Color="LightSalmon"/>
+            </Application.Resources>
+        </Application>
         ```
-        <img src='./day61/비트맵,벡터 이미지 깨짐유무.png'>
-        <img src='./day61/비트맵, 벡터 이미지 깨짐유무2.png'>
-
-- 컨트롤 디자인, 리소스 [WPF 컨트롤 디자인, 리소스](./day61/Day08Study/WpfStudyApp04/MainWindow.xaml)
-    - WPF는 컨트롤에 디자인도 맘대로 변경가능
-    
-    1. 컨트롤.Template, ControlTemplate
         ```xml
-        <!--MainWindow.xaml-->
-        <Button Grid.Row ="1" Grid.Column="1" Content="CHECK" Margin="10" Click="Button_Click">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <!--ControlTemplate 태그 안에는 한개의 태그만 가능함
-                    여러개의 태그 넣으려면 grid태그 사용하면 됨-->
-                    <Grid>
-                        <Ellipse Fill="GreenYellow"></Ellipse>
-                        <Label Content="CHECK" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        <!--리소스 사용  MainWindow.xaml-->
+        <Label Grid.Row="1" Grid.Column="4" Content="{StaticResource custButton}" Background="{StaticResource accentRed}"></Label>
         ```
-        <img src='./day61/컨트롤디자인.png'>
-    2. 리소소 : 컨트롤의 공유화
-        - `App.xaml의 Application.Resources`에 필요한 컨트롤 디자인을 정의
-        - 각각의 Window, Page.xaml에 사용
-            ```xml
-            <!--App.xaml-->
-            <Application x:Class="WpfStudyApp04.App"
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:local="clr-namespace:WpfStudyApp04"
-                StartupUri="MainWindow.xaml">
-                <Application.Resources>
-                    <Button x:Key="custButton">HELLO, WPF</Button>
-                    <SolidColorBrush x:Key="accentRed" Color="LightSalmon"/>
-                </Application.Resources>
-            </Application>
-            ```
-            ```xml
-            <!--리소스 사용  MainWindow.xaml-->
-            <Label Grid.Row="1" Grid.Column="4" Content="{StaticResource custButton}" Background="{StaticResource accentRed}"></Label>
-            ```
-        - ResourceDictionary
-            - App.xaml 리소스를 계속 추가하면 유지보수가 어려워짐 => 대안으로 리소스사전 생성
-            - `프로젝트명 오른쪽 마우스- 추가- 리소스사전`
-            - 참조 깃허브 https://github.com/StanislawSwierc/WpfThemesCollection
-            ```xml
-            <!--App.xaml-->
-            <Application x:Class="WpfStudyApp04.App"
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:local="clr-namespace:WpfStudyApp04"
-                StartupUri="MainWindow.xaml">
-                <Application.Resources>
-                 <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="/MyDictionary.xaml"></ResourceDictionary>
-                        <ResourceDictionary Source="/Themes/BureauBlue.xaml"></ResourceDictionary>
-                    </ResourceDictionary.MergedDictionaries>
-                </ResourceDictionary>
-                </Application.Resources>
-            </Application>
-            ```
-            ```xml
-            <!--MyDictionary.xaml -->
-            <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-                <Button x:Key="custButton">Hello WPF</Button>
-                <SolidColorBrush x:Key="accentRed" Color="LightSeaGreen" />
-                <!--나이스버튼 스타일 설정 LinearGradientBrush-->
-                <Style x:Key="niceButton" TargetType="Button">
-                    <Setter Property="Width" Value="100"></Setter>
-                    <Setter Property="Height" Value="58"></Setter>
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <LinearGradientBrush>
-                                <GradientStop Color="Green"></GradientStop>
-                                <GradientStop Color="LightYellow" Offset="1"></GradientStop>
-                            </LinearGradientBrush>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-                  <!--창 배경색 설정 RadialGradientBrush-->
-                <RadialGradientBrush x:Key="custBackColor">
-                    <!-- OFFSET 0이 그라데이션 시작점 OFFSET 1이 그라데이션 종료-->
-                    <GradientStop Color="#FFDBFFE7" Offset="0"></GradientStop>
-                    <GradientStop Color="#FF03882D" Offset="1"></GradientStop>
-                </RadialGradientBrush>
+    - ResourceDictionary
+        - App.xaml 리소스를 계속 추가하면 유지보수가 어려워짐 => 대안으로 리소스사전 생성
+        - `프로젝트명 오른쪽 마우스- 추가- 리소스사전`
+        - 참조 깃허브 https://github.com/StanislawSwierc/WpfThemesCollection
+        ```xml
+        <!--App.xaml-->
+        <Application x:Class="WpfStudyApp04.App"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:local="clr-namespace:WpfStudyApp04"
+            StartupUri="MainWindow.xaml">
+            <Application.Resources>
+                <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/MyDictionary.xaml"></ResourceDictionary>
+                    <ResourceDictionary Source="/Themes/BureauBlue.xaml"></ResourceDictionary>
+                </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
-            ```
-            ```xml
-            <!--리소스 사용  MainWindow.xaml-->
-            <Window x:Class="WpfStudyApp04.MainWindow"
+            </Application.Resources>
+        </Application>
+        ```
+        ```xml
+        <!--MyDictionary.xaml -->
+        <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <Button x:Key="custButton">Hello WPF</Button>
+            <SolidColorBrush x:Key="accentRed" Color="LightSeaGreen" />
+            <!--나이스버튼 스타일 설정 LinearGradientBrush-->
+            <Style x:Key="niceButton" TargetType="Button">
+                <Setter Property="Width" Value="100"></Setter>
+                <Setter Property="Height" Value="58"></Setter>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Green"></GradientStop>
+                            <GradientStop Color="LightYellow" Offset="1"></GradientStop>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+                <!--창 배경색 설정 RadialGradientBrush-->
+            <RadialGradientBrush x:Key="custBackColor">
+                <!-- OFFSET 0이 그라데이션 시작점 OFFSET 1이 그라데이션 종료-->
+                <GradientStop Color="#FFDBFFE7" Offset="0"></GradientStop>
+                <GradientStop Color="#FF03882D" Offset="1"></GradientStop>
+            </RadialGradientBrush>
+        </ResourceDictionary>
+        ```
+        ```xml
+        <!--리소스 사용  MainWindow.xaml-->
+        <Window x:Class="WpfStudyApp04.MainWindow"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:local="clr-namespace:WpfStudyApp04"
+            mc:Ignorable="d"
+            Title="컨트롤디자인/리소스" Height="350" Width="600" Background="{StaticResource custBackColor}">
+        <Label Grid.Row="1" Grid.Column="4" Content="{StaticResource custButton}" Background="{StaticResource accentRed}"></Label>
+        <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource niceButton}"></Button>
+        </Window>
+        ```
+        
+
+        https://github.com/user-attachments/assets/7e8eee87-dff0-4a15-84f0-7dd62d3d4bff
+
+
+### MahApps.Metro 프레임워크 [WPF MahApps](./day61/Day08Study/WpfStudyApp05/MainWindow.xaml)
+- 공식사이트 - https://mahapps.com/
+- 최소한 노력으로 Metro UI/Modern UI를 적용시킬 수 있는 프레임워크
+- Metro UI/Modern UI - MS에서 시작한 디자인 스타일. 깔끔하고 입체감을 최소화 시킴
+
+- 사용법
+    1. Nuget패키지 관리 > MahApps > MahApps.Metro 설치 , MahApps.Metro.IconPacks 설치
+    2. https://github.com/MahApps/MahApps.Metro/releases/tag/2.4.10 에서 MahApps.Metro.Demo-v.2.4.10-rc0001.zip 다운로드
+        - MahApps.Metro.Demo-v.2.4.10-rc0001 >net47>MahApps.Metro.Demo 실행파일 실행시켜 UI 예시 볼 수 있음
+    3. https://github.com/MahApps/IconPacks.Browser/releases/tag/2.0.0 에서 IconPacks.Browser-net8-v2.0.0.zip 다운로드
+        - IconPacks.Browser-net8-v2.0.0.의 IconPacks.Browser 실행파일 실행시켜 필요한 아이콘 사용할 수 있음
+    4. App.xaml에 필요한 리소스 코드 복붙
+    ```xml
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Application.Resources>
+    ```
+    5. MainWindow.xaml.cs
+        - Window -> MetroWindow로 변경
+        ```csharp
+        using MahApps.Metro.Controls;
+        public partial class MainWindow : MetroWindow
+        ```
+    6. MainWindow.xaml  
+        - Window -> mah.MetroWindow로 변경
+        - MainWindow.xaml 에 IconPacks 코드 추가
+        ```xml
+        <mah:MetroWindow x:Class="WpfStudyApp05.MainWindow"
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                xmlns:local="clr-namespace:WpfStudyApp04"
+                xmlns:mah ="http://metro.mahapps.com/winfx/xaml/controls"
+                xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+                xmlns:local="clr-namespace:WpfStudyApp05"
                 mc:Ignorable="d"
-                Title="컨트롤디자인/리소스" Height="350" Width="600" Background="{StaticResource custBackColor}">
-            <Label Grid.Row="1" Grid.Column="4" Content="{StaticResource custButton}" Background="{StaticResource accentRed}"></Label>
-            <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource niceButton}"></Button>
-            </Window>
-            ```
-            
+                Title="MahApps.Metro Sample" Height="350" Width="600">
+                <mah:MetroWindow.IconTemplate>
+                    <DataTemplate>
+                        <iconPacks:PackIconMaterial Kind="MovieStar" Margin="10,7,0,0" Foreground="White"/>
+                    </DataTemplate>
+                </mah:MetroWindow.IconTemplate>
+                <Grid>
 
-            https://github.com/user-attachments/assets/7e8eee87-dff0-4a15-84f0-7dd62d3d4bff
-
-
-- MahApps.Metro 프레임워크 [WPF MahApps](./day61/Day08Study/WpfStudyApp05/MainWindow.xaml)
-    - 공식사이트 - https://mahapps.com/
-    - 최소한 노력으로 Metro UI/Modern UI를 적용시킬 수 있는 프레임워크
-    - Metro UI/Modern UI - MS에서 시작한 디자인 스타일. 깔끔하고 입체감을 최소화 시킴
-    
-    - 사용법
-        1. Nuget패키지 관리 > MahApps > MahApps.Metro 설치 , MahApps.Metro.IconPacks 설치
-        2. https://github.com/MahApps/MahApps.Metro/releases/tag/2.4.10 에서 MahApps.Metro.Demo-v.2.4.10-rc0001.zip 다운로드
-            - MahApps.Metro.Demo-v.2.4.10-rc0001 >net47>MahApps.Metro.Demo 실행파일 실행시켜 UI 예시 볼 수 있음
-        3. https://github.com/MahApps/IconPacks.Browser/releases/tag/2.0.0 에서 IconPacks.Browser-net8-v2.0.0.zip 다운로드
-            - IconPacks.Browser-net8-v2.0.0.의 IconPacks.Browser 실행파일 실행시켜 필요한 아이콘 사용할 수 있음
-        4. App.xaml에 필요한 리소스 코드 복붙
-        ```xml
-        <Application.Resources>
-            <ResourceDictionary>
-                <ResourceDictionary.MergedDictionaries>
-                    <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
-                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                    <!-- Theme setting -->
-                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
-                </ResourceDictionary.MergedDictionaries>
-            </ResourceDictionary>
-
-        </Application.Resources>
+                </Grid>
+        </mah:MetroWindow>
         ```
-        5. MainWindow.xaml.cs
-            - Window -> MetroWindow로 변경
-            ```csharp
-            using MahApps.Metro.Controls;
-            public partial class MainWindow : MetroWindow
-            ```
-        6. MainWindow.xaml  
-            - Window -> mah.MetroWindow로 변경
-            - MainWindow.xaml 에 IconPacks 코드 추가
-            ```xml
-            <mah:MetroWindow x:Class="WpfStudyApp05.MainWindow"
-                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:mah ="http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
-                    xmlns:local="clr-namespace:WpfStudyApp05"
-                    mc:Ignorable="d"
-                    Title="MahApps.Metro Sample" Height="350" Width="600">
-                    <mah:MetroWindow.IconTemplate>
-                        <DataTemplate>
-                            <iconPacks:PackIconMaterial Kind="MovieStar" Margin="10,7,0,0" Foreground="White"/>
-                        </DataTemplate>
-                    </mah:MetroWindow.IconTemplate>
-                    <Grid>
+    
 
-                    </Grid>
-            </mah:MetroWindow>
-            ```
-      
+        https://github.com/user-attachments/assets/b1e81643-18fc-4123-a26b-cb0d3a16da80
 
-            https://github.com/user-attachments/assets/b1e81643-18fc-4123-a26b-cb0d3a16da80
+    7. 아이콘
+        - IconPacks.Browser-net8-v2.0.0.의 IconPacks.Browser에서 왼쪽 폴더명 중 JamIcons을 클릭해서 github아이콘 선택
+        ```xml
+            <mah:MetroWindow.IconTemplate>
+            <DataTemplate>
+                <iconPacks:PackIconJamIcons Kind="Github" Margin="10,7,0,0" Foreground="White"/>
+            </DataTemplate>
+        </mah:MetroWindow.IconTemplate>
+        ```
+        <img src='./day61/아이콘(iconpacks).png'>
+    8. Theme - Light, Dark 2개
+    9. Accent - Amber~ Yellow 총 23개
+        ```xml
+        <!--App.xaml-->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Yellow.xaml" />
+        ```
+        <img src='./day61/theme, accent.png'>
+    10. HamburgerMenu 실습
+        - GroupBox 
+        ```xml
+        <GroupBox Grid.Row="1" Grid.Column="2" Margin="5" Header="Control 2">
 
-        7. 아이콘
-            - IconPacks.Browser-net8-v2.0.0.의 IconPacks.Browser에서 왼쪽 폴더명 중 JamIcons을 클릭해서 github아이콘 선택
-            ```xml
-             <mah:MetroWindow.IconTemplate>
-                <DataTemplate>
-                    <iconPacks:PackIconJamIcons Kind="Github" Margin="10,7,0,0" Foreground="White"/>
-                </DataTemplate>
-            </mah:MetroWindow.IconTemplate>
-            ```
-            <img src='./day61/아이콘(iconpacks).png'>
-        8. Theme - Light, Dark 2개
-        9. Accent - Amber~ Yellow 총 23개
-            ```xml
-            <!--App.xaml-->
-            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Yellow.xaml" />
-            ```
-            <img src='./day61/theme, accent.png'>
-        10. HamburgerMenu 실습
-            - GroupBox 
-            ```xml
-            <GroupBox Grid.Row="1" Grid.Column="2" Margin="5" Header="Control 2">
-
-            </GroupBox>
-            ```
-            - TextBox
-            ```xml
-            <!--AutoWatermark : 워터마크가 글씨가 적히지 않을 때 두껍게 보이고 글자써지면 투명해짐-->
-             <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtName" Margin="2"
-                InputMethod.PreferredImeState="On"
-                InputMethod.PreferredImeConversionMode="Native"
-                mah:TextBoxHelper.AutoWatermark="True"        
-                mah:TextBoxHelper.Watermark="이름입력"
+        </GroupBox>
+        ```
+        - TextBox
+        ```xml
+        <!--AutoWatermark : 워터마크가 글씨가 적히지 않을 때 두껍게 보이고 글자써지면 투명해짐-->
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtName" Margin="2"
+            InputMethod.PreferredImeState="On"
+            InputMethod.PreferredImeConversionMode="Native"
+            mah:TextBoxHelper.AutoWatermark="True"        
+            mah:TextBoxHelper.Watermark="이름입력"
+            mah:TextBoxHelper.ClearTextButton="True"/>
+        ```
+        - RadioButton
+        ```xml
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="2" Orientation="Horizontal">
+            <RadioButton Content="남자" Margin="5,0"  IsChecked="True"></RadioButton>
+            <RadioButton Content="여자" Margin="5,0" ></RadioButton>
+        </StackPanel>
+        ```
+        - PasswordBox
+        ```xml
+        <!--내가 입력한 비밀번호를 맞는지 확인하기 위해서-->
+        <PasswordBox Grid.Row="2" Grid.Column="1" x:Name="TxtPassword" Password="12345"
+            Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}"/>
+        ```
+        - NumericUpDown
+        ```xml
+            <mah:NumericUpDown Grid.Row="3" Grid.Column="1" Margin="2" Minimum="10" Maximum="90" Value="20"
                 mah:TextBoxHelper.ClearTextButton="True"/>
-            ```
-            - RadioButton
-            ```xml
-            <StackPanel Grid.Row="1" Grid.Column="1" Margin="2" Orientation="Horizontal">
-                <RadioButton Content="남자" Margin="5,0"  IsChecked="True"></RadioButton>
-                <RadioButton Content="여자" Margin="5,0" ></RadioButton>
-            </StackPanel>
-            ```
-            - PasswordBox
-            ```xml
-            <!--내가 입력한 비밀번호를 맞는지 확인하기 위해서-->
-            <PasswordBox Grid.Row="2" Grid.Column="1" x:Name="TxtPassword" Password="12345"
-             Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}"/>
-            ```
-            - NumericUpDown
-            ```xml
-             <mah:NumericUpDown Grid.Row="3" Grid.Column="1" Margin="2" Minimum="10" Maximum="90" Value="20"
-                    mah:TextBoxHelper.ClearTextButton="True"/>
-            ```
-            - Gird.ColumnSpan
-            ```xml
-            <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Width="90" Content="Save" Margin="0,0,10,0" 
-                        Style="{StaticResource MahApps.Styles.Button.Square.Accent}"></Button>
-                <Button  Width="90" Content="Cancel"
-                        Background="{StaticResource MahApps.Brushes.Accent}"
-                        Foreground="{StaticResource MahApps.Brushes.Gray10}" />
-            </StackPanel>
-            ```
-            - Grid.RowSpan
-            ```xml
-            <StackPanel Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" >
-                
-            </StackPanel>
-            ```
-            - ComboBox
-            ```xml
-            <ComboBox Grid.Row="4" Grid.Column="1" Margin="2" 
-                    mah:TextBoxHelper.ClearTextButton="True"
-                    mah:ComboBoxHelper.CharacterCasing="Upper">
-                        <ComboBoxItem Content="Cycle"></ComboBoxItem>
-                        <ComboBoxItem Content="Weight Training"></ComboBoxItem>
-                        <ComboBoxItem Content="Climbing"></ComboBoxItem>
-                        <ComboBoxItem Content="Marathon"></ComboBoxItem> 
-            </ComboBox>
-            ```
+        ```
+        - Gird.ColumnSpan
+        ```xml
+        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Width="90" Content="Save" Margin="0,0,10,0" 
+                    Style="{StaticResource MahApps.Styles.Button.Square.Accent}"></Button>
+            <Button  Width="90" Content="Cancel"
+                    Background="{StaticResource MahApps.Brushes.Accent}"
+                    Foreground="{StaticResource MahApps.Brushes.Gray10}" />
+        </StackPanel>
+        ```
+        - Grid.RowSpan
+        ```xml
+        <StackPanel Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" >
+            
+        </StackPanel>
+        ```
+        - ComboBox
+        ```xml
+        <ComboBox Grid.Row="4" Grid.Column="1" Margin="2" 
+                mah:TextBoxHelper.ClearTextButton="True"
+                mah:ComboBoxHelper.CharacterCasing="Upper">
+                    <ComboBoxItem Content="Cycle"></ComboBoxItem>
+                    <ComboBoxItem Content="Weight Training"></ComboBoxItem>
+                    <ComboBoxItem Content="Climbing"></ComboBoxItem>
+                    <ComboBoxItem Content="Marathon"></ComboBoxItem> 
+        </ComboBox>
+        ```
 
 
-            https://github.com/user-attachments/assets/4b0192cb-8771-4b0e-8dc6-c1c9ac5a2f83
+        https://github.com/user-attachments/assets/4b0192cb-8771-4b0e-8dc6-c1c9ac5a2f83
 
 
 
 
 ## 62일차(4/30)
+
 - MVVM 디자인 패턴
 ## 63일차(5/7)
 - 코딩테스트 대체 과제
