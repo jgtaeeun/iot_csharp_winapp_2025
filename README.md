@@ -2545,7 +2545,11 @@ MainWindow.xaml
 ```
 
 4. 실행결과
-https://github.com/user-attachments/assets/e04c9a1e-0b09-4b98-9235-e86fef8d9ade
+
+
+
+https://github.com/user-attachments/assets/af5f46bb-ba32-4ccc-8ffc-9aedb78b1998
+
 
 
 5. 프로젝트 수행 중 새롭게 학습한 내용
