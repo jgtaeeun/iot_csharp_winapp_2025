@@ -2512,5 +2512,11 @@ https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
 
 https://github.com/user-attachments/assets/685b422c-1357-4165-bb9e-132b8703e377
 
+### 코딩테스트 2차 - WPF-UI
+#### 스포츠 안내 키오스크 WPF-UI 애플리케이션 보고서
+
+
+
+https://github.com/user-attachments/assets/e04c9a1e-0b09-4b98-9235-e86fef8d9ade
 
 
