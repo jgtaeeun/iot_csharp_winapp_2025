@@ -2513,10 +2513,188 @@ https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
 https://github.com/user-attachments/assets/685b422c-1357-4165-bb9e-132b8703e377
 
 ### 코딩테스트 2차 - WPF-UI
-#### 스포츠 안내 키오스크 WPF-UI 애플리케이션 보고서
+#### 스포츠 안내 키오스크 WPF-UI 애플리케이션 보고서 [SelfWeb](./day63/Day10Study/SelfProject/MainWindow.xaml)
 
 
+1. 프로젝트 개요 및 목적
+- 이 프로젝트는 한화 이글스 팬을 위한 데스크탑 애플리케이션으로, 경기 정보, 선수 정보, 티켓 예매, 주요 시설 안내 등 다양한 구단 관련 정보를 시각적으로 제공하는 WPF 기반 GUI 프로그램입니다.
+- 사용자는 이 앱을 통해 날짜별 경기 일정 확인, 선수들의 상세 통계 열람, 티켓 정보 확인 등을 할 수 있습니다.
 
+2. 주요 기능
+
+|xaml파일|기능|
+|:--:|:--:|
+|MainWindow|좌측 버튼 메뉴 (경기정보, 팀이글스, 티켓예매, 주요시설)<br/>우측 영역은 선택된 메뉴에 따라 Page를 Frame으로 로드|
+|MenuPage1|날짜 선택 캘린더<br/>선택한 날짜의 경기 정보(팀, 시간, 장소 등) 표시|
+|MenuPage2|포지션별 선수 정보를 탭(TabControl) 형식으로 제공<br/>선수별 시즌 기록 및 설명<br/>각 선수의 하이라이트 영상 링크 포함|
+|MenuPage3|한화이글스홈페이지로 링크 연결(360도 VR 관람,좌석안내도 및 가격,티켓 예매)|
+|MenuPage4|WebView2 컨트롤을 통해 웹 기반 지도 또는 시설 안내 페이지 로드<br/>사용자가 위치, 시설 정보 등을 브라우저 없이 앱 내부에서 탐색 가능|
+
+3. 시스템 구조
+
+```yaml
+MainWindow.xaml
+ ├─ TitleBar: 앱 타이틀 "Eagles" 및 아이콘
+ ├─ 좌측 메뉴버튼들 (경기정보 / 팀이글스 / 티켓예매 / 주요시설)
+ └─ MainFrame: 선택된 메뉴 Page 로드 영역
+
+├─ MenuPage1.xaml → 달력 + 경기 일정 출력
+├─ MenuPage2.xaml → 포지션별 선수 정보 (TabControl)
+├─ MenuPage3.xaml → 티켓 관련 기능 버튼 (VR, 가격, 예매)
+├─ MenuPage4.xaml → WebView2 통한 외부 지도 또는 안내 페이지 로딩
+```
+
+4. 실행결과
 https://github.com/user-attachments/assets/e04c9a1e-0b09-4b98-9235-e86fef8d9ade
 
 
+5. 프로젝트 수행 중 새롭게 학습한 내용
+- Assets폴더에 png이미지를 드래그 해서 넣어 아이콘태그에 사용
+```xml
+ <ui:TitleBar Grid.Row="0" Title="Eagles" ShowMaximize="False">
+     <ui:TitleBar.Icon>
+         <ui:ImageIcon Source="/Assets/e.png" Width="30" VerticalAlignment="Stretch" />
+     </ui:TitleBar.Icon>
+     
+ </ui:TitleBar>
+```
+
+- Calendar 컨트롤 사용 + 리스트 초기화
+    - Calendar의 기본함수는 Calendar_SelectedDatesChanged
+    - 리스트는 초기화할 때는 중괄호 사용
+    ```xml
+    <Calendar Grid.Row="0"  SelectedDatesChanged="Calendar_SelectedDatesChanged"/>
+    ```
+
+    ```csharp
+        public partial class MenuPage1 : Page
+        {
+            
+            Dictionary<string, List<string>> Plays = new Dictionary<string, List<string>>()
+            {
+            { "2025-05-07", new List<string> { "삼성 라이온즈", "한화 이글스", "대전 한화생명 볼파크" } },
+            {"2025-05-09", new List<string> { "한화 이글스", "키움 히어로즈", "고척돔스카이돔" } },
+            { "2025-05-10", new List<string> { "한화 이글스", "키움 히어로즈", "고척돔스카이돔" } },
+            { "2025-05-11", new List<string> { "한화 이글스", "키움 히어로즈", "고척돔스카이돔" } },
+            { "2025-05-13", new List<string> { "두산 베어스", "한화 이글스", "대전 한화생명 볼파크" } },
+            { "2025-05-14", new List<string> { "두산 베어스", "한화 이글스", "대전 한화생명 볼파크" } },
+            { "2025-05-15", new List<string> { "두산 베어스", "한화 이글스", "대전 한화생명 볼파크" } }
+            };
+
+            public MenuPage1()
+            {
+                InitializeComponent();
+
+            }
+
+            private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+            {
+                var calendar = sender as Calendar;
+
+                // 선택된 날짜가 있는지 확인
+                if (calendar.SelectedDate.HasValue)
+                {
+                    DateTime selectedDate = calendar.SelectedDate.Value;  // 선택된 날짜
+                    string temp = selectedDate.ToString("yyyy-MM-dd");
+                    switch (temp)
+                    {
+                        case "2025-05-07":
+                            date.Content = temp+ " 18:30";
+                            team1.Content = Plays[temp][0];
+                            team2.Content = Plays[temp][1];
+                            venue.Content= Plays[temp][2];
+                            break;
+                    }
+                }
+            }            
+        }
+    ```
+
+ - TextBlock 컨트롤 + Run태그,  LineBreak 태그, 하이퍼링크 태그
+    ```xml
+    <TextBlock TextWrapping="Wrap"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Left"
+    >
+        <Run Text="8 노시환 ROH SIHWAN" FontWeight="Bold"  />
+        <LineBreak />
+        <LineBreak />
+        <Run Text="한화 이글스의 주전 3루수로, 꾸준한 타격 성적을 기록하며 팀의 중심타자로 활약하고 있습니다." />
+        <LineBreak />
+        <LineBreak />
+        <Run Text="2025 시즌기록(5월7일 기준)" />
+        <LineBreak />
+        <Run Text="타율 0.276" />
+        <LineBreak />
+        <Run Text="홈런 10(공동 2위)" />
+        <LineBreak />
+        <Run Text="안타 37(공동 11위)" />
+        <LineBreak />
+        <Run Text="타점 25(공동 7위)" />
+        <LineBreak />
+        <LineBreak />
+        <Hyperlink  Click="Hyperlink_Click_2">
+                <Run Text="선수 활약 영상 링크" />
+        </Hyperlink>        
+    </TextBlock>
+    ```
+    ```csharp
+    private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+        
+            string url = "https://www.youtube.com/shorts/q7fBbgMXqrI";
+            // 기본 웹 브라우저로 URL 열기
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        }
+
+    ```
+
+- WebView2 
+    - Nuget 패키지 관리자에서 Microsoft.Web.WebView2 설치 
+    - xmal파일에 코드 추가
+    ```xml
+    <Page x:Class="SelfProject.MenuPage4"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:SelfProject"
+        mc:Ignorable="d" 
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="MenuPage4">
+
+        <Grid>
+            <wv2:WebView2 x:Name="MapView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  />
+        </Grid>
+    </Page>
+     ```
+    - 구글지도 위도경도 https://www.google.com/maps/@위도,경도,줌확대z
+    ```csharp
+    public partial class MenuPage4 : Page
+    {
+        public MenuPage4()
+        {
+            InitializeComponent();
+            Loaded += MenuPage4_Loaded;
+        }
+
+        private async void MenuPage4_Loaded(object sender, RoutedEventArgs e) 
+        {
+
+            try
+            {
+                await MapView.EnsureCoreWebView2Async(null);
+                MapView.Source = new Uri("https://www.google.com/maps/@36.316577,127.431205,17z");
+                
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"WebView2 초기화 실패: {ex.Message}");
+            }
+           
+        }
+    }
+    ```
+- 이미지를 사용할 때, `이미지-속성-빌드작업-리소스` 저장해야 이미지로 인한 예외가 발생하지 않음.
+<img src='./day63/이미지빌드작업리소스는필수.png'>
