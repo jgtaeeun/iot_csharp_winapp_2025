@@ -1,0 +1,148 @@
+﻿<Page x:Class="SelfProject.MenuPage2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:local="clr-namespace:SelfProject"
+      mc:Ignorable="d" 
+      Title="MenuPage2">
+
+    <Grid Margin="10">
+        
+        <GroupBox>
+            <TabControl TabStripPlacement="Top">
+                <TabItem>
+                    <TabItem.Header >
+                        <StackPanel Orientation="Vertical" >
+                            <Label Content="투수"  Margin="25,0,0,0"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TextBlock TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">  
+                        <Run Text="30 코디 폰세 CODY JOSEPH PONCE" FontWeight="Bold"  />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="2025년 한화 이글스의 외국인 투수로, 개막전 선발로 나서며 기대를 모은 선수입니다." />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="2025 시즌기록(5월7일 기준)" />
+                        <LineBreak />
+                        <Run Text="GAME 6" />
+                        <LineBreak />
+                        <Run Text="WIN 6" />
+                        <LineBreak />
+                        <Run Text="ERA 1.70" />
+                        <LineBreak />
+                        <LineBreak />
+                        <Hyperlink  Click="Hyperlink_Click">>
+                              <Run Text="선수 활약 영상 링크" />
+                        </Hyperlink>
+                    </TextBlock>
+
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header >
+                        <StackPanel Orientation="Vertical" >
+                            <Label Content="포수"  Margin="25,0,0,0"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TextBlock TextWrapping="Wrap"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                    >     
+                        <Run Text="20 이재원 LEE JAEWON" FontWeight="Bold"  />
+                        <LineBreak/>
+                        <LineBreak />
+                        <Run Text="포수로서 뛰어난 리더십과 안정적인 수비를 보여주며, 팀의 중심 선수로 활약하고 있습니다." />
+                        <LineBreak/>
+                        <LineBreak />
+                        <Run Text="2025 시즌기록(5월7일 기준)" />
+                        <LineBreak/>
+                        <Run Text="타율 0.205" />
+                        <LineBreak/>
+                        <Run Text="홈런 0" />
+                        <LineBreak/>
+                        <Run Text="안타 9" />
+                        <LineBreak/>
+                        <Run Text="타점 5" />
+                        <LineBreak/>
+                        <LineBreak />
+                        <Hyperlink  Click="Hyperlink_Click_1">
+                              <Run Text="선수 활약 영상 링크" />
+                        </Hyperlink>        
+                    </TextBlock>
+
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header >
+                        <StackPanel Orientation="Vertical" >
+                            <Label Content="내야수"  Margin="25,0,0,0"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TextBlock TextWrapping="Wrap"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                    >
+                        <Run Text="8 노시환 ROH SIHWAN" FontWeight="Bold"  />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="한화 이글스의 주전 3루수로, 꾸준한 타격 성적을 기록하며 팀의 중심타자로 활약하고 있습니다." />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="2025 시즌기록(5월7일 기준)" />
+                        <LineBreak />
+                        <Run Text="타율 0.276" />
+                        <LineBreak />
+                        <Run Text="홈런 10(공동 2위)" />
+                        <LineBreak />
+                        <Run Text="안타 37(공동 11위)" />
+                        <LineBreak />
+                        <Run Text="타점 25(공동 7위)" />
+                        <LineBreak />
+                        <LineBreak />
+                        <Hyperlink  Click="Hyperlink_Click_2">
+                              <Run Text="선수 활약 영상 링크" />
+                        </Hyperlink>        
+                    </TextBlock>
+
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header >
+                        <StackPanel Orientation="Vertical" >
+                            <Label Content="외야수"  Margin="25,0,0,0"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TextBlock TextWrapping="Wrap"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                    >
+                        <Run Text="50 이원석 LEE WONSEOK" FontWeight="Bold"  />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="외야수로서 빠른 발과 뛰어난 수비 능력을 갖추고 있으며, 팀의 중심타자로 활약하고 있습니다." />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="2025 시즌기록(5월7일 기준)" />
+                        <LineBreak />
+                        <Run Text="타율 0.074" />
+                        <LineBreak />
+                        <Run Text="홈런 0" />
+                        <LineBreak />
+                        <Run Text="안타 2" />
+                        <LineBreak />
+                        <Run Text="타점 2" />
+                        <LineBreak />
+                        <LineBreak />
+                        <Hyperlink  Click="Hyperlink_Click_3">
+                             <Run Text="선수 활약 영상 링크" />
+                        </Hyperlink>
+                    </TextBlock>
+
+                </TabItem>
+            </TabControl>
+        </GroupBox>
+       
+    </Grid>
+</Page>

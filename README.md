@@ -2229,7 +2229,7 @@ https://github.com/user-attachments/assets/f8c316b6-812c-4e40-9a90-b6821c1f88b7
         {
             await _host.StartAsync();
             //MainWindow 인스턴스 생성
-            var mainWindow = _host.Services.GetRequiredService<MainWinow>();
+            var mainWindow = _host.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }
         ```
