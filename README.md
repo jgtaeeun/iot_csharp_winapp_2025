@@ -2707,4 +2707,6 @@ https://github.com/user-attachments/assets/af5f46bb-ba32-4ccc-8ffc-9aedb78b1998
 6. 참고자료(출처)
 - 한화이글스 공식 홈페이지 
 - 한화이글스 공식 인스타그램
+- 이글스tv 유트브 공식계정
 - 네이버 경기일정 및 선수 기록
+- 유튜브 쇼츠영상 ( 채널명 이글스테이션 )
